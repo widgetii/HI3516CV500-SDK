@@ -51,28 +51,21 @@ TARGET_INCLUDE_DIRECTORIES(mpi_obj PUBLIC
 
 
 #
-# sns_gc2053
+# sns_gc2053 (incomplete - assembly deleted, C rewrites not finished)
 #
 
-SET(SNS_GC2053_FILES
-    # "sns_gc2053/sns_gc2053.c"
-    "sns_gc2053/gc2053_cmos.S"
-    # "sns_gc2053/gc2053_sensor.S"
-    # "sns_gc2053/gc2053_cmos.c"
-    # "sns_gc2053/gc2053_sensor.c"
-)
-SET_SOURCE_FILES_PROPERTIES(
-    "sns_gc2053/gc2053_cmos.S"
-    PROPERTIES COMPILE_FLAGS
-    "-x assembler-with-cpp"
-)
-ADD_LIBRARY(sns_gc2053_obj OBJECT ${SNS_GC2053_FILES})
-IF (${BUILD_SHARED_LIBS})
-    ADD_LIBRARY(sns_gc2053_shared SHARED $<TARGET_OBJECTS:sns_gc2053_obj>)
-    SET_TARGET_PROPERTIES(sns_gc2053_shared PROPERTIES OUTPUT_NAME sns_gc2053)
-ENDIF ()
-IF (${BUILD_STATIC_LIBS})
-    ADD_LIBRARY(sns_gc2053_static STATIC $<TARGET_OBJECTS:sns_gc2053_obj>)
-    SET_TARGET_PROPERTIES(sns_gc2053_static PROPERTIES OUTPUT_NAME sns_gc2053)
-ENDIF ()
-TARGET_INCLUDE_DIRECTORIES(sns_gc2053_obj PUBLIC "../common")
+# SET(SNS_GC2053_FILES
+#     "sns_gc2053/sns_gc2053.c"
+#     "sns_gc2053/gc2053_cmos.c"
+#     "sns_gc2053/gc2053_sensor.c"
+# )
+# ADD_LIBRARY(sns_gc2053_obj OBJECT ${SNS_GC2053_FILES})
+# IF (${BUILD_SHARED_LIBS})
+#     ADD_LIBRARY(sns_gc2053_shared SHARED $<TARGET_OBJECTS:sns_gc2053_obj>)
+#     SET_TARGET_PROPERTIES(sns_gc2053_shared PROPERTIES OUTPUT_NAME sns_gc2053)
+# ENDIF ()
+# IF (${BUILD_STATIC_LIBS})
+#     ADD_LIBRARY(sns_gc2053_static STATIC $<TARGET_OBJECTS:sns_gc2053_obj>)
+#     SET_TARGET_PROPERTIES(sns_gc2053_static PROPERTIES OUTPUT_NAME sns_gc2053)
+# ENDIF ()
+# TARGET_INCLUDE_DIRECTORIES(sns_gc2053_obj PUBLIC "../common")
