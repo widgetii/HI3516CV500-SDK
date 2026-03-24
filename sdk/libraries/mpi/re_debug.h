@@ -5,6 +5,7 @@
 #ifndef RE_DEBUG_H
 #define RE_DEBUG_H
 
+#ifndef HI_ASSERT
 #define HI_ASSERT(expr)                         \
     do {                                        \
         if (!(expr)) {                          \
@@ -25,6 +26,7 @@
             return -1;                          \
         }                                       \
     } while (0)
+#endif
 
 #define HI_RETRACE_IF(expr, res, fmt...)                  \
     do {                                                  \

@@ -30,7 +30,7 @@ SET(MPI_FILES
     # mpi/mpi_vdec.c
     # mpi/mpi_venc.c
     # mpi/mpi_vgs.c
-    # mpi/mpi_vi.c
+    "mpi/mpi_vi.c"
     # mpi/mpi_vo.c
     # mpi/mpi_vpss.c
 )

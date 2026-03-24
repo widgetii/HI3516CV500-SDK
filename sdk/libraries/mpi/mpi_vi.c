@@ -3,11 +3,17 @@
  */
 
 #include <pthread.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
 
 #include "re_mpi_comm.h"
 #include "re_mpi_vi.h"
 #include "re_debug.h"
 #include "re_hiisp_gdc_fw_pointquery.h"
+#include "mpi_sys.h"
 
 pthread_mutex_t s_vi_mutex;
 HI_S32          g_vi_chn_fd[44] = {
@@ -674,8 +680,19 @@ mpi_vi_get_chn_out_put_size(
 //     return ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x4F204967u, s);
 // }
 
+HI_S32
+hi_mpi_vi_set_chn_spread_attr(
+    VI_PIPE              ViPipe,
+    VI_CHN               ViChn,
+    const SPREAD_ATTR_S* pstSpreadAttr)
+{
+    /* TODO: full RE implementation commented out below */
+    (void)ViPipe; (void)ViChn; (void)pstSpreadAttr;
+    return ERR_VI_NOT_SUPPORT;
+}
+
 // HI_S32
-// hi_mpi_vi_set_chn_spread_attr(
+// hi_mpi_vi_set_chn_spread_attr_ORIG(
 //     VI_PIPE              ViPipe,
 //     VI_CHN               ViChn,
 //     const SPREAD_ATTR_S* pstSpreadAttr)
@@ -5367,3 +5384,247 @@ HI_MPI_VI_GetChnAlign(
 //     }
 //     return result;
 // }
+
+
+/* --- Missing API stubs (11 functions) --- */
+
+HI_S32
+HI_MPI_VI_CloseFd(HI_VOID)
+{
+    HI_S32 i;
+
+    pthread_mutex_lock(&s_vi_mutex);
+
+    for (i = 0; i < 44; i++) {
+        if (g_vi_chn_fd[i] >= 0) {
+            close(g_vi_chn_fd[i]);
+            g_vi_chn_fd[i] = -1;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        if (g_vi_pipe_fd[i] >= 0) {
+            close(g_vi_pipe_fd[i]);
+            g_vi_pipe_fd[i] = -1;
+        }
+    }
+    if (g_vi_dev_fd[0] >= 0) {
+        close(g_vi_dev_fd[0]);
+        g_vi_dev_fd[0] = -1;
+    }
+
+    pthread_mutex_unlock(&s_vi_mutex);
+
+    return HI_SUCCESS;
+}
+
+HI_S32
+HI_MPI_VI_SendPipeYUV(
+    VI_PIPE ViPipe,
+    const VIDEO_FRAME_INFO_S *pstVideoFrame,
+    HI_S32 s32MilliSec)
+{
+    HI_S32 result;
+    VI_TIME_FRAME_S stTimeFrame;
+
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (pstVideoFrame || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = MPI_VI_CheckPipeOpen(ViPipe);
+        if (!result) {
+            memcpy(&stTimeFrame.stVideoFrame, pstVideoFrame, sizeof(VIDEO_FRAME_INFO_S));
+            stTimeFrame.s32MilliSec = s32MilliSec;
+            result = ioctl(g_vi_pipe_fd[ViPipe], VI_CTL_SENDPIPEYUV, &stTimeFrame);
+        }
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SendPipeRaw(
+    HI_U32 u32PipeNum,
+    VI_PIPE PipeId[],
+    const VIDEO_FRAME_INFO_S *pstVideoFrame[],
+    HI_S32 s32MilliSec)
+{
+    HI_S32 result;
+    VI_TIME_FRAME2_S stTimeFrame2;
+
+    if ((!PipeId || (result = MPI_VI_CheckNullPtr()) == 0) &&
+        (!pstVideoFrame || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        stTimeFrame2.u32PipeNum = u32PipeNum;
+        stTimeFrame2.s32MilliSec = s32MilliSec;
+        if (u32PipeNum > 2) u32PipeNum = 2;
+        memcpy(stTimeFrame2.astTimeFrame, pstVideoFrame, u32PipeNum * sizeof(BASIC_TIME_FRAME_S));
+        memcpy(stTimeFrame2.PipeId, PipeId, u32PipeNum * sizeof(VI_PIPE));
+        result = MPI_VI_CheckPipeOpen(stTimeFrame2.PipeId[0]);
+        if (!result)
+            result = ioctl(g_vi_pipe_fd[stTimeFrame2.PipeId[0]], VI_CTL_SENDPIPERAW, &stTimeFrame2);
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetChnRotation(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const ROTATION_E enRotation)
+{
+    HI_S32 result;
+    VI_CHN_ROTATION_S stRotation;
+
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckPhyChnId(ViChn)) == 0)) {
+        result = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
+        if (!result) {
+            result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+            if (!result) {
+                memset(&stRotation, 0, sizeof(stRotation));
+                stRotation.enRotate = enRotation;
+                result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETCHNROTATION, &stRotation);
+            }
+        }
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetChnRotationEx(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const VI_ROTATION_EX_ATTR_S *pstViRotationExAttr)
+{
+    HI_S32 result;
+    VI_CHN_ROTATION_EX_S stRotationEx;
+
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckPhyChnId(ViChn)) == 0) &&
+        (pstViRotationExAttr || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
+        if (!result) {
+            result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+            if (!result) {
+                memset(&stRotationEx, 0, sizeof(stRotationEx));
+                memcpy(&stRotationEx.stViRotationExAttr, pstViRotationExAttr, sizeof(VI_ROTATION_EX_ATTR_S));
+                result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETCHNROTATIONEX, &stRotationEx);
+            }
+        }
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetChnLDCAttr(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const VI_LDC_ATTR_S *pstLDCAttr)
+{
+    HI_S32 result;
+    VI_CHN_LDC_ATTR_S stLDCAttr;
+
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckPhyChnId(ViChn)) == 0) &&
+        (pstLDCAttr || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
+        if (!result) {
+            result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+            if (!result) {
+                memset(&stLDCAttr, 0, sizeof(stLDCAttr));
+                memcpy(&stLDCAttr.stLDRAttr, pstLDCAttr, sizeof(VI_LDC_ATTR_S));
+                result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETCHNLDCATTR, &stLDCAttr);
+            }
+        }
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetChnSpreadAttr(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const SPREAD_ATTR_S *pstSpreadAttr)
+{
+    HI_S32 result;
+    VI_CHN_SPREAD_ATTR_S stSpreadAttr;
+
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckPhyChnId(ViChn)) == 0) &&
+        (pstSpreadAttr || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
+        if (!result) {
+            result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+            if (!result) {
+                memset(&stSpreadAttr, 0, sizeof(stSpreadAttr));
+                memcpy(&stSpreadAttr.stSpreadAttr, pstSpreadAttr, sizeof(SPREAD_ATTR_S));
+                result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETCHNSPREADATTR, &stSpreadAttr);
+            }
+        }
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetChnDISParam(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const HI_VOID *pstDISParam)
+{
+    HI_S32 result;
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckChnId(ViChn)) == 0) &&
+        (pstDISParam || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+        if (!result)
+            result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETCHNDISATTR, pstDISParam);
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_GetChnDISParam(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    HI_VOID *pstDISParam)
+{
+    HI_S32 result;
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn <= 8 || (result = MPI_VI_CheckChnId(ViChn)) == 0) &&
+        (pstDISParam || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+        if (!result)
+            result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_GETCHNDISATTR, pstDISParam);
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_SetExtChnFisheye(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    const FISHEYE_ATTR_S *pstFishEyeAttr)
+{
+    HI_S32 result;
+    if ((ViPipe <= 3 || (result = MPI_VI_CheckPipeId(ViPipe)) == 0) &&
+        (ViChn >= 9 || (result = MPI_VI_CheckExtChnId(ViChn)) == 0) &&
+        (pstFishEyeAttr || (result = MPI_VI_CheckNullPtr()) == 0)) {
+        result = MPI_VI_CheckChnOpen(ViPipe, ViChn);
+        if (!result)
+            result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], VI_CTL_SETEXTCHNFISHEYE, pstFishEyeAttr);
+    }
+    return result;
+}
+
+HI_S32
+HI_MPI_VI_FisheyePosQueryDst2Src(
+    VI_PIPE ViPipe,
+    VI_CHN ViChn,
+    HI_U32 u32RegionIndex,
+    const POINT_S *pstDstPointIn,
+    POINT_S *pstSrcPointOut)
+{
+    (void)ViPipe;
+    (void)ViChn;
+    (void)u32RegionIndex;
+    (void)pstDstPointIn;
+    (void)pstSrcPointOut;
+    /* requires full GDC fisheye point query implementation */
+    return ERR_VI_NOT_SUPPORT;
+}

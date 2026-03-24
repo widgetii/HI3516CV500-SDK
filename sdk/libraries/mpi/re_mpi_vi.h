@@ -41,22 +41,8 @@ typedef struct hiVI_CHN_REGION_LUMA_S { // s:0x010
 
 
 /// -----------------------------------------------------
-typedef struct hiVI_TIME_FRAME2_S { // s:0x168
-    VIDEO_FRAME_INFO_S stVideoFrame;    // 0x00
-    HI_U32 x140;
-    HI_U32 x144;
-    HI_U32 x148;
-    HI_U32 x14C;
-    HI_S32 s32MilliSec;                 // 0x150
-    HI_U32 x154;
-} VI_TIME_FRAME2_S;
-
-// typedef struct hiVI_TIME_FRAME3_S { // s:0x020
-//     HI_U32 u32PipeNum;                  // 0x00
-//     HI_S32 s32MilliSec;                 // 0x04
-//     BASIC_TIME_FRAME_S astTimeFrame[2]; // 0x08
-//     VI_PIPE PipeId[2];                  // 0x18
-// } VI_TIME_FRAME3_S;
+// NOTE: Second RE interpretation of VI_TIME_FRAME2_S (size 0x168) removed.
+// Using the first definition (size 0x020) above.
 
 // typedef struct hiVI_CHN_ROTATION_S { // s:0x280
 //     ROTATION_E enRotate;
@@ -144,7 +130,7 @@ HI_S32 MPI_VI_CheckChnOpen(VI_PIPE ViPipe, VI_CHN ViChn);
 HI_S32 MPI_VI_CheckPhyPipeId(VI_PIPE ViPipe);
 HI_S32 MPI_VI_CheckNullPtr();
 HI_S32 MPI_VI_CheckDevId(VI_DEV ViDev);
-inline HI_S32 MPI_VI_CheckStitchId(VI_STITCH_GRP StitchGrp);
+HI_S32 MPI_VI_CheckStitchId(VI_STITCH_GRP StitchGrp);
 HI_S32 MPI_VI_CheckPipeId(VI_PIPE ViPipe);
 HI_S32 MPI_VI_CheckPhyChnId(VI_CHN ViChn);
 HI_S32 MPI_VI_CheckChnId(VI_CHN ViChn);
@@ -190,8 +176,8 @@ HI_S32 HI_MPI_VI_GetFusionGroupAttr(VI_PIPE ViPipe, VI_FUSION_GROUP_S *pstFusion
 #define VI_CTL_GETPIPECROP               _IOW( 0x49, 0x1B, 0x014) /* 0x8014491B */
 // 0x1C
 // 0x1D
-#define VI_CTL_SETPIPEATTR               _IOR( 0x49, 0x1E, 0x064) /* 0x4064491E */
-#define VI_CTL_GETPIPEATTR               _IOW( 0x49, 0x1F, 0x064) /* 0x8064491F */
+#define VI_CTL_SETPIPEFRMINTERRUPTATTR2  _IOR( 0x49, 0x1E, 0x064) /* 0x4064491E */
+#define VI_CTL_GETPIPEFRMINTERRUPTATTR2  _IOW( 0x49, 0x1F, 0x064) /* 0x8064491F */
 #define VI_CTL_ENABLEPIPE                _IO(  0x49, 0x20       ) /* 0x00004920 */
 #define VI_CTL_DISABLEPIPE               _IO(  0x49, 0x21       ) /* 0x00004921 */
 #define VI_CTL_TRIGGERPIPE               _IO(  0x49, 0x22       ) /* 0x00004922 */
