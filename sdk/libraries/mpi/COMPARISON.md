@@ -92,8 +92,10 @@ Internal/helper functions (lowercase `hi_mpi_*`, `mpi_vi_*`, `mpi_ao_*`, `ao_che
 | `HI_MPI_VI_SetChnDISParam` | Passthrough — ioctl via `VI_CTL_SETCHNDISATTR` (param type unknown) |
 | `HI_MPI_VI_GetChnDISParam` | Passthrough — ioctl via `VI_CTL_GETCHNDISATTR` (param type unknown) |
 | `HI_MPI_VI_SetExtChnFisheye` | Full — ioctl via `VI_CTL_SETEXTCHNFISHEYE` |
-| `HI_MPI_VI_FisheyePosQueryDst2Src` | Stub — returns `ERR_VI_NOT_SUPPORT` (needs GDC point query impl) |
+| `HI_MPI_VI_FisheyePosQueryDst2Src` | Full — delegates to `hi_mpi_vi_fisheye_pos_query_dst_to_src` (GDC point query) |
 
-### Remaining internal stub
+### Internal helpers also implemented
 
-`hi_mpi_vi_set_chn_spread_attr` (lowercase internal helper) — returns `ERR_VI_NOT_SUPPORT`. The full RE implementation exists commented out but was incomplete.
+- `hi_mpi_vi_set_chn_spread_attr` — RE'd from decompiler output, calls `gdc_spread_configure`
+- `mpi_vi_set_gdc_comm_cfg` — RE'd from decompiler output, queries channel dynamic range
+- `gdc_spread_configure` — RE'd from `hiisp_gdc_fw_user.S` (`GDC_Spread_CFG`), fixed-point spread math
