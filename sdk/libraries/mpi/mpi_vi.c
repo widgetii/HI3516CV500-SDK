@@ -13,6 +13,7 @@
 #include "re_mpi_vi.h"
 #include "re_debug.h"
 #include "re_hiisp_gdc_fw_pointquery.h"
+#include "re_hiisp_gdc_fw_user.h"
 #include "mpi_sys.h"
 
 pthread_mutex_t s_vi_mutex;
@@ -333,86 +334,61 @@ mpi_vi_get_chn_out_put_size(
     return result;
 }
 
-// HI_S32
-// mpi_vi_set_gdc_comm_cfg(
-//     unsigned int a1,
-//     VI_CHN       a2,
-//     _DWORD*      a3,
-//     _DWORD*      a4)
-// {
-//     HI_S32 v8;      // r6
-//     int    v10;     // r1
-//     int    v11;     // r3
-//     char   v12[20]; // [sp+10h] [bp-78h] BYREF
-//     int    v13;     // [sp+24h] [bp-64h]
-//     char   v14[12]; // [sp+38h] [bp-50h] BYREF
-//     int    v15;     // [sp+44h] [bp-44h]
+HI_S32
+mpi_vi_set_gdc_comm_cfg(
+    VI_PIPE  ViPipe,
+    VI_CHN   ViChn,
+    HI_U32  *pstSize,
+    HI_U32  *pstOut)
+{
+    HI_S32 result;
+    HI_U32 dynamic_range;
+    HI_U32 ext_chn_buf[10]; /* 0x28 bytes for ioctl 0x8028496A */
+    HI_U32 chn_buf[5];      /* for ioctl 0x802C494D, dynamic_range at offset [5] */
 
-//     if (a2) {
-//         if (a1 > 3 && (v8 = mpi_vi_check_pipe_id(a1)) != 0 ||
-//             (unsigned int)(a2 - 1) > 7 &&
-//             (v8 = mpi_vi_check_ext_chn_id(a2)) != 0 ||
-//             (v8 = mpi_vi_check_chn_open(a1, a2)) != 0 ||
-//             (v8 = ioctl(g_vi_chn_fd[11 * a1 + a2], 0x8028496A, v12)) != 0) {
-//             fprintf(
-//                 (FILE*)stderr,
-//                 "[func]:%s [line]:%d [info]:pipe %d chn:%d ext_chn attr "
-//                 "failed!\n",
-//                 "mpi_vi_set_gdc_comm_cfg",
-//                 448,
-//                 a1,
-//                 a2);
-//             return v8;
-//         }
+    if (ViChn) {
+        if ((ViPipe > 3 && (result = mpi_vi_check_pipe_id(ViPipe)) != 0) ||
+            ((HI_U32)(ViChn - 1) > 7 &&
+             (result = mpi_vi_check_ext_chn_id(ViChn)) != 0) ||
+            (result = mpi_vi_check_chn_open(ViPipe, ViChn)) != 0 ||
+            (result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x8028496A, ext_chn_buf)) != 0) {
+            fprintf(stderr,
+                "[func]:%s [line]:%d [info]:pipe %d chn:%d ext_chn attr failed!\n",
+                "mpi_vi_set_gdc_comm_cfg", 448, ViPipe, ViChn);
+            return result;
+        }
+        dynamic_range = ext_chn_buf[5]; /* offset 0x14 */
+    }
+    else {
+        if ((ViPipe > 3 && (result = mpi_vi_check_pipe_id(ViPipe)) != 0) ||
+            (result = mpi_vi_check_chn_open(ViPipe, 0)) != 0 ||
+            (result = ioctl(g_vi_chn_fd[11 * ViPipe], 0x802C494D, chn_buf)) != 0) {
+            fprintf(stderr,
+                "[func]:%s [line]:%d [info]:pipe %d chn:%d chn attr failed!\n",
+                "mpi_vi_set_gdc_comm_cfg", 440, ViPipe, 0);
+            return result;
+        }
+        dynamic_range = chn_buf[5]; /* offset 0x14 */
+    }
 
-//         v10 = v13;
-//     }
-//     else {
-//         if (a1 > 3 && (v8 = mpi_vi_check_pipe_id(a1)) != 0 ||
-//             (v8 = mpi_vi_check_chn_open(a1, 0)) != 0 ||
-//             (v8 = ioctl(g_vi_chn_fd[11 * a1], 0x802C494D, v14)) != 0) {
-//             fprintf(
-//                 (FILE*)stderr,
-//                 "[func]:%s [line]:%d [info]:pipe %d chn:%d chn attr failed!\n",
-//                 "mpi_vi_set_gdc_comm_cfg",
-//                 440,
-//                 a1,
-//                 0);
-//             return v8;
-//         }
+    pstOut[0] = pstSize[0];
+    pstOut[1] = pstSize[1];
 
-//         v10 = v15;
-//     }
+    if (dynamic_range) {
+        if ((dynamic_range - 1) > 4) {
+            fprintf(stderr,
+                "[func]:%s [line]:%d [info]:vi_pipe %d vi_chn %d "
+                "dynamic_range:%d is err.\n",
+                "mpi_vi_set_gdc_comm_cfg", 465, ViPipe, ViChn, dynamic_range);
+            return ERR_VI_INVALID_PARA;
+        }
+        pstOut[2] = 10;
+        return 0;
+    }
 
-//     v11   = a3[1];
-//     *a4   = *a3;
-//     a4[1] = v11;
-
-//     if (v10) {
-//         if ((unsigned int)(v10 - 1) > 4) {
-//             v8 = -1609531389;
-//             fprintf(
-//                 (FILE*)stderr,
-//                 "[func]:%s [line]:%d [info]:vi_pipe %d vi_chn %d "
-//                 "dynamic_range:%d is err.\n",
-//                 "mpi_vi_set_gdc_comm_cfg",
-//                 465,
-//                 a1,
-//                 a2,
-//                 v10);
-//         }
-//         else {
-//             v8    = 0;
-//             a4[2] = 10;
-//         }
-//     }
-//     else {
-//         v8    = 0;
-//         a4[2] = 8;
-//     }
-
-//     return v8;
-// }
+    pstOut[2] = 8;
+    return 0;
+}
 
 // HI_S32
 // hi_mpi_vi_set_ext_chn_fisheye(
@@ -686,180 +662,128 @@ hi_mpi_vi_set_chn_spread_attr(
     VI_CHN               ViChn,
     const SPREAD_ATTR_S* pstSpreadAttr)
 {
-    /* TODO: full RE implementation commented out below */
-    (void)ViPipe; (void)ViChn; (void)pstSpreadAttr;
-    return ERR_VI_NOT_SUPPORT;
+    HI_S32 result;
+    HI_U32 v9;
+    SIZE_S pstSize;
+    HI_U32 rotation;      /* from ioctl 0x80044953 (GetChnRotation) */
+    HI_U32 rotation_ex[11]; /* from ioctl 0x801C4955 (GetChnRotationEx), 0x2C bytes */
+    SIZE_S rot_ex_size;   /* SIZE_S at rotation_ex[3..4] */
+    HI_U32 spread_buf[22]; /* 88 bytes — spread params */
+    HI_U32 gdc_buf[119];  /* 476 bytes — gdc output */
+
+    if ((HI_U32)ViPipe > 3) {
+        result = mpi_vi_check_pipe_id(ViPipe);
+        if (result) return result;
+    }
+
+    if (ViChn) {
+        result = mpi_vi_check_phy_chn_id(ViChn);
+        if (result) return result;
+    }
+
+    if (!pstSpreadAttr) {
+        result = mpi_vi_check_null_ptr();
+        if (result) return result;
+    }
+
+    result = mpi_vi_check_chn_open(ViPipe, ViChn);
+    if (result) return result;
+
+    result = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
+    if (result) {
+        fprintf(stderr,
+            "[func]:%s [line]:%d [info]:vi_pipe(%d) spread not support!\n",
+            "hi_mpi_vi_set_chn_spread_attr", 1900, ViPipe);
+        return result;
+    }
+
+    result = mpi_vi_get_chn_out_put_size(ViPipe, ViChn, &pstSize);
+    if (result) {
+        fprintf(stderr,
+            "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) chn attr configured!\n",
+            "mpi_vi_cal_pic_size_for_spread", 501, ViPipe, ViChn);
+        goto fail_cal_pic_size;
+    }
+
+    /* get rotation */
+    if ((HI_U32)ViPipe > 3 && (result = mpi_vi_check_pipe_id(ViPipe)) != 0)
+        goto fail_cal_pic_size;
+    if ((HI_U32)ViChn > 8 && (result = mpi_vi_check_chn_id(ViChn)) != 0)
+        goto fail_cal_pic_size;
+    if ((result = mpi_vi_check_chn_open(ViPipe, ViChn)) != 0)
+        goto fail_cal_pic_size;
+    if ((result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x80044953, &rotation)) != 0)
+        goto fail_cal_pic_size;
+
+    /* get rotation ex */
+    if ((HI_U32)ViPipe > 3 && (result = mpi_vi_check_pipe_id(ViPipe)) != 0)
+        goto fail_cal_pic_size;
+    if (ViChn && (result = mpi_vi_check_phy_chn_id(ViChn)) != 0)
+        goto fail_cal_pic_size;
+    if ((result = mpi_vi_check_chn_open(ViPipe, ViChn)) != 0)
+        goto fail_cal_pic_size;
+    if ((result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x801C4955, rotation_ex)) != 0)
+        goto fail_cal_pic_size;
+
+    /* adjust picture size based on rotation */
+    if ((rotation & 0xFFFFFFFD) == 1) {
+        /* 90 or 270 degree rotation — swap width/height */
+        v9                = pstSize.u32Height;
+        pstSize.u32Height = pstSize.u32Width;
+        pstSize.u32Width  = v9;
+    }
+    else if (rotation_ex[0] == 1) {
+        /* rotation ex enabled — use its output size */
+        pstSize.u32Width  = rotation_ex[3];
+        pstSize.u32Height = rotation_ex[4];
+    }
+
+    result = mpi_vi_set_gdc_comm_cfg(ViPipe, ViChn, (HI_U32 *)&pstSize, rotation_ex);
+    if (result) {
+        fprintf(stderr,
+            "[func]:%s [line]:%d [info]:vi_chn_id(%d) get gdc comm cfg failed!\n",
+            "hi_mpi_vi_set_chn_spread_attr", 1912, ViChn);
+        return result;
+    }
+
+    if (pstSpreadAttr->u32SpreadCoef > 18) {
+        fprintf(stderr,
+            "[func]:%s [line]:%d [info]:vi_pipe %d vi_chn %d "
+            "spread_coef(%d) is out of rang [0,18].\n",
+            "hi_mpi_vi_set_chn_spread_attr", 1929, ViPipe, ViChn,
+            pstSpreadAttr->u32SpreadCoef);
+        return ERR_VI_INVALID_PARA;
+    }
+
+    if (gdc_spread_configure(rotation_ex, (const HI_U32 *)&pstSize,
+            pstSpreadAttr->u32SpreadCoef, gdc_buf, spread_buf)) {
+        fprintf(stderr,
+            "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) "
+            "gdc_spread_configure failed!\n",
+            "hi_mpi_vi_set_chn_spread_attr", 1924, ViPipe, ViChn);
+        return ERR_VI_INVALID_PARA;
+    }
+
+    {
+        /* build ioctl payload: spread attr (16 bytes) + size (8 bytes) */
+        HI_U32 ioctl_buf[6];
+        memcpy(&ioctl_buf[0], pstSpreadAttr, 0x10);
+        memcpy(&ioctl_buf[4], &pstSize, 8);
+        result = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x4240495Cu, ioctl_buf);
+    }
+
+    return result;
+
+fail_cal_pic_size:
+    fprintf(stderr,
+        "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) cal pic size "
+        "for spread failed!\n",
+        "hi_mpi_vi_set_chn_spread_attr", 1906, ViPipe, ViChn);
+    return result;
 }
 
-// HI_S32
+// Original decompiler output preserved for reference:
 // hi_mpi_vi_set_chn_spread_attr_ORIG(
-//     VI_PIPE              ViPipe,
-//     VI_CHN               ViChn,
-//     const SPREAD_ATTR_S* pstSpreadAttr)
-// {
-//     HI_S32 v6;       // r7
-//     HI_U32 v8;       // r1
-//     HI_U32 v9;       // r3
-//     SIZE_S pstSize;  // [sp+14h] [bp-29Ch] BYREF
-//     SIZE_S v11;      // [sp+1Ch] [bp-294h] BYREF
-//     int    v12[5];   // [sp+24h] [bp-28Ch] BYREF
-//     SIZE_S v13;      // [sp+38h] [bp-278h]
-//     char   v14[8];   // [sp+40h] [bp-270h] BYREF
-//     char   v15[8];   // [sp+48h] [bp-268h] BYREF
-//     char   v16[88];  // [sp+50h] [bp-260h] BYREF
-//     char   v17[476]; // [sp+A8h] [bp-208h] BYREF
-
-//     if ((unsigned int)ViPipe > 3) {
-//         v6 = mpi_vi_check_pipe_id(ViPipe);
-
-//         if (v6) return v6;
-//     }
-
-//     if (ViChn) {
-//         v6 = mpi_vi_check_phy_chn_id(ViChn);
-
-//         if (v6) return v6;
-//     }
-
-//     if (!pstSpreadAttr) {
-//         v6 = mpi_vi_check_null_ptr();
-
-//         if (v6) return v6;
-//     }
-
-//     v6 = mpi_vi_check_chn_open(ViPipe, ViChn);
-
-//     if (v6) return v6;
-
-//     v6 = mpi_vi_check_vi_vpss_mode_not_support_function(ViPipe);
-
-//     if (v6) {
-//         fprintf(
-//             (FILE*)stderr,
-//             "[func]:%s [line]:%d [info]:vi_pipe(%d) spread not support!\n",
-//             "hi_mpi_vi_set_chn_spread_attr",
-//             1900,
-//             ViPipe);
-//         return v6;
-//     }
-
-//     v6 = mpi_vi_get_chn_out_put_size(ViPipe, ViChn, &pstSize);
-
-//     if (v6) {
-//         fprintf(
-//             (FILE*)stderr,
-//             "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) chn attr "
-//             "configured!\n",
-//             "mpi_vi_cal_pic_size_for_spread",
-//             501,
-//             ViPipe,
-//             ViChn);
-//     LABEL_15:
-//         fprintf(
-//             (FILE*)stderr,
-//             "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) cal pic size "
-//             "for spread failed!\n",
-//             "hi_mpi_vi_set_chn_spread_attr",
-//             1906,
-//             ViPipe,
-//             ViChn);
-//         return v6;
-//     }
-
-//     if ((unsigned int)ViPipe > 3) {
-//         v6 = mpi_vi_check_pipe_id(ViPipe);
-
-//         if (v6) goto LABEL_15;
-//     }
-
-//     if ((unsigned int)ViChn > 8) {
-//         v6 = mpi_vi_check_chn_id(ViChn);
-
-//         if (v6) goto LABEL_15;
-//     }
-
-//     v6 = mpi_vi_check_chn_open(ViPipe, ViChn);
-
-//     if (v6) goto LABEL_15;
-
-//     v6 = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x80044953, &v11);
-
-//     if (v6) goto LABEL_15;
-
-//     if ((unsigned int)ViPipe > 3) {
-//         v6 = mpi_vi_check_pipe_id(ViPipe);
-
-//         if (v6) goto LABEL_15;
-//     }
-
-//     if (ViChn) {
-//         v6 = mpi_vi_check_phy_chn_id(ViChn);
-
-//         if (v6) goto LABEL_15;
-//     }
-
-//     v6 = mpi_vi_check_chn_open(ViPipe, ViChn);
-
-//     if (v6) goto LABEL_15;
-
-//     v6 = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x801C4955, v12);
-
-//     if (v6) goto LABEL_15;
-
-//     if ((v11.u32Width & 0xFFFFFFFD) == 1) {
-//         v9                = pstSize.u32Height;
-//         pstSize.u32Height = pstSize.u32Width;
-//         pstSize.u32Width  = v9;
-//     }
-//     else if (v12[0] == 1)
-//         pstSize = v13;
-
-//     v6 = mpi_vi_set_gdc_comm_cfg(ViPipe, ViChn, &pstSize, v12);
-
-//     if (v6) {
-//         fprintf(
-//             (FILE*)stderr,
-//             "[func]:%s [line]:%d [info]:vi_chn_id(%d) get gdc comm cfg "
-//             "failed!\n",
-//             "hi_mpi_vi_set_chn_spread_attr",
-//             1912,
-//             ViChn);
-//     }
-//     else {
-//         v8  = pstSpreadAttr->u32SpreadCoef;
-//         v11 = pstSize;
-
-//         if (v8 > 0x12) {
-//             v6 = -1609531389;
-//             fprintf(
-//                 (FILE*)stderr,
-//                 "[func]:%s [line]:%d [info]:vi_pipe %d vi_chn %d "
-//                 "spread_coef(%d) is out of rang [0,18].\n",
-//                 "hi_mpi_vi_set_chn_spread_attr",
-//                 1929,
-//                 ViPipe,
-//                 ViChn,
-//                 v8);
-//         }
-//         else if (gdc_spread_configure(v12, &v11, v8, v17, v16)) {
-//             v6 = -1609531389;
-//             fprintf(
-//                 (FILE*)stderr,
-//                 "[func]:%s [line]:%d [info]:vi_pipe(%d) vi_chn(%d) "
-//                 "gdc_spread_configure failed!\n",
-//                 "hi_mpi_vi_set_chn_spread_attr",
-//                 1924,
-//                 ViPipe,
-//                 ViChn);
-//         }
-//         else {
-//             memcpy_s(v14, 0x10u, pstSpreadAttr, 0x10u);
-//             memcpy_s(v15, 8u, &v11, 8u);
-//             v6 = ioctl(g_vi_chn_fd[11 * ViPipe + ViChn], 0x4240495Cu, v14);
-//         }
-//     }
-
-//     return v6;
 // }
 
 HI_S32
@@ -5620,11 +5544,6 @@ HI_MPI_VI_FisheyePosQueryDst2Src(
     const POINT_S *pstDstPointIn,
     POINT_S *pstSrcPointOut)
 {
-    (void)ViPipe;
-    (void)ViChn;
-    (void)u32RegionIndex;
-    (void)pstDstPointIn;
-    (void)pstSrcPointOut;
-    /* requires full GDC fisheye point query implementation */
-    return ERR_VI_NOT_SUPPORT;
+    return hi_mpi_vi_fisheye_pos_query_dst_to_src(
+        ViPipe, ViChn, u32RegionIndex, pstDstPointIn, pstSrcPointOut);
 }

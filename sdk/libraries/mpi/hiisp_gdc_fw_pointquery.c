@@ -528,7 +528,7 @@ gdc_coor_convert_normal_point_query(
         point.s32Y = polar.radius;
     }
     else {
-        point.s32X = abs32(alty);
+        point.s32X = abs(alty);
         point.s32Y = polar.radius;
     }
 

@@ -15,8 +15,8 @@ SET(MPI_FILES
     "mpi/as_buf.c"
     "mpi/audio_comm.c"
     # mpi/audio_voice_adp.c
-    # mpi/hiisp_gdc_fw_pointquery.c
-    # mpi/hiisp_gdc_fw_user.c
+    "mpi/hiisp_gdc_fw_pointquery.c"
+    "mpi/hiisp_gdc_fw_user.c"
     # mpi/mpi_adec.c
     # mpi/mpi_aenc.c
     # mpi/mpi_ai.c

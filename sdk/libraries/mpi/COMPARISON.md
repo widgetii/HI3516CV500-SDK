@@ -6,34 +6,47 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | | Vendor | Ours |
 |---|---|---|
-| Static lib (.a) | 743K (stripped) | 151K (with debug) |
-| Shared lib (.so) | 355K (stripped) | 138K (with debug) |
-| Object files | 25 | 10 |
-| Exported symbols | 782 | 181 |
-| Shared symbols | 140 | 140 |
+| Static lib (.a) | 743K (stripped) | 200K (with debug) |
+| Shared lib (.so) | 355K (stripped) | 185K (with debug) |
+| Object files | 25 | 11 |
+| Exported symbols | 782 | 316 |
+| Shared symbols | 258 | 258 |
+| Our-only symbols (internal) | — | 58 |
+| Vendor-only symbols | 524 | — |
 
-## Module Coverage (10 of 25)
+## Per-Module API Coverage (258/782 shared — 33%)
 
-### Implemented (in build)
+### Fully implemented (in build)
 
-| Module | Vendor .o | Our .c | API match |
-|--------|-----------|--------|-----------|
-| af_buf | af_buf.o | af_buf.c | yes |
-| as_buf | as_buf.o | as_buf.c | yes |
-| audio_comm | audio_comm.o | audio_comm.c | yes |
-| mpi_ao | mpi_ao_adapt.o | mpi_ao.c | yes (140 shared symbols) |
-| mpi_audio | mpi_audio_adapt.o | mpi_audio.c | yes |
-| mpi_bind | mpi_bind.o | mpi_bind.c | yes |
-| mpi_gdc | mpi_gdc.o | mpi_gdc.c | yes |
-| mpi_region | mpi_region.o | mpi_region.c | yes |
-| mpi_sys | mpi_sys.o | mpi_sys.c | yes |
-| mpi_vb | mpi_vb.o | mpi_vb.c | yes |
+| Module | Vendor symbols | Our symbols | Coverage |
+|--------|---------------|-------------|----------|
+| mpi_vi | 104 | 104 | 104/104 (100%) |
+| mpi_vb | 23 | 23 | 23/23 (100%) |
+| mpi_region | 14 | 14 | 14/14 (100%) |
+| mpi_snap | 10 | 10 | 10/10 (100%) |
+| mpi_gdc | 8 | 8 | 8/8 (100%) |
+| mpi_log | 5 | 5 | 5/5 (100%) |
+| mpi_audio | 3 | 3 | 3/3 (100%) |
+
+### Nearly complete (in build)
+
+| Module | Vendor symbols | Our symbols | Coverage | Missing |
+|--------|---------------|-------------|----------|---------|
+| mpi_sys | 40 | 39 | 39/40 (97%) | `HI_MPI_SYS_GetUniqueId` |
+| mpi_ao | 30 | 29 | 29/30 (96%) | `HI_MPI_AO_GetChnDelay` |
+
+### Also in build (support files)
+
+| Module | Vendor .o | Our .c |
+|--------|-----------|--------|
+| af_buf | af_buf.o | af_buf.c |
+| as_buf | as_buf.o | as_buf.c |
+| audio_comm | audio_comm.o | audio_comm.c |
 
 ### Not implemented (vendor-only)
 
 | Module | Vendor .o | Symbols | Source exists in repo? |
 |--------|-----------|---------|----------------------|
-| mpi_vi | mpi_vi.o | 104 | **yes** — mpi_vi.c (5369 lines, 93/104 APIs) |
 | mpi_venc | mpi_venc.o | 100 | yes — mpi_venc.c (commented out, unverified) |
 | mpi_vo | mpi_vo.o | 91 | yes — mpi_vo.c (commented out, unverified) |
 | mpi_vpss | mpi_vpss.o | 69 | yes — mpi_vpss.c (commented out, unverified) |
@@ -49,58 +62,38 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 | hi_dnvqe_api_adp | hi_dnvqe_api_adp.o | — | no |
 | hi_upvqe_api_adp | hi_upvqe_api_adp.o | — | no |
 
-### Symbols only in our build (41)
+### Symbols only in our build (58)
 
-These are internal/helper functions (lowercase `hi_mpi_*`, `mpi_ao_*`, `ao_check_*`, etc.) that the vendor strips from their release. Expected — our build is not stripped.
+Internal/helper functions (lowercase `hi_mpi_*`, `mpi_vi_*`, `mpi_ao_*`, `ao_check_*`, etc.) that the vendor strips from their release. Expected — our build is not stripped.
 
-## mpi_vi Assessment
+## mpi_vi Integration Notes
 
-`mpi_vi.c` is the closest candidate for inclusion in the build.
+`mpi_vi.c` was added to the build with all 104/104 vendor API symbols.
 
-### What exists
+### What was fixed
 
-- 5369 lines of reverse-engineered C (dated October 3, 2020)
-- 93 of 104 vendor `HI_MPI_VI_*` functions implemented
-- Full ioctl command table in `re_mpi_vi.h` (0x00–0x73)
-- Internal helpers: pipe/dev/chn open, mutex locking, validation
-- Reverse-engineered internal structs with size annotations
+1. **`re_mpi_vi.h` duplicate struct** — removed second `hiVI_TIME_FRAME2_S` definition (size 0x168 variant, kept size 0x020 variant)
+2. **Ioctl macro redefinitions** — renamed duplicate `VI_CTL_SETPIPEATTR`/`VI_CTL_GETPIPEATTR` at 0x1E/0x1F to `VI_CTL_SETPIPEFRMINTERRUPTATTR2`/`VI_CTL_GETPIPEFRMINTERRUPTATTR2`
+3. **`HI_ASSERT` conflict** — guarded with `#ifndef` in `re_debug.h`
+4. **Missing includes** — added `mpi_sys.h`, `stdio.h`, `string.h`, `unistd.h`, `sys/ioctl.h`, `fcntl.h`
+5. **`inline` warning** — removed `inline` from `MPI_VI_CheckStitchId` declaration
 
-### Missing APIs (11)
+### 11 missing APIs — now implemented
 
-```
-HI_MPI_VI_CloseFd
-HI_MPI_VI_FisheyePosQueryDst2Src
-HI_MPI_VI_GetChnDISParam
-HI_MPI_VI_SendPipeRaw
-HI_MPI_VI_SendPipeYUV
-HI_MPI_VI_SetChnDISParam
-HI_MPI_VI_SetChnLDCAttr
-HI_MPI_VI_SetChnRotation
-HI_MPI_VI_SetChnRotationEx
-HI_MPI_VI_SetChnSpreadAttr
-HI_MPI_VI_SetExtChnFisheye
-```
+| Function | Implementation |
+|----------|---------------|
+| `HI_MPI_VI_CloseFd` | Full — closes all vi fds (dev/pipe/chn) |
+| `HI_MPI_VI_SendPipeYUV` | Full — ioctl via `VI_CTL_SENDPIPEYUV` |
+| `HI_MPI_VI_SendPipeRaw` | Full — ioctl via `VI_CTL_SENDPIPERAW` |
+| `HI_MPI_VI_SetChnRotation` | Full — ioctl via `VI_CTL_SETCHNROTATION` |
+| `HI_MPI_VI_SetChnRotationEx` | Full — ioctl via `VI_CTL_SETCHNROTATIONEX` |
+| `HI_MPI_VI_SetChnLDCAttr` | Full — ioctl via `VI_CTL_SETCHNLDCATTR` |
+| `HI_MPI_VI_SetChnSpreadAttr` | Full — ioctl via `VI_CTL_SETCHNSPREADATTR` |
+| `HI_MPI_VI_SetChnDISParam` | Passthrough — ioctl via `VI_CTL_SETCHNDISATTR` (param type unknown) |
+| `HI_MPI_VI_GetChnDISParam` | Passthrough — ioctl via `VI_CTL_GETCHNDISATTR` (param type unknown) |
+| `HI_MPI_VI_SetExtChnFisheye` | Full — ioctl via `VI_CTL_SETEXTCHNFISHEYE` |
+| `HI_MPI_VI_FisheyePosQueryDst2Src` | Stub — returns `ERR_VI_NOT_SUPPORT` (needs GDC point query impl) |
 
-### Compile blockers (2 errors, 9 warnings)
+### Remaining internal stub
 
-**Errors:**
-1. `re_mpi_vi.h:44` — duplicate definition of `struct hiVI_TIME_FRAME2_S` (defined at line 20 and again at line 44 with different layout, appears to be WIP notes)
-2. `re_mpi_vi.h:52` — conflicting types for `VI_TIME_FRAME2_S` (consequence of #1)
-
-**Warnings:**
-- `re_mpi_vi.h:193,194` — `VI_CTL_SETPIPEATTR` / `VI_CTL_GETPIPEATTR` redefined with different ioctl numbers (lines 184-185 vs 193-194, likely version A vs version B of the ioctl table)
-- `re_debug.h:8` — `HI_ASSERT` redefined (conflicts with `hi_debug.h` from sdk/common)
-- `mpi_vi.c:30` — implicit declaration of `HI_MPI_SYS_GetVIVPSSMode` (needs header or forward declaration)
-- Other implicit function declaration warnings
-
-### What it would take to add mpi_vi
-
-1. **Fix `re_mpi_vi.h` duplicate struct** — remove or ifdef the second `hiVI_TIME_FRAME2_S` definition (line 44-52). The developer left two competing RE interpretations in the file.
-2. **Fix ioctl macro redefinitions** — choose the correct `VI_CTL_SETPIPEATTR`/`VI_CTL_GETPIPEATTR` values (one pair should be removed or renamed).
-3. **Fix `HI_ASSERT` conflict** — either remove the redefinition in `re_debug.h` or guard it with `#ifndef`.
-4. **Add missing forward declaration** for `HI_MPI_SYS_GetVIVPSSMode` or include the right header.
-5. **Implement 11 missing API stubs** — at minimum, provide error-returning stubs for the 11 missing functions so the symbol table matches vendor.
-6. **Uncomment in CMakeLists.txt** — add `"mpi/mpi_vi.c"` to MPI_FILES.
-7. **Test compile** and fix any remaining warnings.
-
-Estimated effort: the header cleanup is straightforward. The 11 missing functions need ioctl wiring (the ioctl codes are already defined in `re_mpi_vi.h`). Most follow the same pattern as existing functions: validate args → open fd → ioctl → return.
+`hi_mpi_vi_set_chn_spread_attr` (lowercase internal helper) — returns `ERR_VI_NOT_SUPPORT`. The full RE implementation exists commented out but was incomplete.

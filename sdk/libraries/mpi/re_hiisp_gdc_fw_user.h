@@ -9,11 +9,17 @@
 #include "re_mpi_comm.h"
 #include "mpi_errno.h"
 
-HI_S32 GDC_LDC_CFG(
-    GDC_DATA_S *stData,
-    LDC_ATTR_S *stAttr,
-    GDC_CFG_U1_S *a3,
-    GDC_CFG_U2_S *a4);
+// HI_S32 GDC_LDC_CFG(
+//     GDC_DATA_S *stData,
+//     LDC_ATTR_S *stAttr,
+//     GDC_CFG_U1_S *a3,
+//     GDC_CFG_U2_S *a4);
 
+HI_S32 gdc_spread_configure(
+    const HI_U32 *pstSrcSize,
+    const HI_U32 *pstDstSize,
+    HI_U32        u32SpreadCoef,
+    HI_U32       *pstOutput,
+    HI_U32       *pstParams);
 
 #endif
