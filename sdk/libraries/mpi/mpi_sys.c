@@ -1128,6 +1128,22 @@ HI_MPI_SYS_GetChipId(HI_U32 *pu32ChipId)
 }
 
 HI_S32
+HI_MPI_SYS_GetUniqueId(HI_UNIQUE_ID_S *pstUniqueId)
+{
+    HI_S32 result;
+
+    if ( pstUniqueId == HI_NULL ) {
+        HI_TRACE_SYS(RE_DBG_LVL, "Null point \n");
+        return HI_ERR_SYS_NULL_PTR;
+    }
+
+    result = sys_check_open();
+    if ( result != HI_SUCCESS ) return result;
+
+    return ioctl(g_sys_fd, SYS_GET_UNIQUE_ID, pstUniqueId);
+}
+
+HI_S32
 HI_MPI_SYS_GetCustomCode(HI_U32 *pu32CustomCode)
 {
     HI_S32 result;

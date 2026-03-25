@@ -6,21 +6,22 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | | Vendor | Ours |
 |---|---|---|
-| Static lib (.a) | 743K (stripped) | 200K (with debug) |
-| Shared lib (.so) | 355K (stripped) | 185K (with debug) |
-| Object files | 25 | 11 |
-| Exported symbols | 782 | 316 |
-| Shared symbols | 258 | 258 |
+| Static lib (.a) | 743K (stripped) | 228K (with debug) |
+| Shared lib (.so) | 355K (stripped) | 207K (with debug) |
+| Object files | 25 | 13 |
+| Exported symbols | 782 | 331 |
+| Shared symbols | 262 | 262 |
 | Our-only symbols (internal) | — | 58 |
-| Vendor-only symbols | 524 | — |
+| Vendor-only symbols | 520 | — |
 
-## Per-Module API Coverage (258/782 shared — 33%)
+## Per-Module API Coverage (262/782 shared — 33%)
 
 ### Fully implemented (in build)
 
 | Module | Vendor symbols | Our symbols | Coverage |
 |--------|---------------|-------------|----------|
 | mpi_vi | 104 | 104 | 104/104 (100%) |
+| mpi_sys | 40 | 40 | 40/40 (100%) |
 | mpi_vb | 23 | 23 | 23/23 (100%) |
 | mpi_region | 14 | 14 | 14/14 (100%) |
 | mpi_snap | 10 | 10 | 10/10 (100%) |
@@ -32,7 +33,6 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | Module | Vendor symbols | Our symbols | Coverage | Missing |
 |--------|---------------|-------------|----------|---------|
-| mpi_sys | 40 | 39 | 39/40 (97%) | `HI_MPI_SYS_GetUniqueId` |
 | mpi_ao | 30 | 29 | 29/30 (96%) | `HI_MPI_AO_GetChnDelay` |
 
 ### Also in build (support files)

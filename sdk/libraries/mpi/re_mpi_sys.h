@@ -147,6 +147,7 @@ typedef enum hiSYS_IOCTL_E {
 #define SYS_GET_TIMER_INFO                 _IOW( IOC_TYPE_SYS, IOC_NR_GET_TIMER_INFO,                 SYS_TIMER_INFO_S          ) /* 0x8008590Eu */
 #define SYS_GET_CHIP_ID                    _IOW( IOC_TYPE_SYS, IOC_NR_GET_CHIP_ID,                    HI_U32                    ) /* 0x8004590Fu */
 #define SYS_SET_VI_VPSS_MODE               _IOR( IOC_TYPE_SYS, IOC_NR_SET_VI_VPSS_MODE,               VI_VPSS_MODE_S            ) /* 0x40105910u */
+#define SYS_GET_UNIQUE_ID                  _IOW( IOC_TYPE_SYS, IOC_NR_SET_VI_VPSS_MODE,               HI_UNIQUE_ID_S            ) /* 0x80185910u */
 #define SYS_GET_VI_VPSS_MODE               _IOW( IOC_TYPE_SYS, IOC_NR_GET_VI_VPSS_MODE,               VI_VPSS_MODE_S            ) /* 0x80105911u */
 #define SYS_SET_TUNING_CONNECT             _IOR( IOC_TYPE_SYS, IOC_NR_SET_TUNING_CONNECT,             HI_S32                    ) /* 0x40045912u */
 #define SYS_GET_TUNING_CONNECT             _IOW( IOC_TYPE_SYS, IOC_NR_GET_TUNING_CONNECT,             HI_S32                    ) /* 0x80045913u */
