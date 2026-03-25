@@ -33,7 +33,7 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | Module | Vendor symbols | Our symbols | Coverage | Missing |
 |--------|---------------|-------------|----------|---------|
-| mpi_ao | 30 | 29 | 29/30 (96%) | `HI_MPI_AO_GetChnDelay` |
+| mpi_ao | 30 | 30 | 30/30 (100%) | — |
 
 ### Also in build (support files)
 

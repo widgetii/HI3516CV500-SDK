@@ -1976,6 +1976,30 @@ hi_mpi_ao_query_file_status(AUDIO_DEV AoDevId, AO_CHN AoChn, AUDIO_FILE_STATUS_S
     return result;
 }
 
+static HI_S32
+hi_mpi_ao_get_chn_delay(AUDIO_DEV AoDevId, AO_CHN AoChn, HI_S32 *ps32Delay)
+{
+    HI_S32 result;
+
+    if ( AoDevId > 1 ) {
+        HI_TRACE_AO(RE_DBG_LVL, "ao dev %d is invalid\n", AoDevId);
+        return HI_ERR_AO_INVALID_DEVID;
+    }
+
+    if ( AoChn > 2 ) {
+        HI_TRACE_AO(RE_DBG_LVL, "ao chnid %d is invalid\n", AoChn);
+        return HI_ERR_AO_INVALID_CHNID;
+    }
+
+    if ( ps32Delay == HI_NULL )
+        return HI_ERR_AO_NULL_PTR;
+
+    result = ao_check_open(AoChn + 3 * AoDevId);
+    if ( result != HI_SUCCESS ) return result;
+
+    return ioctl(g_ao_fd[AoChn + 3 * AoDevId], AO_GET_CHN_STATE, ps32Delay);
+}
+
 // ============================================================================
 
 HI_S32
@@ -2629,3 +2653,7 @@ HI_MPI_AO_SaveFile(AUDIO_DEV AoDevId, AO_CHN AoChn, AUDIO_SAVE_FILE_INFO_S *pstS
 HI_S32
 HI_MPI_AO_QueryFileStatus(AUDIO_DEV AoDevId, AO_CHN AoChn, AUDIO_FILE_STATUS_S* pstFileStatus)
 { return hi_mpi_ao_query_file_status(AoDevId, AoChn, pstFileStatus); }
+
+HI_S32
+HI_MPI_AO_GetChnDelay(AUDIO_DEV AoDevId, AO_CHN AoChn, HI_S32 *ps32Delay)
+{ return hi_mpi_ao_get_chn_delay(AoDevId, AoChn, ps32Delay); }

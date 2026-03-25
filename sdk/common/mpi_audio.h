@@ -110,6 +110,8 @@ HI_S32 HI_MPI_AO_GetVqeAttr(AUDIO_DEV AoDevId, AO_CHN AoChn, AO_VQE_CONFIG_S *ps
 HI_S32 HI_MPI_AO_EnableVqe(AUDIO_DEV AoDevId, AO_CHN AoChn);
 HI_S32 HI_MPI_AO_DisableVqe(AUDIO_DEV AoDevId, AO_CHN AoChn);
 
+HI_S32 HI_MPI_AO_GetChnDelay(AUDIO_DEV AoDevId, AO_CHN AoChn, HI_S32 *ps32Delay);
+
 /* AENC function api. */
 HI_S32 HI_MPI_AENC_CreateChn(AENC_CHN AeChn, const AENC_CHN_ATTR_S *pstAttr);
 HI_S32 HI_MPI_AENC_DestroyChn(AENC_CHN AeChn);
