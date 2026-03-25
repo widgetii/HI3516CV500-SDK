@@ -28,7 +28,7 @@ SET(MPI_FILES
     "mpi/mpi_sys.c"
     "mpi/mpi_vb.c"
     # mpi/mpi_vdec.c
-    # mpi/mpi_venc.c
+    "mpi/mpi_venc.c"
     # mpi/mpi_vgs.c
     "mpi/mpi_vi.c"
     # mpi/mpi_vo.c
