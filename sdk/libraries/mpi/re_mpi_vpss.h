@@ -7,6 +7,7 @@
 
 #include "mpi_vpss.h"
 #include "mpi_errno.h"
+#include "re_mpi_gdc.h"
 
 
 typedef struct hiVPSS_TIME_FRAME_S { // sizeof=0x158

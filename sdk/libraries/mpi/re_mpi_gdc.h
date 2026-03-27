@@ -19,16 +19,10 @@ typedef struct hiGDC_PMF_TASK_INFO_S { // (sizeof=0x540)
     HI_U32 field_320[136];       // 0x320
 } GDC_PMF_TASK_INFO_S;
 
-// typedef struct hiGDC_DATA_S { // s:0x12
-//     SIZE_S stSize;
-//     HI_U32 u32Range;
-// } GDC_DATA_S;
-
-// // GDC_CFG_U1_S; - FISHEYE_REGION_ATTR_EX_S or FISHEYE_REGION_ATTR_S
-
-// typedef struct hiGDC_CFG_U2_S { // s:0x170
-//     HI_U32 field_0[92];
-// } GDC_CFG_U2_S;
+typedef struct hiGDC_DATA_S { // s:0x00C
+    SIZE_S stSize;
+    HI_U32 u32Range;
+} GDC_DATA_S;
 
 #define IOC_TYPE_GDC 'N' // 0x4E
 #define IOC_GDC_BEGIN_JOB    _IOW(IOC_TYPE_GDC, 0x00, GDC_HANDLE         ) /* 0x80044E00u */

@@ -6,21 +6,23 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | | Vendor | Ours |
 |---|---|---|
-| Static lib (.a) | 743K (stripped) | 228K (with debug) |
-| Shared lib (.so) | 355K (stripped) | 207K (with debug) |
-| Object files | 25 | 13 |
-| Exported symbols | 782 | 331 |
-| Shared symbols | 262 | 262 |
-| Our-only symbols (internal) | — | 58 |
-| Vendor-only symbols | 520 | — |
+| Static lib (.a) | 743K (stripped) | ~340K (with debug) |
+| Shared lib (.so) | 355K (stripped) | ~290K (with debug) |
+| Object files | 25 | 15 |
+| Exported symbols | 782 | 501 |
+| Shared symbols | 419 | 419 |
+| Our-only symbols (internal) | — | ~82 |
+| Vendor-only symbols | 363 | — |
 
-## Per-Module API Coverage (262/782 shared — 33%)
+## Per-Module API Coverage (419/782 shared — 54%)
 
 ### Fully implemented (in build)
 
 | Module | Vendor symbols | Our symbols | Coverage |
 |--------|---------------|-------------|----------|
 | mpi_vi | 104 | 104 | 104/104 (100%) |
+| mpi_venc | 88 | 88 | 88/88 (100%) |
+| mpi_vpss | 69 | 69 | 69/69 (100%) |
 | mpi_sys | 40 | 40 | 40/40 (100%) |
 | mpi_vb | 23 | 23 | 23/23 (100%) |
 | mpi_region | 14 | 14 | 14/14 (100%) |
@@ -47,9 +49,7 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | Module | Vendor .o | Symbols | Source exists in repo? |
 |--------|-----------|---------|----------------------|
-| mpi_venc | mpi_venc.o | 100 | yes — mpi_venc.c (commented out, unverified) |
 | mpi_vo | mpi_vo.o | 91 | yes — mpi_vo.c (commented out, unverified) |
-| mpi_vpss | mpi_vpss.o | 69 | yes — mpi_vpss.c (commented out, unverified) |
 | mpi_ai | mpi_ai_adapt.o | 34 | yes — mpi_ai.c (commented out, has TODO) |
 | mpi_vdec | mpi_vdec.o | 32 | yes — mpi_vdec.c (commented out, unverified) |
 | mpi_vgs | mpi_vgs.o | 12 | yes — mpi_vgs.c (commented out, unverified) |
@@ -57,8 +57,8 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 | mpi_aenc | mpi_aenc_adapt.o | 11 | yes — mpi_aenc.c (commented out) |
 | mpi_mcf | mpi_mcf.o | — | no |
 | audio_voice_adp | audio_voice_adp.o | — | yes — audio_voice_adp.c (commented out) |
-| hiisp_gdc_fw_pointquery | hiisp_gdc_fw_pointquery.o | — | yes (commented out) |
-| hiisp_gdc_fw_user | hiisp_gdc_fw_user.o | — | yes (commented out) |
+| hiisp_gdc_fw_pointquery | hiisp_gdc_fw_pointquery.o | — | yes — in build |
+| hiisp_gdc_fw_user | hiisp_gdc_fw_user.o | — | yes — in build |
 | hi_dnvqe_api_adp | hi_dnvqe_api_adp.o | — | no |
 | hi_upvqe_api_adp | hi_upvqe_api_adp.o | — | no |
 

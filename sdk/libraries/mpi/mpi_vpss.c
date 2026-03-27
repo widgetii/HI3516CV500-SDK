@@ -4,7 +4,16 @@
 
 #include "re_mpi_vpss.h"
 #include "re_mpi_comm.h"
+#include "re_hiisp_gdc_fw_user.h"
+#include "re_hiisp_gdc_fw_pointquery.h"
+#include "securec.h"
+
 #include <pthread.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
 
 pthread_mutex_t g_stHdrLock;
 static pthread_mutex_t s_VpssMutex;
@@ -135,6 +144,17 @@ MPI_VPSS_CheckPipeId(VPSS_GRP_PIPE VpssGrpPipe)
 
 
 HI_S32
+MPI_VPSS_CheckPipeId_part_2(VPSS_GRP_PIPE VpssGrpPipe)
+{
+    fprintf(
+        (FILE *)stderr,
+        "[Func]:%s [Line]:%d [Info]:VpssGrpPipe(%d) is invalid\r\n",
+        __FUNCTION__, __LINE__, VpssGrpPipe);
+    return ERR_VPSS_ILLEGAL_PARAM;
+}
+
+
+HI_S32
 MPI_VPSS_CheckChnId(VPSS_CHN VpssChn)
 {
     fprintf(
@@ -172,7 +192,7 @@ HI_MPI_VPSS_CreateGrp(
         return ERR_VPSS_INVALID_DEVID;
     if ( !pstGrpAttr && MPI_VPSS_CheckNullPtr() )
         return ERR_VPSS_NULL_PTR;
-    if ( MKPI_VPSS_CheckGrpOpen(VpssGrp) )
+    if ( MPI_VPSS_CheckGrpOpen(VpssGrp) )
         return ERR_VPSS_NOTREADY;
     return ioctl(g_s32VpssGrpFd[VpssGrp], 0x40285009, pstGrpAttr);
 }
@@ -184,7 +204,7 @@ HI_MPI_VPSS_DestroyGrp(VPSS_GRP VpssGrp)
     HI_S32 result;
     if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
         return ERR_VPSS_INVALID_DEVID;
-    if ( MKPI_VPSS_CheckGrpOpen(VpssGrp) )
+    if ( MPI_VPSS_CheckGrpOpen(VpssGrp) )
         return ERR_VPSS_NOTREADY;
     pthread_mutex_lock(&g_stHdrLock);
     result = ioctl(g_s32VpssGrpFd[VpssGrp], 0x500A);
@@ -209,7 +229,7 @@ HI_MPI_VPSS_ResetGrp(VPSS_GRP VpssGrp)
 {
     if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
         return ERR_VPSS_INVALID_DEVID;
-    if ( MKPI_VPSS_CheckGrpOpen(VpssGrp) )
+    if ( MPI_VPSS_CheckGrpOpen(VpssGrp) )
         return ERR_VPSS_NOTREADY;
     return ioctl(g_s32VpssGrpFd[VpssGrp], 0x5004);
 }
@@ -343,6 +363,17 @@ HI_MPI_VPSS_ReleaseGrpFrame(
     data.s32MilliSec = VpssGrpPipe;
     data.pstVideoFrame = (VIDEO_FRAME_INFO_S *)pstVideoFrame;
     return ioctl(g_s32VpssGrpFd[VpssGrp], 0x400C5011, &data);
+}
+
+
+HI_S32
+HI_MPI_VPSS_StopGrp(VPSS_GRP VpssGrp)
+{
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( MPI_VPSS_CheckGrpOpen(VpssGrp) )
+        return ERR_VPSS_NOTREADY;
+    return ioctl(g_s32VpssGrpFd[VpssGrp], 0x5003);
 }
 
 
@@ -1394,21 +1425,222 @@ HI_MPI_VPSS_CloseFd(HI_VOID)
         for (j = 0; j < 11; j++) {
             fd = &g_s32VpssChnFd[11 * i + j];
             if (*fd < 0) continue;
-            if ( close(fd) ) {
+            if ( close(*fd) ) {
                 result = ERR_VPSS_BUSY;
                 perror("Close Vpss Channel Fail");
             }
+            *fd = -1;
         }
         fd = &g_s32VpssGrpFd[i];
         if (*fd < 0) continue;
-        if ( close(fd) ) {
+        if ( close(*fd) ) {
             result = ERR_VPSS_BUSY;
             perror("Close Vpss Group Fail");
         }
+        *fd = -1;
     }
 
     pthread_mutex_unlock(&s_VpssMutex);
     return result;
+}
+
+
+HI_S32
+HI_MPI_VPSS_EnableBufferShare(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn)
+{
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)VpssChn > 0xA && MPI_VPSS_CheckChnId(VpssChn) )
+        return ERR_VPSS_INVALID_CHNID;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+    return ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x502D);
+}
+
+
+HI_S32
+HI_MPI_VPSS_DisableBufferShare(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn)
+{
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)VpssChn > 0xA && MPI_VPSS_CheckChnId(VpssChn) )
+        return ERR_VPSS_INVALID_CHNID;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+    return ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x502E);
+}
+
+
+HI_S32
+HI_MPI_VPSS_SetChnProcMode(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn,
+    VPSS_CHN_PROC_MODE_E enVpssChnProcMode)
+{
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)VpssChn > 0xA && MPI_VPSS_CheckChnId(VpssChn) )
+        return ERR_VPSS_INVALID_CHNID;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+    return ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x4004502F, &enVpssChnProcMode);
+}
+
+
+HI_S32
+HI_MPI_VPSS_GetChnProcMode(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn,
+    VPSS_CHN_PROC_MODE_E *penVpssChnProcMode)
+{
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)VpssChn > 0xA && MPI_VPSS_CheckChnId(VpssChn) )
+        return ERR_VPSS_INVALID_CHNID;
+    if ( !penVpssChnProcMode && MPI_VPSS_CheckNullPtr() )
+        return ERR_VPSS_NULL_PTR;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+    return ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x80045030, penVpssChnProcMode);
+}
+
+
+static HI_S32
+mpi_vpss_check_fisheye_region_index(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn,
+    HI_U32 u32RegionIndex)
+{
+    HI_S32 result;
+    FISHEYE_ATTR_S stFisheyeAttr;
+
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)VpssChn > 0xA && MPI_VPSS_CheckChnId(VpssChn) )
+        return ERR_VPSS_INVALID_CHNID;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+
+    result = ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x80D85022, &stFisheyeAttr);
+    if ( result ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d get fisheye attr fail!\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn);
+        return result;
+    }
+
+    if ( !stFisheyeAttr.bEnable ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d fisheye not enable!\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn);
+        return ERR_VPSS_NOT_PERM;
+    }
+
+    if ( stFisheyeAttr.u32RegionNum <= u32RegionIndex ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d fisheye correction region num:%d is invalid\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn, u32RegionIndex);
+        return ERR_VPSS_ILLEGAL_PARAM;
+    }
+
+    return HI_SUCCESS;
+}
+
+
+static HI_S32
+hi_mpi_vpss_fisheye_pos_query_dst2_src(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn,
+    HI_U32 u32RegionIndex,
+    const POINT_S *pstDstPointIn,
+    POINT_S *pstSrcPointOut)
+{
+    HI_S32 result;
+    GDC_FISHEYE_POS_QUERY_S data;
+    GDC_PTQRY_CFG_S stCfg;
+    POINT_S stDstPointIn;
+    POINT_S stSrcPointOut;
+    HI_BOOL bOutOfBounds = HI_FALSE;
+
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpId(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( (unsigned int)(VpssChn - 3) > 7 ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:chn id %d is invalid\r\n",
+            __FUNCTION__, __LINE__, VpssChn);
+        return ERR_VPSS_INVALID_CHNID;
+    }
+    if ( !pstDstPointIn && MPI_VPSS_CheckNullPtr() )
+        return ERR_VPSS_NULL_PTR;
+    if ( !pstSrcPointOut && MPI_VPSS_CheckNullPtr() )
+        return ERR_VPSS_NULL_PTR;
+
+    memset_s(&data, sizeof(data), 0, sizeof(data));
+
+    result = mpi_vpss_check_fisheye_region_index(VpssGrp, VpssChn, u32RegionIndex);
+    if ( result )
+        return result;
+
+    if ( (unsigned int)VpssGrp > 0xF && MPI_VPSS_CheckGrpOpen(VpssGrp) )
+        return ERR_VPSS_INVALID_DEVID;
+    if ( MPI_VPSS_CheckChnOpen(VpssGrp, VpssChn) )
+        return ERR_VPSS_NOTREADY;
+
+    result = ioctl(g_s32VpssChnFd[11 * VpssGrp + VpssChn], 0x8F205023, &data);
+    if ( result ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d get fisheye drv attr fail!\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn);
+        return result;
+    }
+
+    memcpy_s(&stDstPointIn, sizeof(POINT_S), pstDstPointIn, sizeof(POINT_S));
+    memcpy_s(&stSrcPointOut, sizeof(POINT_S), pstSrcPointOut, sizeof(POINT_S));
+    gdc_fisheye_point_query_conver(&stCfg, &data, u32RegionIndex);
+    result = gdc_point_query(&stCfg, &stDstPointIn, &stSrcPointOut, &bOutOfBounds);
+
+    if ( result ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d point query failed!\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn);
+        return ERR_VPSS_ILLEGAL_PARAM;
+    }
+
+    if ( bOutOfBounds == HI_TRUE ) {
+        fprintf(
+            (FILE *)stderr,
+            "[Func]:%s [Line]:%d [Info]:Grp %d chn %d point(%d,%d) out of range!\r\n",
+            __FUNCTION__, __LINE__, VpssGrp, VpssChn,
+            pstDstPointIn->s32X, pstDstPointIn->s32Y);
+        return ERR_VPSS_ILLEGAL_PARAM;
+    }
+
+    memcpy_s(pstSrcPointOut, sizeof(POINT_S), &stSrcPointOut, sizeof(POINT_S));
+    return HI_SUCCESS;
+}
+
+
+HI_S32
+HI_MPI_VPSS_FisheyePosQueryDst2Src(
+    VPSS_GRP VpssGrp,
+    VPSS_CHN VpssChn,
+    HI_U32 u32RegionIndex,
+    const POINT_S *pstDstPointIn,
+    POINT_S *pstSrcPointOut)
+{
+    return hi_mpi_vpss_fisheye_pos_query_dst2_src(
+        VpssGrp, VpssChn, u32RegionIndex,
+        pstDstPointIn, pstSrcPointOut);
 }
 
 
