@@ -19,7 +19,7 @@ SET(MPI_FILES
     "mpi/hiisp_gdc_fw_user.c"
     # mpi/mpi_adec.c
     # mpi/mpi_aenc.c
-    # mpi/mpi_ai.c
+    "mpi/mpi_ai.c"
     "mpi/mpi_ao.c"
     "mpi/mpi_audio.c"
     "mpi/mpi_bind.c"

@@ -6,15 +6,15 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | | Vendor | Ours |
 |---|---|---|
-| Static lib (.a) | 743K (stripped) | ~340K (with debug) |
-| Shared lib (.so) | 355K (stripped) | ~290K (with debug) |
-| Object files | 25 | 15 |
-| Exported symbols | 782 | 501 |
-| Shared symbols | 419 | 419 |
-| Our-only symbols (internal) | — | ~82 |
-| Vendor-only symbols | 363 | — |
+| Static lib (.a) | 743K (stripped) | 342K (with debug) |
+| Shared lib (.so) | 355K (stripped) | 314K (with debug) |
+| Object files | 25 | 16 |
+| Exported symbols | 782 | 543 |
+| Shared symbols | 456 | 456 |
+| Our-only symbols (internal) | — | ~87 |
+| Vendor-only symbols | 326 | — |
 
-## Per-Module API Coverage (419/782 shared — 54%)
+## Per-Module API Coverage (456/782 shared — 58%)
 
 ### Fully implemented (in build)
 
@@ -31,11 +31,8 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 | mpi_log | 5 | 5 | 5/5 (100%) |
 | mpi_audio | 3 | 3 | 3/3 (100%) |
 
-### Nearly complete (in build)
-
-| Module | Vendor symbols | Our symbols | Coverage | Missing |
-|--------|---------------|-------------|----------|---------|
-| mpi_ao | 30 | 30 | 30/30 (100%) | — |
+| mpi_ao | 30 | 30 | 30/30 (100%) |
+| mpi_ai | 37 | 37 | 37/37 (100%) |
 
 ### Also in build (support files)
 
@@ -50,7 +47,6 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 | Module | Vendor .o | Symbols | Source exists in repo? |
 |--------|-----------|---------|----------------------|
 | mpi_vo | mpi_vo.o | 91 | yes — mpi_vo.c (commented out, unverified) |
-| mpi_ai | mpi_ai_adapt.o | 34 | yes — mpi_ai.c (commented out, has TODO) |
 | mpi_vdec | mpi_vdec.o | 32 | yes — mpi_vdec.c (commented out, unverified) |
 | mpi_vgs | mpi_vgs.o | 12 | yes — mpi_vgs.c (commented out, unverified) |
 | mpi_adec | mpi_adec_adapt.o | 11 | yes — mpi_adec.c (commented out) |

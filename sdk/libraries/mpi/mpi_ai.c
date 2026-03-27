@@ -4,8 +4,11 @@
 
 #include "re_mpi_ai.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
 #include <pthread.h>
 
 #ifndef RE_DBG_LVL
@@ -29,6 +32,10 @@ HI_BOOL s_ai_init = HI_FALSE;
 // ============================================================================
 
 extern HI_S32 HI_UPVQE_GetVolume(HI_VOID* pHandle, HI_S32 *ps32VolumeDb);
+extern HI_S32 HI_UPVQE_SetVolume(HI_VOID* pHandle, HI_S32 s32VolumeDb);
+extern HI_S32 HI_UPVQE_Create(HI_VOID **ppHandle, HI_VOID *pstConfig);
+extern HI_S32 HI_UPVQE_Destroy(HI_VOID **ppHandle);
+extern HI_S32 HI_UPVQE_GetConfig(HI_VOID *pHandle, HI_VOID *pstConfig);
 
 // -- file: mpi_vb.c --
 extern HI_S32 HI_MPI_VB_MmapPool(VB_POOL Pool);
@@ -37,7 +44,14 @@ extern HI_S32 HI_MPI_VB_GetBlockVirAddr(VB_POOL Pool, HI_U64 u64PhyAddr, HI_VOID
 
 // ============================================================================
 
-// ai_compare_agc_attr
+HI_S32
+ai_compare_agc_attr(
+    const AUDIO_AGC_CONFIG_S *pstAgcCfg1,
+    const AUDIO_AGC_CONFIG_S *pstAgcCfg2)
+{
+    /* TODO: implement from vendor .S lines 413-452 */
+    return memcmp(pstAgcCfg1, pstAgcCfg2, sizeof(AUDIO_AGC_CONFIG_S));
+}
 
 HI_S32
 ai_check_open(AI_CHN AiChn)
@@ -65,13 +79,59 @@ ai_check_open(AI_CHN AiChn)
     return HI_SUCCESS;
 }
 
-// mpi_ai_set_acodec_gain
+static HI_S32
+mpi_ai_set_acodec_gain(HI_S32 s32Gain)
+{
+    HI_S32 result;
+    result = ai_check_open(0);
+    if ( result != HI_SUCCESS ) return result;
+    return ioctl(g_ai_fd[0], 0x40045A1E, &s32Gain);
+}
 
-// hi_mpi_ai_query_file_status
+static HI_S32
+hi_mpi_ai_query_file_status(AUDIO_DEV AiDevId, AI_CHN AiChn, AUDIO_FILE_STATUS_S *pstFileStatus)
+{
+    HI_S32 result;
+    AUDIO_FILE_STATUS_S stStatus;
 
-// hi_mpi_ai_get_record_vqe_attr
+    if ( AiDevId != 0 ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai dev %d is invalid\n", AiDevId);
+        return HI_ERR_AI_INVALID_DEVID;
+    }
+    if ( AiChn >= MAX_CHN_COUNT ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai chnid %d is invalid\n", AiChn);
+        return HI_ERR_AI_INVALID_CHNID;
+    }
+    if ( pstFileStatus == HI_NULL )
+        return HI_ERR_AI_NULL_PTR;
 
-// hi_mpi_ai_get_talk_vqe_attr
+    result = ai_check_open(AiChn);
+    if ( result != HI_SUCCESS ) return result;
+
+    pthread_mutex_lock(&s_mpi_ai_chn_ctx[AiChn].mutex);
+    memset_s(&stStatus, sizeof(stStatus), 0, sizeof(stStatus));
+    result = ioctl(g_ai_fd[AiChn], 0x82085A1B, &stStatus);
+    if ( result == HI_SUCCESS )
+        memcpy_s(pstFileStatus, sizeof(AUDIO_FILE_STATUS_S), &stStatus, sizeof(AUDIO_FILE_STATUS_S));
+    pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
+    return result;
+}
+
+static HI_S32
+hi_mpi_ai_get_record_vqe_attr(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_RECORDVQE_CONFIG_S *pstVqeConfig)
+{
+    /* TODO: implement from vendor .S lines 5547-5847 */
+    (void)AiDevId; (void)AiChn; (void)pstVqeConfig;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+hi_mpi_ai_get_talk_vqe_attr(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_TALKVQE_CONFIG_S *pstVqeConfig)
+{
+    /* TODO: implement from vendor .S lines 7591-7846 */
+    (void)AiDevId; (void)AiChn; (void)pstVqeConfig;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
 
 HI_S32
 mpi_ai_set_resmp_dbg_info(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_RESMP_DBG_INFO_S *pstDbgInfo)
@@ -97,10 +157,51 @@ mpi_ai_set_resmp_dbg_info(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_RESMP_DBG_INFO_S *
     return ioctl(g_ai_fd[AiChn], IOC_AI_SET_RESMP_DBG_INFO, pstDbgInfo);
 }
 
-// mpi_ai_set_vqe_dbg_info
+static HI_S32
+mpi_ai_set_vqe_dbg_info(AUDIO_DEV AiDevId, AI_CHN AiChn, HI_VOID *pstDbgInfo)
+{
+    HI_S32 result;
 
-HI_VOID* // TODO
-mpi_ai_chn_get_frm_proc(HI_VOID* arg) { }
+    if ( AiDevId != 0 ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai dev %d is invalid\n", AiDevId);
+        return HI_ERR_AI_INVALID_DEVID;
+    }
+    if ( AiChn >= MAX_CHN_COUNT ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai chnid %d is invalid\n", AiChn);
+        return HI_ERR_AI_INVALID_CHNID;
+    }
+    if ( pstDbgInfo == HI_NULL )
+        return HI_ERR_AI_NULL_PTR;
+
+    result = ai_check_open(AiChn);
+    if ( result != HI_SUCCESS ) return result;
+
+    /* TODO: ioctl 0x5A13 with vqe debug info struct */
+    return HI_SUCCESS;
+}
+
+static HI_S32
+mpi_ai_get_vqe_attr(AI_CHN AiChn, HI_VOID *pstConfig)
+{
+    /* TODO: implement from vendor .S lines 860-1024 */
+    (void)AiChn; (void)pstConfig;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+HI_VOID*
+mpi_ai_chn_get_frm_proc(HI_VOID* arg)
+{
+    AI_CHN_CTX_S *pstAiChn = (AI_CHN_CTX_S*)arg;
+    if ( pstAiChn == HI_NULL )
+        return HI_NULL;
+    /* TODO: implement from vendor .S lines 1519-2776
+     * Full implementation: prctl thread name, loop getting frames via
+     * ioctl 0x5A08, VQE processing, file dump, ioctl 0x5A20 put back */
+    while ( pstAiChn->bHasFrmProc ) {
+        usleep(10000);
+    }
+    return HI_NULL;
+}
 
 HI_S32
 mpi_ai_init()
@@ -349,7 +450,7 @@ HI_MPI_AI_EnableChn(AUDIO_DEV AiDevId, AI_CHN AiChn)
         return result;
     }
 
-    s_mpi_ai_chn_ctx[AiChn].pu8CachBuff = (int)malloc(CACHE_BUF_SIZE);
+    s_mpi_ai_chn_ctx[AiChn].pu8CachBuff = (HI_U8*)malloc(CACHE_BUF_SIZE);
     if ( s_mpi_ai_chn_ctx[AiChn].pu8CachBuff == HI_NULL ) {
         pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
         HI_TRACE_AI(RE_DBG_LVL, "ai chn malloc cachbuff err.\n");
@@ -379,6 +480,76 @@ HI_MPI_AI_EnableChn(AUDIO_DEV AiDevId, AI_CHN AiChn)
     s_mpi_ai_chn_ctx[AiChn].bEnabled = HI_TRUE;
     pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
     return HI_SUCCESS;
+}
+
+static HI_S32
+mpi_ai_enable_resmp(AI_CHN AiChn, AI_RESMP_S *pstResmp)
+{
+    /* TODO: implement from vendor .S lines 1032-1216 */
+    (void)AiChn; (void)pstResmp;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+mpi_ai_disable_resmp(AI_CHN AiChn)
+{
+    /* TODO: implement from vendor .S lines 1340-1511 */
+    (void)AiChn;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+hi_mpi_ai_disable_chn(AUDIO_DEV AiDevId, AI_CHN AiChn)
+{
+    HI_S32 result;
+
+    if ( AiDevId != 0 ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai dev %d is invalid\n", AiDevId);
+        return HI_ERR_AI_INVALID_DEVID;
+    }
+    if ( AiChn >= MAX_CHN_COUNT ) {
+        HI_TRACE_AI(RE_DBG_LVL, "ai chnid %d is invalid\n", AiChn);
+        return HI_ERR_AI_INVALID_CHNID;
+    }
+
+    result = ai_check_open(AiChn);
+    if ( result != HI_SUCCESS ) return result;
+
+    pthread_mutex_lock(&s_mpi_ai_chn_ctx[AiChn].mutex);
+
+    if ( !s_mpi_ai_chn_ctx[AiChn].bEnabled ) {
+        pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
+        return HI_ERR_AI_NOT_ENABLED;
+    }
+
+    mpi_ai_destroy_get_frm_proc(AiChn);
+
+    if ( s_mpi_ai_chn_ctx[AiChn].bResmpEnabled )
+        mpi_ai_disable_resmp(AiChn);
+
+    if ( s_mpi_ai_chn_ctx[AiChn].pUpvqeHandle != HI_NULL ) {
+        HI_UPVQE_Destroy(&s_mpi_ai_chn_ctx[AiChn].pUpvqeHandle);
+        s_mpi_ai_chn_ctx[AiChn].pUpvqeHandle = HI_NULL;
+    }
+
+    s_mpi_ai_chn_ctx[AiChn].bVqeEnabled = HI_FALSE;
+    s_mpi_ai_chn_ctx[AiChn].bEnabled    = HI_FALSE;
+    s_mpi_ai_chn_ctx[AiChn].field_20    = HI_FALSE;
+
+    if ( s_mpi_ai_chn_ctx[AiChn].pu8CachBuff != HI_NULL ) {
+        free(s_mpi_ai_chn_ctx[AiChn].pu8CachBuff);
+        s_mpi_ai_chn_ctx[AiChn].pu8CachBuff = HI_NULL;
+    }
+
+    result = ioctl(g_ai_fd[AiChn], 0x00005A0D);
+
+    if ( s_mpi_ai_chn_ctx[AiChn].bAecRefFrameEnabled ) {
+        ioctl(g_ai_fd[AiChn], IOC_AI_DISABLE_AEC_REF_FRAME);
+        s_mpi_ai_chn_ctx[AiChn].bAecRefFrameEnabled = HI_FALSE;
+    }
+
+    pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
+    return result;
 }
 
 HI_S32
@@ -556,6 +727,44 @@ HI_MPI_AI_DisableReSmp(AUDIO_DEV AiDevId, AI_CHN AiChn)
     pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
 
     return HI_SUCCESS;
+}
+
+static HI_S32
+hi_mpi_ai_set_record_vqe_attr(AUDIO_DEV AiDevId, AI_CHN AiChn, const AI_RECORDVQE_CONFIG_S *pstVqeConfig)
+{
+    /* TODO: implement from vendor .S lines 3895-5539 (1644 lines)
+     * Extensive parameter validation (HPF, AGC, DRC, HDR, RNR, EQ),
+     * then HI_UPVQE_Create with record config */
+    (void)AiDevId; (void)AiChn; (void)pstVqeConfig;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+hi_mpi_ai_set_talk_vqe_attr(AUDIO_DEV AiDevId, AI_CHN AiChn, AUDIO_DEV AoDevId, AO_CHN AoChn, const AI_TALKVQE_CONFIG_S *pstVqeConfig)
+{
+    /* TODO: implement from vendor .S lines 5855-7583 (1728 lines)
+     * Validates AEC, ANR, HPF, AGC, EQ parameters,
+     * then HI_UPVQE_Create with talk config */
+    (void)AiDevId; (void)AiChn; (void)AoDevId; (void)AoChn; (void)pstVqeConfig;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+hi_mpi_ai_enable_vqe(AUDIO_DEV AiDevId, AI_CHN AiChn)
+{
+    /* TODO: implement from vendor .S lines 7854-8355 (501 lines)
+     * Validate sample rates, AEC init ioctl, set debug info */
+    (void)AiDevId; (void)AiChn;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+static HI_S32
+hi_mpi_ai_disable_vqe(AUDIO_DEV AiDevId, AI_CHN AiChn)
+{
+    /* TODO: implement from vendor .S lines 8363-8594 (231 lines)
+     * Destroys UPVQE, clears VQE state, AEC disable ioctl */
+    (void)AiDevId; (void)AiChn;
+    return HI_ERR_AI_NOT_SUPPORT;
 }
 
 HI_S32
@@ -999,6 +1208,35 @@ HI_MPI_AI_GetVqeVolume(AUDIO_DEV AiDevId, AO_CHN AiChn, HI_S32 *ps32VolumeDb)
 
     pthread_mutex_unlock(&s_mpi_ai_chn_ctx[AiChn].mutex);
     return HI_SUCCESS;
+}
+
+HI_S32
+HI_MPI_AI_SetChnAttr(AUDIO_DEV AiDevId, AI_CHN AiChn, const AI_CHN_PARAM_S *pstChnParam)
+{
+    /* TODO: implement from vendor mpi_ai_adapt.o SetChnAttr (~0x350 bytes)
+     * This is an "adapt" function not present in the core mpi_ai.S */
+    (void)AiDevId; (void)AiChn; (void)pstChnParam;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+HI_S32
+HI_MPI_AI_GetChnAttr(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_CHN_PARAM_S *pstChnParam)
+{
+    /* TODO: implement from vendor mpi_ai_adapt.o GetChnAttr (~0x210 bytes) */
+    (void)AiDevId; (void)AiChn; (void)pstChnParam;
+    return HI_ERR_AI_NOT_SUPPORT;
+}
+
+HI_S32
+HI_MPI_AI_SetTalkVqeV2Attr(AUDIO_DEV AiDevId, AI_CHN AiChn, AUDIO_DEV AoDevId, AO_CHN AoChn, const AI_TALKVQE_CONFIG_S *pstVqeConfig)
+{
+    return hi_mpi_ai_set_talk_vqe_attr(AiDevId, AiChn, AoDevId, AoChn, pstVqeConfig);
+}
+
+HI_S32
+HI_MPI_AI_GetTalkVqeV2Attr(AUDIO_DEV AiDevId, AI_CHN AiChn, AI_TALKVQE_CONFIG_S *pstVqeConfig)
+{
+    return hi_mpi_ai_get_talk_vqe_attr(AiDevId, AiChn, pstVqeConfig);
 }
 
 HI_S32
