@@ -3,7 +3,11 @@
  */
 
 #include <pthread.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 
+#include "re_mpi_vgs.h"
 #include "re_mpi_comm.h"
 #include "re_mpi_vb.h"
 
@@ -55,19 +59,19 @@ HI_MPI_VGS_AddScaleTask(
 
     switch (enScaleCoefMode) {
     case VGS_SCLCOEF_NORMAL:
-        data.u32Data2 = VGS_SCLCOEF_NORMAL;
+        data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_NORMAL;
         goto end;
 
     case VGS_SCLCOEF_TAP4:
-        data.u32Data2 = VGS_SCLCOEF_TAP4;
+        data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP4;
         goto end;
 
     case VGS_SCLCOEF_TAP6:
-        data.u32Data2 = VGS_SCLCOEF_TAP6;
+        data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP6;
         goto end;
 
     case VGS_SCLCOEF_TAP8:
-        data.u32Data2 = VGS_SCLCOEF_TAP8;
+        data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP8;
     end:
         memcpy_s(
             &data.stTask,
@@ -110,8 +114,8 @@ HI_MPI_VGS_AddDrawLineTask(
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg   = (void*)pstVgsDrawLine;
-    data.u32Data2 = VGS_SCLCOEF_TAP2;
+    data.pstCfg.pstVgsDrawLine   = (VGS_DRAW_LINE_S*)pstVgsDrawLine;
+    data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP2;
     return ioctl(g_device_id, 0x42D84A04u, &data);
 }
 
@@ -135,8 +139,8 @@ HI_MPI_VGS_AddCoverTask(
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg   = (void*)pstVgsAddCover;
-    data.u32Data2 = VGS_SCLCOEF_TAP2;
+    data.pstCfg.pstVgsAddCover    = (VGS_ADD_COVER_S*)pstVgsAddCover;
+    data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP2;
     return ioctl(g_device_id, 0x42D84A05u, &data);
 }
 
@@ -160,8 +164,8 @@ HI_MPI_VGS_AddOsdTask(
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg   = (void*)pstVgsAddOsd;
-    data.u32Data2 = VGS_SCLCOEF_TAP2;
+    data.pstCfg.pstVgsAddOsd      = (VGS_ADD_OSD_S*)pstVgsAddOsd;
+    data.u32Data2.enScaleCoefMode = VGS_SCLCOEF_TAP2;
     return ioctl(g_device_id, 0x42D84A06u, &data);
 }
 
@@ -180,14 +184,14 @@ HI_MPI_VGS_AddDrawLineTaskArray(
         !astVgsDrawLine && vgs_check_null_ptr())
         return ERR_VGS_NULL_PTR;
 
-    data.hHandle  = hHandle;
-    data.u32Data2 = u32ArraySize;
+    data.hHandle              = hHandle;
+    data.u32Data2.u32ArraySize = u32ArraySize;
     memcpy_s(
         &data.stTask,
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg = (void*)astVgsDrawLine;
+    data.pstCfg.pstVgsDrawLine = (VGS_DRAW_LINE_S*)astVgsDrawLine;
     return ioctl(g_device_id, 0x42D84A07u, &data);
 }
 
@@ -206,14 +210,14 @@ HI_MPI_VGS_AddCoverTaskArray(
         !astVgsAddCover && vgs_check_null_ptr())
         return ERR_VGS_NULL_PTR;
 
-    data.hHandle  = hHandle;
-    data.u32Data2 = u32ArraySize;
+    data.hHandle              = hHandle;
+    data.u32Data2.u32ArraySize = u32ArraySize;
     memcpy_s(
         &data.stTask,
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg = (void*)astVgsAddCover;
+    data.pstCfg.pstVgsAddCover = (VGS_ADD_COVER_S*)astVgsAddCover;
     return ioctl(g_device_id, 0x42D84A08u, &data);
 }
 
@@ -232,14 +236,14 @@ HI_MPI_VGS_AddOsdTaskArray(
         !astVgsAddOsd && vgs_check_null_ptr())
         return ERR_VGS_NULL_PTR;
 
-    data.hHandle  = hHandle;
-    data.u32Data2 = u32ArraySize;
+    data.hHandle              = hHandle;
+    data.u32Data2.u32ArraySize = u32ArraySize;
     memcpy_s(
         &data.stTask,
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.pstCfg = (void*)astVgsAddOsd;
+    data.pstCfg.pstVgsAddOsd = (VGS_ADD_OSD_S*)astVgsAddOsd;
     return ioctl(g_device_id, 0x42D84A09u, &data);
 }
 
@@ -261,7 +265,7 @@ HI_MPI_VGS_AddRotationTask(
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.u32Data2 = enRotationAngle;
+    data.u32Data2.enRotationAngle = enRotationAngle;
     return ioctl(g_device_id, 0x42D84A0Au, &data);
 }
 
@@ -288,9 +292,9 @@ HI_MPI_VGS_AddLumaTaskArray(
         sizeof(VGS_TASK_ATTR_S),
         pstTask,
         sizeof(VGS_TASK_ATTR_S));
-    data.u32Data1 = u32ArraySize;
-    data.u32Data2 = (VGS_SCLCOEF_MODE_E)astVgsLumaRect;
-    data.pstCfg   = au64LumaData;
+    data.u32Data1.u32ArraySize    = u32ArraySize;
+    data.u32Data2.astVgsLumaRect  = (RECT_S*)astVgsLumaRect;
+    data.pstCfg.au64LumaData      = au64LumaData;
     return ioctl(g_device_id, 0xC2D84A0B, &data);
 }
 

@@ -5,6 +5,9 @@
 #include "re_mpi_vo.h"
 #include "re_mpi_comm.h"
 #include <pthread.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 
 pthread_mutex_t s_vo_mutex;
 HI_S32 g_gfx_fd[1] = { -1 };
