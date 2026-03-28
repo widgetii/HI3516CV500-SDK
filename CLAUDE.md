@@ -87,7 +87,7 @@ The only fully buildable artifact. These files are enabled in `sdk/libraries/CMa
 - `mpi/hiisp_gdc_fw_pointquery.c`, `mpi/hiisp_gdc_fw_user.c`
 - `mpi/mpi_ai.c`, `mpi/mpi_ao.c`, `mpi/mpi_audio.c`, `mpi/mpi_bind.c`
 - `mpi/mpi_gdc.c`, `mpi/mpi_region.c`, `mpi/mpi_sys.c`, `mpi/mpi_vb.c`
-- `mpi/mpi_venc.c`, `mpi/mpi_vgs.c`, `mpi/mpi_vi.c`, `mpi/mpi_vo.c`, `mpi/mpi_vpss.c`
+- `mpi/mpi_vdec.c`, `mpi/mpi_venc.c`, `mpi/mpi_vgs.c`, `mpi/mpi_vi.c`, `mpi/mpi_vo.c`, `mpi/mpi_vpss.c`
 
 Three modules (`mpi_ao`, `mpi_sys`, `mpi_bind`) are the strongest completions — their `.S` assembly files were deliberately deleted after C replacements were written. This assembly-to-C conversion pattern is the core development methodology.
 
