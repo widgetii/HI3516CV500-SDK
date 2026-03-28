@@ -99,10 +99,10 @@ typedef struct hiAST_VQE_STATE_S { // (sizeof=0x28)
 #define IOC_AI_GET_POOL_ID           _IOW( IOC_TYPE_AI, 0x05, VB_POOL               ) /* 0x80045A05u */
 #define IOC_AI_GET_CHN_PARAM         _IOW( IOC_TYPE_AI, 0x06, AI_CHN_PARAM_S        ) /* 0x80045A06u */
 #define IOC_AI_SET_CHN_PARAM         _IOR( IOC_TYPE_AI, 0x07, AI_CHN_PARAM_S        ) /* 0x40045A07u */
-// 0x08
+#define IOC_AI_GET_FRM_PROC          _IOWR(IOC_TYPE_AI, 0x08, AI_FRAME_INFO_EX_S    ) /* 0xC0885A08u */
 #define IOC_AI_RELEASE_FRAME         _IOR( IOC_TYPE_AI, 0x09, AI_FRAME_INFO_S       ) /* 0x40805A09u */
-// 0x0A
-// 0x0B
+#define IOC_AI_VQE_ENABLE            _IOR( IOC_TYPE_AI, 0x0A, AI_DEV_ID_S           ) /* 0x40085A0Au */
+#define IOC_AI_VQE_DISABLE           _IO(  IOC_TYPE_AI, 0x0B                        ) /* 0x00005A0Bu */
 #define IOC_AI_ENABLE_CHN            _IO(  IOC_TYPE_AI, 0x0C                        ) /* 0x00005A0Cu */
 // 0x0D
 // 0x0E
@@ -110,7 +110,11 @@ typedef struct hiAST_VQE_STATE_S { // (sizeof=0x28)
 // 0x10
 // 0x11
 #define IOC_AI_SET_RESMP_DBG_INFO    _IOR( IOC_TYPE_AI, 0x12, AI_RESMP_DBG_INFO_S   ) /* 0x40105A12u */
-// 0x13
+/* VQE debug info is 320 bytes (0x140) — the full VQE config passed to kernel for debug */
+typedef struct hiAI_VQE_DBG_INFO_S { // (sizeof=0x140)
+    HI_U8 data[320];
+} AI_VQE_DBG_INFO_S;
+#define IOC_AI_SET_VQE_DBG_INFO      _IOR( IOC_TYPE_AI, 0x13, AI_VQE_DBG_INFO_S    ) /* 0x41405A13u */
 #define IOC_AI_SET_VQE_VOLUME        _IOR( IOC_TYPE_AI, 0x14, HI_S32                ) /* 0x40045A14u */
 #define IOC_AI_SET_TRACK_MODE        _IOR( IOC_TYPE_AI, 0x15, AUDIO_TRACK_MODE_E    ) /* 0x40045A15u */
 #define IOC_AI_GET_TRACK_MODE        _IOW( IOC_TYPE_AI, 0x16, AUDIO_TRACK_MODE_E    ) /* 0x80045A16u */
@@ -123,7 +127,7 @@ typedef struct hiAST_VQE_STATE_S { // (sizeof=0x28)
 #define IOC_AI_DISABLE_AEC_REF_FRAME _IO(  IOC_TYPE_AI, 0x1D                        ) /* 0x00005A1Du */
 // 0x1E
 // 0x1F
-// 0x20
+#define IOC_AI_PUT_FRM_PROC          _IOWR(IOC_TYPE_AI, 0x20, AI_FRAME_INFO_S       ) /* 0xC0805A20u */
 #define IOC_AI_GET_FRAME             _IOWR(IOC_TYPE_AI, 0x21, AI_FRAME_INFO_EX_S    ) /* 0xC0885A21u */
 
 #endif

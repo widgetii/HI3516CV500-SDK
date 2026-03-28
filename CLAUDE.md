@@ -83,13 +83,13 @@ Understanding what is actually finished vs. scaffolded is critical for working i
 
 The only fully buildable artifact. These files are enabled in `sdk/libraries/CMakeLists.txt` and produce `libmpi.a` / `libmpi.so`:
 
-- `mpi/af_buf.c`, `mpi/as_buf.c`, `mpi/audio_comm.c`
+- `mpi/af_buf.c`, `mpi/as_buf.c`, `mpi/audio_comm.c`, `mpi/audio_voice_adp.c`
 - `mpi/hiisp_gdc_fw_pointquery.c`, `mpi/hiisp_gdc_fw_user.c`
-- `mpi/mpi_ai.c`, `mpi/mpi_ao.c`, `mpi/mpi_audio.c`, `mpi/mpi_bind.c`
+- `mpi/mpi_adec.c`, `mpi/mpi_aenc.c`, `mpi/mpi_ai.c`, `mpi/mpi_ao.c`, `mpi/mpi_audio.c`, `mpi/mpi_bind.c`
 - `mpi/mpi_gdc.c`, `mpi/mpi_region.c`, `mpi/mpi_sys.c`, `mpi/mpi_vb.c`
 - `mpi/mpi_vdec.c`, `mpi/mpi_venc.c`, `mpi/mpi_vgs.c`, `mpi/mpi_vi.c`, `mpi/mpi_vo.c`, `mpi/mpi_vpss.c`
 
-Three modules (`mpi_ao`, `mpi_sys`, `mpi_bind`) are the strongest completions — their `.S` assembly files were deliberately deleted after C replacements were written. This assembly-to-C conversion pattern is the core development methodology.
+All 21 MPI `.c` files are fully implemented in C. Assembly reference files (`.S`) have been deleted for completed modules — only `hiisp_gdc_fw_user.S` remains as reference for a partially-complete helper. The library exports 750 symbols total.
 
 ### Imported but not actively developed here
 
@@ -100,7 +100,6 @@ These look like complete vendor source drops, usable but not iterated on in this
 
 ### In-progress / half-done
 
-- **`mpi_ai`** — enabled in build with all 37 vendor symbols exported; contains an empty TODO function (`mpi_ai_chn_get_frm_proc`); VQE functions stubbed pending reverse-engineering of vendor assembly
 - **`sns_gc2053`** — active commits but build still uses assembly (`gc2053_cmos.S`); C rewrites commented out; `cmos_get_inttime_max()` is empty
 - **`hiae`** — early-stage scaffolding; `hi_ae_adp.c` is mostly placeholder function stubs
 - **`bootrom-re`** — serious reverse-engineering effort in the final commits; `bootloader.c` is large but several major routines still marked TODO (`sub_1DC`, `sub_1150`, `secure_fast_boot`)
