@@ -6,8 +6,12 @@
 #include "hi_comm_aio.h"
 #include "re_dnvqe_comm.h"
 #include "re_dnvqe_audio_module_wrap.h"
+#include "re_dnvqe_resampler_work.h"
 #include "dnvqe_errno.h"
+#include "securec.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 HI_S32
 RES_ReSampler_Create(
@@ -33,7 +37,7 @@ RES_ReSampler_Create(
     }
     memset_s(resampler, sizeof(DNVQE_RESAMPLER_S), 0, sizeof(DNVQE_RESAMPLER_S));
 
-    // load libhive_RES.so
+    /* load libhive_RES.so */
     result = MODULE_HI_Audio_ModuleHandleInit(&resampler->hResampler, "hive", "RES");
     if ( result ) {
         fputs("Resample Module Init Fail!\n", stderr);
@@ -139,7 +143,7 @@ RES_ReSampler_Destory(DNVQE_RESAMPLER_S *pstReSampler)
 HI_S32
 RES_ReSampler_GetInputNum(
     DNVQE_RESAMPLER_S *pstReSampler,
-    HI_S32 a2, // TODO
+    HI_S32 s32OutSamps,
     DNVQE_RESAMPLER_TYPE_E enReSamplerType)
 {
     HI_S32 result;
@@ -148,11 +152,225 @@ RES_ReSampler_GetInputNum(
 
     if ( enReSamplerType != DNVQE_RESAMPLER_TYPE_RESAMPLER ) return 0;
 
-    result = pstReSampler->enInRate * (a2 - pstReSampler->field_14) / pstReSampler->enOutRate;
+    result = pstReSampler->enInRate * (s32OutSamps - pstReSampler->field_14) / pstReSampler->enOutRate;
     if ( pstReSampler->field_0 == 0 ) result++;
 
     return result;
 }
 
 
-// RES_ReSampler_ProcessFrame
+HI_S32
+RES_ReSampler_ProcessFrame(
+    DNVQE_RESAMPLER_S *pstReSampler,
+    HI_S16 *pS16OutBuf,
+    HI_S16 *pS16InBuf,
+    HI_S32 s32InSamps,
+    HI_S32 *pS32OutSamps,
+    DNVQE_RESAMPLER_TYPE_E enReSamplerType)
+{
+    HI_S32 s32Ret, s32Ret2;
+    HI_S32 s32Ratio, s32Remainder, s32Field14;
+    HI_S32 s32ReadSample, s32Excess;
+    HI_S32 s32InputBytes;
+    HI_S16 *pInPtr;
+    HI_VOID *hBase;
+    HI_CHAR inputAttr[20];
+    HI_CHAR outputAttr[20];
+
+    if ( pS16OutBuf == HI_NULL || pS16InBuf == HI_NULL || pstReSampler == HI_NULL )
+        return HI_FAILURE;
+
+    memset_s(inputAttr, 20, 0, 20);
+    memset_s(outputAttr, 20, 0, 20);
+
+    if ( enReSamplerType == DNVQE_RESAMPLER_TYPE_READ_CACHE ) {
+        /* --- READ_CACHE path --- */
+        s32Ratio = pstReSampler->field_0;
+        if ( s32Ratio == 0 )
+            goto read_cache_call;
+
+        s32Remainder = s32InSamps % s32Ratio;
+        s32Field14 = pstReSampler->field_14;
+
+        if ( s32Remainder == 0 && s32Field14 <= 0 )
+            goto read_cache_call;
+
+        /* Copy leftover samples from previous call into work buffer */
+        pInPtr = (HI_S16 *)&pstReSampler->field_1C;
+        if ( s32Field14 > 0 ) {
+            memcpy_s(pInPtr, s32Field14 * 2,
+                     pstReSampler->pS16ReadCacheBuf, s32Field14 * 2);
+        }
+
+        s32Remainder = (s32InSamps + s32Field14) % s32Ratio;
+
+        memcpy_s(pInPtr + s32Field14, (s32InSamps - s32Remainder) * 2,
+                 pS16InBuf, (s32InSamps - s32Remainder) * 2);
+
+        if ( s32Remainder != 0 ) {
+            memcpy_s(pstReSampler->pS16ReadCacheBuf, s32Remainder * 2,
+                     pS16InBuf + (s32InSamps - s32Remainder),
+                     s32Remainder * 2);
+        }
+
+        s32InSamps = s32InSamps + s32Field14 - s32Remainder;
+        pstReSampler->field_14 = s32Remainder;
+        pS16InBuf = pInPtr;
+
+    read_cache_call:
+        *(HI_S16 **)&inputAttr[0]  = pS16InBuf;
+        *(HI_S32 *)&inputAttr[16]  = s32InSamps * 2;
+        *(HI_S16 **)&outputAttr[0] = pS16OutBuf;
+
+        s32Ret = pstReSampler->hResampler.Resampler_Process(
+            pstReSampler->hBaseReadCache, inputAttr, outputAttr);
+        *pS32OutSamps = s32Ret;
+        return HI_SUCCESS;
+
+    } else if ( enReSamplerType == DNVQE_RESAMPLER_TYPE_RESAMPLER ) {
+        /* --- RESAMPLER path (type 1) --- */
+        s32ReadSample = *pS32OutSamps;
+        hBase = pstReSampler->hBaseResampler;
+
+        if ( pstReSampler->field_0 == 0 && s32InSamps != 0 )
+            s32InSamps--;
+
+        s32InputBytes = s32InSamps * 2;
+        *(HI_S16 **)&inputAttr[0]  = pS16InBuf;
+        *(HI_S32 *)&inputAttr[16]  = s32InputBytes;
+        *(HI_S16 **)&outputAttr[0] = pS16OutBuf;
+
+        /* Prepend leftover from previous call */
+        s32Field14 = pstReSampler->field_14;
+        if ( s32Field14 > 0 ) {
+            memcpy_s(pS16OutBuf, s32Field14 * 2,
+                     pstReSampler->ReSamplerBuf, s32Field14 * 2);
+            s32ReadSample -= s32Field14;
+            *(HI_S16 **)&outputAttr[0] = pS16OutBuf + s32Field14;
+            pS16OutBuf += s32Field14;
+            pstReSampler->field_14 = 0;
+        }
+
+        s32Ret = pstReSampler->hResampler.Resampler_Process(hBase, inputAttr, outputAttr);
+
+        if ( s32ReadSample < s32Ret ) {
+            fprintf(stderr,
+                "%d: Err: ReSampler_ProcessFrame Err, s32Ret is %d, s32ReadSample is %d\n",
+                __LINE__, s32Ret, s32ReadSample);
+            return ERR_RESAMPLER_NULL_PTR;
+        }
+
+        if ( pstReSampler->field_0 != 0 ) {
+            if ( s32ReadSample > s32Ret ) {
+                fprintf(stderr,
+                    "%d: Err: ReSampler_ProcessFrame Err, s32Ret is %d, s32ReadSample is %d\n",
+                    __LINE__, s32Ret, s32ReadSample);
+                return ERR_RESAMPLER_NULL_PTR;
+            }
+            return HI_SUCCESS;
+        }
+
+        /* field_0 == 0: process one extra sample for fractional resampling */
+        *(HI_S16 **)&inputAttr[0]  = pS16InBuf + s32InSamps;
+        *(HI_S32 *)&inputAttr[16]  = 2;
+        *(HI_S16 **)&outputAttr[0] = pstReSampler->ReSamplerBuf;
+
+        s32Ret2 = pstReSampler->hResampler.Resampler_Process(hBase, inputAttr, outputAttr);
+
+        if ( s32ReadSample <= s32Ret ) {
+            pstReSampler->field_14 = s32Ret2;
+            return HI_SUCCESS;
+        }
+
+        s32Excess = s32ReadSample - s32Ret;
+        pstReSampler->field_14 = s32Ret2 - s32Excess;
+
+        if ( pstReSampler->field_14 < 0 ) {
+            fprintf(stderr,
+                "%d: Err: ReSampler_ProcessFrame Err, s32Ret is %d, s32ReadSample is %d\n",
+                __LINE__, s32Ret2, s32ReadSample);
+            return ERR_RESAMPLER_NULL_PTR;
+        }
+
+        memcpy_s(pS16OutBuf + s32Ret, s32Excess * 2,
+                 pstReSampler->ReSamplerBuf, s32Excess * 2);
+
+        memmove_s(pstReSampler->ReSamplerBuf, pstReSampler->field_14 * 2,
+                  pstReSampler->ReSamplerBuf + s32Excess,
+                  pstReSampler->field_14 * 2);
+        return HI_SUCCESS;
+
+    } else if ( enReSamplerType == DNVQE_RESAMPLER_TYPE_BUTT ) {
+        /* --- Partial-read resampler path (type 2) --- */
+        s32ReadSample = *pS32OutSamps;
+        hBase = pstReSampler->hBaseResampler;
+
+        if ( pstReSampler->field_0 == 0 && s32InSamps != 0 )
+            s32InSamps--;
+
+        s32InputBytes = s32InSamps * 2;
+        *(HI_S16 **)&inputAttr[0]  = pS16InBuf;
+        *(HI_S32 *)&inputAttr[16]  = s32InputBytes;
+        *(HI_S16 **)&outputAttr[0] = pS16OutBuf;
+
+        s32Field14 = pstReSampler->field_14;
+        if ( s32Field14 > 0 ) {
+            memcpy_s(pS16OutBuf, s32Field14 * 2,
+                     pstReSampler->ReSamplerBuf, s32Field14 * 2);
+            s32ReadSample -= s32Field14;
+            *(HI_S16 **)&outputAttr[0] = pS16OutBuf + s32Field14;
+            pS16OutBuf += s32Field14;
+            pstReSampler->field_14 = 0;
+        }
+
+        s32Ret = pstReSampler->hResampler.Resampler_Process(hBase, inputAttr, outputAttr);
+
+        if ( s32ReadSample < s32Ret ) {
+            fprintf(stderr,
+                "%d: Err: ReSampler_ProcessFrame Err, s32Ret is %d, s32ReadSample is %d\n",
+                __LINE__, s32Ret, s32ReadSample);
+            return ERR_RESAMPLER_NULL_PTR;
+        }
+
+        if ( pstReSampler->field_0 != 0 ) {
+            if ( s32ReadSample > s32Ret ) {
+                *pS32OutSamps -= (s32ReadSample - s32Ret);
+            }
+            return HI_SUCCESS;
+        }
+
+        /* field_0 == 0: process one extra sample for fractional resampling */
+        *(HI_S16 **)&inputAttr[0]  = pS16InBuf + s32InSamps;
+        *(HI_S32 *)&inputAttr[16]  = 2;
+        *(HI_S16 **)&outputAttr[0] = pstReSampler->ReSamplerBuf;
+
+        s32Ret2 = pstReSampler->hResampler.Resampler_Process(hBase, inputAttr, outputAttr);
+        pstReSampler->field_14 = s32Ret2;
+
+        if ( s32ReadSample <= s32Ret )
+            return HI_SUCCESS;
+
+        s32Excess = s32ReadSample - s32Ret;
+        if ( s32Ret2 >= s32Excess ) {
+            pstReSampler->field_14 = s32Ret2 - s32Excess;
+
+            memcpy_s(pS16OutBuf + s32Ret, s32Excess * 2,
+                     pstReSampler->ReSamplerBuf, s32Excess * 2);
+
+            memmove_s(pstReSampler->ReSamplerBuf, pstReSampler->field_14 * 2,
+                      pstReSampler->ReSamplerBuf + s32Excess,
+                      pstReSampler->field_14 * 2);
+            return HI_SUCCESS;
+        } else {
+            /* Not enough samples in resample buf */
+            memcpy_s(pS16OutBuf + s32Ret, s32Ret2 * 2,
+                     pstReSampler->ReSamplerBuf, s32Ret2 * 2);
+            *pS32OutSamps = s32Ret2 + s32Ret;
+            pstReSampler->field_14 = 0;
+            return HI_SUCCESS;
+        }
+
+    } else {
+        return ERR_RESAMPLER_ILLEGAL_PARAM;
+    }
+}

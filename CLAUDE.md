@@ -63,11 +63,11 @@ Naming convention: `hi3516cv500_<subsystem>` for SoC-specific, `hi_<name>` for g
 
 ### Library Subsystems (sdk/libraries/)
 
-- **Core:** `mpi` (main MPI library, C + assembly), `securec` (safe C functions)
+- **Core:** `mpi` (main MPI library, C), `ive` (Image Vector Engine, C), `securec` (safe C functions)
 - **ISP algorithms:** `isp`, `hiae`, `hiawb`, `hildci`, `hidehaze`, `hiawb_natura`
 - **Camera sensors:** `sns_imx307`, `sns_imx327`, `sns_imx335`, `sns_gc2053`, `sns_os05a`, etc.
 - **Audio:** `aacdec`, `aacenc`, `dnvqe`, `upvqe`, `VoiceEngine`
-- **AI:** `nnie`, `svpruntime`
+- **AI:** `ive` (Image Vector Engine), `nnie`, `svpruntime`
 - **Other:** `hi_cipher`, `md` (motion detection), `hifisheyecalibrate`, `hdmi`
 
 ### Other Components
@@ -79,29 +79,45 @@ Naming convention: `hi3516cv500_<subsystem>` for SoC-specific, `hi_<name>` for g
 
 Understanding what is actually finished vs. scaffolded is critical for working in this codebase.
 
-### Completed: `libmpi` subset
+### Completed (8 libraries building)
 
-The only fully buildable artifact. These files are enabled in `sdk/libraries/CMakeLists.txt` and produce `libmpi.a` / `libmpi.so`:
+Eight fully buildable library artifacts are enabled in `sdk/libraries/CMakeLists.txt`:
 
-- `mpi/af_buf.c`, `mpi/as_buf.c`, `mpi/audio_comm.c`, `mpi/audio_voice_adp.c`
-- `mpi/hiisp_gdc_fw_pointquery.c`, `mpi/hiisp_gdc_fw_user.c`
-- `mpi/mpi_adec.c`, `mpi/mpi_aenc.c`, `mpi/mpi_ai.c`, `mpi/mpi_ao.c`, `mpi/mpi_audio.c`, `mpi/mpi_bind.c`
-- `mpi/mpi_gdc.c`, `mpi/mpi_region.c`, `mpi/mpi_sys.c`, `mpi/mpi_vb.c`
-- `mpi/mpi_vdec.c`, `mpi/mpi_venc.c`, `mpi/mpi_vgs.c`, `mpi/mpi_vi.c`, `mpi/mpi_vo.c`, `mpi/mpi_vpss.c`
+**`libmpi.a` / `libmpi.so`** (755 symbols, 589 HI_MPI_* API functions):
+- 22 C source files covering all core media pipeline modules
+- `mpi/mpi_vi.c` (104 API), `mpi/mpi_vo.c` (91), `mpi/mpi_venc.c` (90), `mpi/mpi_vpss.c` (69), `mpi/mpi_sys.c` (40), `mpi/mpi_ai.c` (37), `mpi/mpi_vdec.c` (32), `mpi/mpi_ao.c` (30), `mpi/mpi_vb.c` (23), `mpi/mpi_region.c` (14), `mpi/mpi_vgs.c` (12), `mpi/mpi_aenc.c` (12), `mpi/mpi_adec.c` (12), `mpi/mpi_snap.c` (10), `mpi/mpi_gdc.c` (8), `mpi/mpi_log.c` (5), `mpi/mpi_audio.c` (3)
+- Support: `audio_voice_adp.c`, `audio_comm.c`, `hiisp_gdc_fw_pointquery.c`, `hiisp_gdc_fw_user.c`, `mpi_bind.c`
+- Assembly `.S` files retained as reference for hardware verification
 
-All 21 MPI `.c` files are fully implemented in C. Assembly reference files (`.S`) have been deleted for completed modules — only `hiisp_gdc_fw_user.S` remains as reference for a partially-complete helper. The library exports 750 symbols total.
+**`libive.a` / `libive.so`** (144 symbols, 61 public API):
+- 4 C files, fully RE'd from 24,223 lines of vendor ARM assembly
+
+**`libmd.a` / `libmd.so`** (22 exported symbols, 8 public API):
+- 3 C files, fully RE'd from 5,099 lines of vendor ARM assembly
+
+**`libhiae.a` / `libhiae.so`** (182 functions, 9 source files):
+- `hiae/hi_ae_adp.c` (55 functions), `hiae/hi_auto_exposure.c` (34), `hiae/mpi_isp_ae.c` (19), `hiae/hi_ae_increment.c` (15), `hiae/hi_ae_route.c` (23), `hiae/hi_ae_route_ex.c` (16), `hiae/hi_auto_iris.c` (11), `hiae/hi_iris_pwm.c` (4), `hiae/hi_piris_gpio.c` (6)
+- Fully RE'd from 35,493 lines of vendor ARM assembly
+
+**`libdnvqe.a` / `libdnvqe.so`** (5 source files):
+- `dnvqe/dnvqe_work.c`, `dnvqe/hi_dnvqe_wrap.c`, `dnvqe/hi_audio_dl_work.c`, `dnvqe/hi_audio_module_wrap.c`, `dnvqe/hi_resample_work.c`
+- Fully RE'd from ~106K lines of vendor ARM assembly
+
+**`libsecurec.a` / `libsecurec.so`** — 39 C files, Huawei safe C library (vendor drop)
+
+**`libhi_cipher.a` / `libhi_cipher.so`** — 4 C files, crypto library (vendor drop)
+
+**`libaacenc.a` / `libaacenc.so`** — 1 C file, AAC encoder wrapper (vendor drop, requires libfdk-aac)
 
 ### Imported but not actively developed here
 
-These look like complete vendor source drops, usable but not iterated on in this repo's history:
-
 - Drivers: `hi_osal`, `hi_mipi_rx`, `hi_mipi_tx`, `hifb`, `hi3516cv500_isp`, `sys_config`, `hi_piris`, `hi_pwm`, `hi_sensor_i2c`, `hi_sensor_spi`
-- Libraries: `securec`, `hi_cipher`, `aacdec`, `aacenc`
+- Libraries: `securec`, `hi_cipher`, `aacenc`
+- `aacdec` — vendor source drop but disabled in build due to conflicting type definitions between `fdk-aac-mod.h` and `FDK_audio.h`
 
 ### In-progress / half-done
 
 - **`sns_gc2053`** — active commits but build still uses assembly (`gc2053_cmos.S`); C rewrites commented out; `cmos_get_inttime_max()` is empty
-- **`hiae`** — early-stage scaffolding; `hi_ae_adp.c` is mostly placeholder function stubs
 - **`bootrom-re`** — serious reverse-engineering effort in the final commits; `bootloader.c` is large but several major routines still marked TODO (`sub_1DC`, `sub_1150`, `secure_fast_boot`)
 
 ### Scaffold-only (zero-byte stubs + assembly)
@@ -117,6 +133,7 @@ Representative drivers:
 Representative libraries:
 - `isp`: 54 zero-byte `.c` files + 54 `.S`
 - `svpruntime`: 30 zero-byte `.c` files + 30 `.S`
+- `hiawb`: 5 zero-byte `.c` files + 5 `.S`
 - `VoiceEngine`: 6 zero-byte `.c` files + 6 `.S`
 - `nnie`: 3 zero-byte `.c` files + 3 `.S`
 

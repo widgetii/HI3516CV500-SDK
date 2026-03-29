@@ -1,0 +1,195 @@
+--- sdk/vendor-disasm/v2_0_2_0/lib_hiae/hi_piris_gpio.S	2026-03-29 07:34:58.875306271 +0300
++++ sdk/vendor-disasm/v2_0_2_1/lib_hiae/hi_piris_gpio.S	2026-03-29 07:34:59.758642015 +0300
+@@ -12,17 +12,17 @@
+ 00000000 l    d  .text.ae_piris_status_get	00000000 .text.ae_piris_status_get
+ 00000000 l    d  .text.ae_piris_origin_set	00000000 .text.ae_piris_origin_set
+ 00000000 l    d  .text.ae_piris_close_set	00000000 .text.ae_piris_close_set
+-00000000 l    d  .text.AePiris_register_callback	00000000 .text.AePiris_register_callback
+-00000000 l       .rodata.AePiris_register_callback.str1.4	00000000 .LC1
+-0000000c l       .rodata.AePiris_register_callback.str1.4	00000000 .LC2
+-00000000 l    d  .data.g_Pirisfd	00000000 .data.g_Pirisfd
+-00000000 l     O .data.g_Pirisfd	00000010 g_Pirisfd
+-00000000 l    d  .data.g_au8PIRISPrintIndex	00000000 .data.g_au8PIRISPrintIndex
+-00000000 l     O .data.g_au8PIRISPrintIndex	00000004 g_au8PIRISPrintIndex
+-00000000 l    d  .rodata.AePiris_register_callback.str1.4	00000000 .rodata.AePiris_register_callback.str1.4
+-00000000 l    d  .rodata.__FUNCTION__.29286	00000000 .rodata.__FUNCTION__.29286
+-00000000 l     O .rodata.__FUNCTION__.29286	0000001a __FUNCTION__.29286
++00000000 l    d  .text.ae_piris_register_callback	00000000 .text.ae_piris_register_callback
++00000000 l       .rodata.ae_piris_register_callback.str1.4	00000000 .LC1
++0000000c l       .rodata.ae_piris_register_callback.str1.4	00000000 .LC2
++00000000 l    d  .data.g_piris_fd	00000000 .data.g_piris_fd
++00000000 l     O .data.g_piris_fd	00000010 g_piris_fd
++00000000 l    d  .data.g_piris_print_index	00000000 .data.g_piris_print_index
++00000000 l     O .data.g_piris_print_index	00000004 g_piris_print_index
++00000000 l    d  .rodata.__FUNCTION__.30343	00000000 .rodata.__FUNCTION__.30343
++00000000 l     O .rodata.__FUNCTION__.30343	0000001b __FUNCTION__.30343
+ 00000000 l    d  .rodata.ae_piris_init.str1.4	00000000 .rodata.ae_piris_init.str1.4
++00000000 l    d  .rodata.ae_piris_register_callback.str1.4	00000000 .rodata.ae_piris_register_callback.str1.4
+ 00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+ 00000000 l    d  .comment	00000000 .comment
+ 00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+@@ -37,9 +37,9 @@
+ 00000000 g     F .text.ae_piris_status_get	000000a0 ae_piris_status_get
+ 00000000 g     F .text.ae_piris_origin_set	000000c0 ae_piris_origin_set
+ 00000000 g     F .text.ae_piris_close_set	000000c0 ae_piris_close_set
+-00000000 g     F .text.AePiris_register_callback	0000012c AePiris_register_callback
++00000000 g     F .text.ae_piris_register_callback	0000012c ae_piris_register_callback
+ 00000000         *UND*	00000000 strncpy_s
+-00000000         *UND*	00000000 HI_MPI_AE_IrisRegisterCallBack
++00000000         *UND*	00000000 hi_mpi_ae_iris_register_callback
+ 00000000         *UND*	00000000 fprintf
+ 00000000         *UND*	00000000 stderr
+ 
+@@ -65,7 +65,7 @@
+   34:	e3e00000 	mvn	r0, #0
+   38:	e8bd8070 	pop	{r4, r5, r6, pc}
+   3c:	0000002c 	.word	0x0000002c
+-			3c: R_ARM_REL32	.data.g_Pirisfd
++			3c: R_ARM_REL32	.data.g_piris_fd
+ 
+ Disassembly of section .text.ae_piris_init:
+ 
+@@ -134,11 +134,11 @@
+   dc:	000000a4 	.word	0x000000a4
+ 			dc: R_ARM_REL32	.LC0
+   e0:	00000094 	.word	0x00000094
+-			e0: R_ARM_REL32	.data.g_Pirisfd
++			e0: R_ARM_REL32	.data.g_piris_fd
+   e4:	00000064 	.word	0x00000064
+ 			e4: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+   e8:	00000044 	.word	0x00000044
+-			e8: R_ARM_REL32	.data.g_au8PIRISPrintIndex
++			e8: R_ARM_REL32	.data.g_piris_print_index
+ 
+ Disassembly of section .text.ae_piris_status_get:
+ 
+@@ -183,7 +183,7 @@
+   8c:	ebfffffe 	bl	0 <__stack_chk_fail>
+ 			8c: R_ARM_CALL	__stack_chk_fail
+   90:	00000070 	.word	0x00000070
+-			90: R_ARM_REL32	.data.g_Pirisfd
++			90: R_ARM_REL32	.data.g_piris_fd
+   94:	0000006c 	.word	0x0000006c
+ 			94: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+   98:	00000000 	.word	0x00000000
+@@ -246,7 +246,7 @@
+   b4:	00000088 	.word	0x00000088
+ 			b4: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+   b8:	00000078 	.word	0x00000078
+-			b8: R_ARM_REL32	.data.g_Pirisfd
++			b8: R_ARM_REL32	.data.g_piris_fd
+   bc:	0000003c 	.word	0x0000003c
+ 			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+ 
+@@ -301,7 +301,7 @@
+   ac:	ebfffffe 	bl	0 <__stack_chk_fail>
+ 			ac: R_ARM_CALL	__stack_chk_fail
+   b0:	00000080 	.word	0x00000080
+-			b0: R_ARM_REL32	.data.g_Pirisfd
++			b0: R_ARM_REL32	.data.g_piris_fd
+   b4:	00000088 	.word	0x00000088
+ 			b4: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+   b8:	00000000 	.word	0x00000000
+@@ -309,24 +309,24 @@
+   bc:	0000003c 	.word	0x0000003c
+ 			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+ 
+-Disassembly of section .text.AePiris_register_callback:
++Disassembly of section .text.ae_piris_register_callback:
+ 
+-00000000 <AePiris_register_callback>:
++00000000 <ae_piris_register_callback>:
+    0:	e92d4030 	push	{r4, r5, lr}
+    4:	e24dd034 	sub	sp, sp, #52	; 0x34
+-   8:	e59fe0e8 	ldr	lr, [pc, #232]	; f8 <AePiris_register_callback+0xf8>
++   8:	e59fe0e8 	ldr	lr, [pc, #232]	; f8 <ae_piris_register_callback+0xf8>
+    c:	e28d5030 	add	r5, sp, #48	; 0x30
+   10:	e1c00fc0 	bic	r0, r0, r0, asr #31
+   14:	e3a0300c 	mov	r3, #12
+   18:	e08fe00e 	add	lr, pc, lr
+   1c:	e6ef0070 	uxtb	r0, r0
+-  20:	e59fc0d4 	ldr	ip, [pc, #212]	; fc <AePiris_register_callback+0xfc>
+-  24:	e1a01003 	mov	r1, r3
+-  28:	e59f20d0 	ldr	r2, [pc, #208]	; 100 <AePiris_register_callback+0x100>
++  20:	e59fc0d4 	ldr	ip, [pc, #212]	; fc <ae_piris_register_callback+0xfc>
++  24:	e3a01014 	mov	r1, #20
++  28:	e59f20d0 	ldr	r2, [pc, #208]	; 100 <ae_piris_register_callback+0x100>
+   2c:	e525001c 	str	r0, [r5, #-28]!	; 0xffffffe4
+   30:	e28d0018 	add	r0, sp, #24
+   34:	e79ec00c 	ldr	ip, [lr, ip]
+-  38:	e59f40c4 	ldr	r4, [pc, #196]	; 104 <AePiris_register_callback+0x104>
++  38:	e59f40c4 	ldr	r4, [pc, #196]	; 104 <ae_piris_register_callback+0x104>
+   3c:	e08f2002 	add	r2, pc, r2
+   40:	e08f4004 	add	r4, pc, r4
+   44:	e59cc000 	ldr	ip, [ip]
+@@ -334,46 +334,46 @@
+   4c:	e3a0c000 	mov	ip, #0
+   50:	ebfffffe 	bl	0 <strncpy_s>
+ 			50: R_ARM_CALL	strncpy_s
+-  54:	e59f30ac 	ldr	r3, [pc, #172]	; 108 <AePiris_register_callback+0x108>
++  54:	e59f30ac 	ldr	r3, [pc, #172]	; 108 <ae_piris_register_callback+0x108>
+   58:	e1a00005 	mov	r0, r5
+-  5c:	e59f20a8 	ldr	r2, [pc, #168]	; 10c <AePiris_register_callback+0x10c>
++  5c:	e59f20a8 	ldr	r2, [pc, #168]	; 10c <ae_piris_register_callback+0x10c>
+   60:	e1a0100d 	mov	r1, sp
+   64:	e794c003 	ldr	ip, [r4, r3]
+-  68:	e59f30a0 	ldr	r3, [pc, #160]	; 110 <AePiris_register_callback+0x110>
++  68:	e59f30a0 	ldr	r3, [pc, #160]	; 110 <ae_piris_register_callback+0x110>
+   6c:	e58dc000 	str	ip, [sp]
+   70:	e794c002 	ldr	ip, [r4, r2]
+-  74:	e59f2098 	ldr	r2, [pc, #152]	; 114 <AePiris_register_callback+0x114>
++  74:	e59f2098 	ldr	r2, [pc, #152]	; 114 <ae_piris_register_callback+0x114>
+   78:	e58dc004 	str	ip, [sp, #4]
+   7c:	e794c003 	ldr	ip, [r4, r3]
+-  80:	e59f3090 	ldr	r3, [pc, #144]	; 118 <AePiris_register_callback+0x118>
++  80:	e59f3090 	ldr	r3, [pc, #144]	; 118 <ae_piris_register_callback+0x118>
+   84:	e58dc008 	str	ip, [sp, #8]
+   88:	e7942002 	ldr	r2, [r4, r2]
+   8c:	e58d200c 	str	r2, [sp, #12]
+   90:	e7943003 	ldr	r3, [r4, r3]
+   94:	e58d3010 	str	r3, [sp, #16]
+-  98:	ebfffffe 	bl	0 <HI_MPI_AE_IrisRegisterCallBack>
+-			98: R_ARM_CALL	HI_MPI_AE_IrisRegisterCallBack
++  98:	ebfffffe 	bl	0 <hi_mpi_ae_iris_register_callback>
++			98: R_ARM_CALL	hi_mpi_ae_iris_register_callback
+   9c:	e2505000 	subs	r5, r0, #0
+-  a0:	0a000008 	beq	c8 <AePiris_register_callback+0xc8>
+-  a4:	e59f1070 	ldr	r1, [pc, #112]	; 11c <AePiris_register_callback+0x11c>
+-  a8:	e3a03097 	mov	r3, #151	; 0x97
+-  ac:	e59f206c 	ldr	r2, [pc, #108]	; 120 <AePiris_register_callback+0x120>
++  a0:	0a000008 	beq	c8 <ae_piris_register_callback+0xc8>
++  a4:	e59f1070 	ldr	r1, [pc, #112]	; 11c <ae_piris_register_callback+0x11c>
++  a8:	e3a0308e 	mov	r3, #142	; 0x8e
++  ac:	e59f206c 	ldr	r2, [pc, #108]	; 120 <ae_piris_register_callback+0x120>
+   b0:	e7940001 	ldr	r0, [r4, r1]
+-  b4:	e59f1068 	ldr	r1, [pc, #104]	; 124 <AePiris_register_callback+0x124>
++  b4:	e59f1068 	ldr	r1, [pc, #104]	; 124 <ae_piris_register_callback+0x124>
+   b8:	e08f2002 	add	r2, pc, r2
+   bc:	e08f1001 	add	r1, pc, r1
+   c0:	e5900000 	ldr	r0, [r0]
+   c4:	ebfffffe 	bl	0 <fprintf>
+ 			c4: R_ARM_CALL	fprintf
+-  c8:	e59f2058 	ldr	r2, [pc, #88]	; 128 <AePiris_register_callback+0x128>
++  c8:	e59f2058 	ldr	r2, [pc, #88]	; 128 <ae_piris_register_callback+0x128>
+   cc:	e1a00005 	mov	r0, r5
+-  d0:	e59f3024 	ldr	r3, [pc, #36]	; fc <AePiris_register_callback+0xfc>
++  d0:	e59f3024 	ldr	r3, [pc, #36]	; fc <ae_piris_register_callback+0xfc>
+   d4:	e08f2002 	add	r2, pc, r2
+   d8:	e7923003 	ldr	r3, [r2, r3]
+   dc:	e5932000 	ldr	r2, [r3]
+   e0:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
+   e4:	e0332002 	eors	r2, r3, r2
+-  e8:	1a000001 	bne	f4 <AePiris_register_callback+0xf4>
++  e8:	1a000001 	bne	f4 <ae_piris_register_callback+0xf4>
+   ec:	e28dd034 	add	sp, sp, #52	; 0x34
+   f0:	e8bd8030 	pop	{r4, r5, pc}
+   f4:	ebfffffe 	bl	0 <__stack_chk_fail>
+@@ -394,7 +394,7 @@
+ 			118: R_ARM_GOT32	ae_piris_exit
+ 			11c: R_ARM_GOT32	stderr
+  120:	00000060 	.word	0x00000060
+-			120: R_ARM_REL32	.rodata.__FUNCTION__.29286
++			120: R_ARM_REL32	.rodata.__FUNCTION__.30343
+  124:	00000060 	.word	0x00000060
+ 			124: R_ARM_REL32	.LC2
+  128:	0000004c 	.word	0x0000004c

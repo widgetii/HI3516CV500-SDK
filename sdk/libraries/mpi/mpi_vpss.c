@@ -1347,7 +1347,9 @@ HI_MPI_VPSS_SetExtChnFisheye(
 
                 if ( pstFishEyeAttr->u32TrapezoidCoef &&
                     pstFishEyeAttr->enMountMode == FISHEYE_WALL_MOUNT &&
-                    GDC_Trapzoid_CFG(&data.field_0[i].stOutSize) )
+                    GDC_Trapzoid_CFG(&data.field_0[i].stOutSize,
+                        pstFishEyeAttr->u32TrapezoidCoef,
+                        (HI_S64 *)&data.field_C80[i]) )
                 {
                     printf("fun:%s line:%d GDC_Fisheye_CFG Err \n", __FUNCTION__, __LINE__);
                     return ERR_VPSS_ILLEGAL_PARAM;

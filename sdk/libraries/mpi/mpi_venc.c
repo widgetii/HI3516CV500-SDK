@@ -1553,3 +1553,19 @@ HI_S32 HI_MPI_VENC_GetRcAdvParam(VENC_CHN VeChn, VENC_RC_ADVPARAM_S *pstRcAdvPar
     if (pstRcAdvParam == HI_NULL) return MpiVencCheckNull();
     return ioctl(g_stMpiVencChn[VeChn].s32Fd, VENC_CTL_GET_RC_ADV_PARAM, pstRcAdvParam);
 }
+
+HI_S32 HI_MPI_VENC_SetSliceSplit(VENC_CHN VeChn, const VENC_SLICE_SPLIT_S *pstSliceSplit) {
+    HI_S32 s32Ret;
+    if (VeChn > (VENC_MAX_CHN_NUM - 1)) return MpiVencCheckChn(VeChn);
+    s32Ret = MPI_VENC_OPEN(VeChn); if (s32Ret != HI_SUCCESS) return s32Ret;
+    if (pstSliceSplit == HI_NULL) return MpiVencCheckNull();
+    return ioctl(g_stMpiVencChn[VeChn].s32Fd, VENC_CTL_SET_H265_SLICE_SPLIT, pstSliceSplit);
+}
+
+HI_S32 HI_MPI_VENC_GetSliceSplit(VENC_CHN VeChn, VENC_SLICE_SPLIT_S *pstSliceSplit) {
+    HI_S32 s32Ret;
+    if (VeChn > (VENC_MAX_CHN_NUM - 1)) return MpiVencCheckChn(VeChn);
+    s32Ret = MPI_VENC_OPEN(VeChn); if (s32Ret != HI_SUCCESS) return s32Ret;
+    if (pstSliceSplit == HI_NULL) return MpiVencCheckNull();
+    return ioctl(g_stMpiVencChn[VeChn].s32Fd, VENC_CTL_GET_H265_SLICE_SPLIT, pstSliceSplit);
+}

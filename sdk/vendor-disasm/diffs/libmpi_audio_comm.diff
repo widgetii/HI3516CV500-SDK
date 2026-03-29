@@ -1,0 +1,193 @@
+--- sdk/vendor-disasm/v2_0_2_0/libmpi/audio_comm.S	2026-03-29 07:34:58.148637622 +0300
++++ sdk/vendor-disasm/v2_0_2_1/libmpi/audio_comm.S	2026-03-29 07:34:59.121973611 +0300
+@@ -17,7 +17,7 @@
+ 00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+ 00000000 l    d  .comment	00000000 .comment
+ 00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+-00000000 g     F .text.audio_alloc	00000170 audio_alloc
++00000000 g     F .text.audio_alloc	00000178 audio_alloc
+ 00000000         *UND*	00000000 memset
+ 00000000         *UND*	00000000 snprintf_s
+ 00000000         *UND*	00000000 ioctl
+@@ -33,14 +33,14 @@
+ Disassembly of section .text.audio_alloc:
+ 
+ 00000000 <audio_alloc>:
+-   0:	e59fc148 	ldr	ip, [pc, #328]	; 150 <audio_alloc+0x150>
++   0:	e59fc150 	ldr	ip, [pc, #336]	; 158 <audio_alloc+0x158>
+    4:	e92d43f0 	push	{r4, r5, r6, r7, r8, r9, lr}
+    8:	e1a08003 	mov	r8, r3
+    c:	e08fc00c 	add	ip, pc, ip
+   10:	e24dd064 	sub	sp, sp, #100	; 0x64
+-  14:	e59f5138 	ldr	r5, [pc, #312]	; 154 <audio_alloc+0x154>
++  14:	e59f5140 	ldr	r5, [pc, #320]	; 15c <audio_alloc+0x15c>
+   18:	e28d4008 	add	r4, sp, #8
+-  1c:	e59f3134 	ldr	r3, [pc, #308]	; 158 <audio_alloc+0x158>
++  1c:	e59f313c 	ldr	r3, [pc, #316]	; 160 <audio_alloc+0x160>
+   20:	e1a09000 	mov	r9, r0
+   24:	e08f5005 	add	r5, pc, r5
+   28:	e1a06001 	mov	r6, r1
+@@ -56,90 +56,92 @@
+ 			4c: R_ARM_CALL	memset
+   50:	e5953000 	ldr	r3, [r5]
+   54:	e3530000 	cmp	r3, #0
+-  58:	ba00002d 	blt	114 <audio_alloc+0x114>
++  58:	ba00002f 	blt	11c <audio_alloc+0x11c>
+   5c:	e58d9000 	str	r9, [sp]
+   60:	e3a03003 	mov	r3, #3
+   64:	e5cd301c 	strb	r3, [sp, #28]
+   68:	e3a01001 	mov	r1, #1
+   6c:	e59dc01c 	ldr	ip, [sp, #28]
+   70:	e3a0200f 	mov	r2, #15
+-  74:	e59f30e0 	ldr	r3, [pc, #224]	; 15c <audio_alloc+0x15c>
++  74:	e59f30e8 	ldr	r3, [pc, #232]	; 164 <audio_alloc+0x164>
+   78:	e28d0020 	add	r0, sp, #32
+   7c:	e7d3c411 	bfi	ip, r1, #8, #12
+   80:	e3a01010 	mov	r1, #16
+   84:	e08f3003 	add	r3, pc, r3
+-  88:	e58dc01c 	str	ip, [sp, #28]
+-  8c:	e58d8010 	str	r8, [sp, #16]
++  88:	e58d8010 	str	r8, [sp, #16]
++  8c:	e58dc01c 	str	ip, [sp, #28]
+   90:	ebfffffe 	bl	0 <snprintf_s>
+ 			90: R_ARM_CALL	snprintf_s
+-  94:	e59f30c4 	ldr	r3, [pc, #196]	; 160 <audio_alloc+0x160>
+-  98:	e3061d0a 	movw	r1, #27914	; 0x6d0a
+-  9c:	e34c1050 	movt	r1, #49232	; 0xc050
+-  a0:	e1a02004 	mov	r2, r4
+-  a4:	e08f3003 	add	r3, pc, r3
+-  a8:	e5935000 	ldr	r5, [r3]
+-  ac:	e1a00005 	mov	r0, r5
+-  b0:	ebfffffe 	bl	0 <ioctl>
+-			b0: R_ARM_CALL	ioctl
+-  b4:	e3500000 	cmp	r0, #0
+-  b8:	1a000021 	bne	144 <audio_alloc+0x144>
+-  bc:	e3061d14 	movw	r1, #27924	; 0x6d14
+-  c0:	e1a02004 	mov	r2, r4
+-  c4:	e34c1050 	movt	r1, #49232	; 0xc050
+-  c8:	e1a00005 	mov	r0, r5
+-  cc:	ebfffffe 	bl	0 <ioctl>
+-			cc: R_ARM_CALL	ioctl
+-  d0:	e2503000 	subs	r3, r0, #0
+-  d4:	1a00001a 	bne	144 <audio_alloc+0x144>
+-  d8:	e59d1008 	ldr	r1, [sp, #8]
+-  dc:	e1a00003 	mov	r0, r3
+-  e0:	e59d2018 	ldr	r2, [sp, #24]
+-  e4:	e886000a 	stm	r6, {r1, r3}
+-  e8:	e5872000 	str	r2, [r7]
+-  ec:	e59f2070 	ldr	r2, [pc, #112]	; 164 <audio_alloc+0x164>
+-  f0:	e59f3060 	ldr	r3, [pc, #96]	; 158 <audio_alloc+0x158>
+-  f4:	e08f2002 	add	r2, pc, r2
+-  f8:	e7923003 	ldr	r3, [r2, r3]
+-  fc:	e5932000 	ldr	r2, [r3]
+- 100:	e59d305c 	ldr	r3, [sp, #92]	; 0x5c
+- 104:	e0332002 	eors	r2, r3, r2
+- 108:	1a00000f 	bne	14c <audio_alloc+0x14c>
+- 10c:	e28dd064 	add	sp, sp, #100	; 0x64
+- 110:	e8bd83f0 	pop	{r4, r5, r6, r7, r8, r9, pc}
+- 114:	e59f004c 	ldr	r0, [pc, #76]	; 168 <audio_alloc+0x168>
+- 118:	e3a01002 	mov	r1, #2
+- 11c:	e08f0000 	add	r0, pc, r0
+- 120:	ebfffffe 	bl	0 <open>
+-			120: R_ARM_CALL	open
+- 124:	e5850000 	str	r0, [r5]
+- 128:	e3500000 	cmp	r0, #0
+- 12c:	aaffffca 	bge	5c <audio_alloc+0x5c>
+- 130:	e59f0034 	ldr	r0, [pc, #52]	; 16c <audio_alloc+0x16c>
+- 134:	e08f0000 	add	r0, pc, r0
+- 138:	ebfffffe 	bl	0 <perror>
+-			138: R_ARM_CALL	perror
+- 13c:	e3e00000 	mvn	r0, #0
+- 140:	eaffffe9 	b	ec <audio_alloc+0xec>
++  94:	e3500000 	cmp	r0, #0
++  98:	da00002b 	ble	14c <audio_alloc+0x14c>
++  9c:	e59f30c4 	ldr	r3, [pc, #196]	; 168 <audio_alloc+0x168>
++  a0:	e3061d0a 	movw	r1, #27914	; 0x6d0a
++  a4:	e34c1050 	movt	r1, #49232	; 0xc050
++  a8:	e1a02004 	mov	r2, r4
++  ac:	e08f3003 	add	r3, pc, r3
++  b0:	e5935000 	ldr	r5, [r3]
++  b4:	e1a00005 	mov	r0, r5
++  b8:	ebfffffe 	bl	0 <ioctl>
++			b8: R_ARM_CALL	ioctl
++  bc:	e3500000 	cmp	r0, #0
++  c0:	1a000021 	bne	14c <audio_alloc+0x14c>
++  c4:	e3061d14 	movw	r1, #27924	; 0x6d14
++  c8:	e1a02004 	mov	r2, r4
++  cc:	e34c1050 	movt	r1, #49232	; 0xc050
++  d0:	e1a00005 	mov	r0, r5
++  d4:	ebfffffe 	bl	0 <ioctl>
++			d4: R_ARM_CALL	ioctl
++  d8:	e2503000 	subs	r3, r0, #0
++  dc:	1a00001a 	bne	14c <audio_alloc+0x14c>
++  e0:	e59d1008 	ldr	r1, [sp, #8]
++  e4:	e1a00003 	mov	r0, r3
++  e8:	e59d2018 	ldr	r2, [sp, #24]
++  ec:	e886000a 	stm	r6, {r1, r3}
++  f0:	e5872000 	str	r2, [r7]
++  f4:	e59f2070 	ldr	r2, [pc, #112]	; 16c <audio_alloc+0x16c>
++  f8:	e59f3060 	ldr	r3, [pc, #96]	; 160 <audio_alloc+0x160>
++  fc:	e08f2002 	add	r2, pc, r2
++ 100:	e7923003 	ldr	r3, [r2, r3]
++ 104:	e5932000 	ldr	r2, [r3]
++ 108:	e59d305c 	ldr	r3, [sp, #92]	; 0x5c
++ 10c:	e0332002 	eors	r2, r3, r2
++ 110:	1a00000f 	bne	154 <audio_alloc+0x154>
++ 114:	e28dd064 	add	sp, sp, #100	; 0x64
++ 118:	e8bd83f0 	pop	{r4, r5, r6, r7, r8, r9, pc}
++ 11c:	e59f004c 	ldr	r0, [pc, #76]	; 170 <audio_alloc+0x170>
++ 120:	e3a01002 	mov	r1, #2
++ 124:	e08f0000 	add	r0, pc, r0
++ 128:	ebfffffe 	bl	0 <open>
++			128: R_ARM_CALL	open
++ 12c:	e5850000 	str	r0, [r5]
++ 130:	e3500000 	cmp	r0, #0
++ 134:	aaffffc8 	bge	5c <audio_alloc+0x5c>
++ 138:	e59f0034 	ldr	r0, [pc, #52]	; 174 <audio_alloc+0x174>
++ 13c:	e08f0000 	add	r0, pc, r0
++ 140:	ebfffffe 	bl	0 <perror>
++			140: R_ARM_CALL	perror
+  144:	e3e00000 	mvn	r0, #0
+- 148:	eaffffe7 	b	ec <audio_alloc+0xec>
+- 14c:	ebfffffe 	bl	0 <__stack_chk_fail>
+-			14c: R_ARM_CALL	__stack_chk_fail
+- 150:	0000013c 	.word	0x0000013c
+-			150: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 154:	00000128 	.word	0x00000128
+-			154: R_ARM_REL32	.data.g_mmz_fd
+- 158:	00000000 	.word	0x00000000
+-			158: R_ARM_GOT32	__stack_chk_guard
+- 15c:	000000d0 	.word	0x000000d0
+-			15c: R_ARM_REL32	.LC2
+- 160:	000000b4 	.word	0x000000b4
+-			160: R_ARM_REL32	.data.g_mmz_fd
+- 164:	00000068 	.word	0x00000068
+-			164: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 168:	00000044 	.word	0x00000044
+-			168: R_ARM_REL32	.LC0
+- 16c:	00000030 	.word	0x00000030
+-			16c: R_ARM_REL32	.LC1
++ 148:	eaffffe9 	b	f4 <audio_alloc+0xf4>
++ 14c:	e3e00000 	mvn	r0, #0
++ 150:	eaffffe7 	b	f4 <audio_alloc+0xf4>
++ 154:	ebfffffe 	bl	0 <__stack_chk_fail>
++			154: R_ARM_CALL	__stack_chk_fail
++ 158:	00000144 	.word	0x00000144
++			158: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 15c:	00000130 	.word	0x00000130
++			15c: R_ARM_REL32	.data.g_mmz_fd
++ 160:	00000000 	.word	0x00000000
++			160: R_ARM_GOT32	__stack_chk_guard
++ 164:	000000d8 	.word	0x000000d8
++			164: R_ARM_REL32	.LC2
++ 168:	000000b4 	.word	0x000000b4
++			168: R_ARM_REL32	.data.g_mmz_fd
++ 16c:	00000068 	.word	0x00000068
++			16c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 170:	00000044 	.word	0x00000044
++			170: R_ARM_REL32	.LC0
++ 174:	00000030 	.word	0x00000030
++			174: R_ARM_REL32	.LC1
+ 
+ Disassembly of section .text.audio_free:
+ 

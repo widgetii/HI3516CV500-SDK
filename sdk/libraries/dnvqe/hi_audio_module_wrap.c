@@ -37,9 +37,9 @@ MODULE_HI_Audio_ModuleHandleInit(
     else {
         memcpy_s(pHandle->pSymData, sizeof(pHandle->pSymData),
             pSymHandle->pSymData, strlen(pSymHandle->pSymData) + 1);
-        pHandle->Resampler_Init   = pSymHandle->Resampler_Init;
-        pHandle->field_20         = pSymHandle->field_20;
-        pHandle->Resampler_DeInit = pSymHandle->Resampler_DeInit;
+        pHandle->Resampler_Init    = pSymHandle->Resampler_Init;
+        pHandle->Resampler_Process = pSymHandle->Resampler_Process;
+        pHandle->Resampler_DeInit  = pSymHandle->Resampler_DeInit;
     }
 
   done:

@@ -3,14 +3,14 @@
  */
 
 #include "aacdec.h"
+#include "fdk-aac-mod.h"
 #include "aacdec_lib.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
 #include <fcntl.h>
 #include <sys/mman.h>
-
-#include "fdk-aac-mod.h"
 
 #define SYS_CTRL  0x12020000
 #define VENDOR_ID 0x00000EEC
@@ -160,7 +160,7 @@ AACDecodeFindSyncHeader(
 {
     HANDLE_AACDECODER handle;
     HI_S32 result;
-    HI_S32 bytesLeft, bytesLeft;
+    HI_S32 bytesLeft;
     HI_S32 bytesProcessed;
     HI_U8 *bufPtr;
 
@@ -260,6 +260,10 @@ struct AAC_DECODER_INSTANCE {
 extern HANDLE_FDK_BITSTREAM transportDec_GetBitstream(const HANDLE_TRANSPORTDEC hTp, const HI_U32 layer);
 
 
+extern void FDK_put(HANDLE_FDK_BITBUF hBitBuffer, HI_U32 value, const HI_U32 numberOfBits);
+extern void FDK_pushBack(HANDLE_FDK_BITBUF hBitBuffer, const HI_U32 numberOfBits, HI_U8 config);
+extern HI_U32 FDK_getValidBits(HANDLE_FDK_BITBUF hBitBuffer);
+
 HI_S32
 aacDecoder_GetBytesLeft(HANDLE_AACDECODER self)
 {
@@ -269,7 +273,7 @@ aacDecoder_GetBytesLeft(HANDLE_AACDECODER self)
         bitstream = transportDec_GetBitstream(self->hInput, 0);
         if ( bitstream->field_28 )
              FDK_put(&bitstream->hBitBuf, bitstream->CacheWord, bitstream->BitsInCache);
-        else FDK_pushBack(&bitstream->hBitBuf, bitstream->BitsInCache);
+        else FDK_pushBack(&bitstream->hBitBuf, bitstream->BitsInCache, 0);
         bitstream->BitsInCache = 0;
         bitstream->CacheWord   = 0;
         return FDK_getValidBits(&bitstream->hBitBuf) >> 3;
@@ -277,11 +281,6 @@ aacDecoder_GetBytesLeft(HANDLE_AACDECODER self)
 
     return 0;
 }
-
-
-extern void FDK_put(HANDLE_FDK_BITBUF hBitBuffer, HI_U32 value, const HI_U32 numberOfBits);
-extern void FDK_pushBack(HANDLE_FDK_BITBUF hBitBuffer, const HI_U32 numberOfBits, HI_U8 config);
-extern HI_U32 FDK_getValidBits(HANDLE_FDK_BITBUF hBitBuffer);
 
 
 HI_S32

@@ -1,0 +1,4057 @@
+--- sdk/vendor-disasm/v2_0_2_0/libmpi/mpi_venc.S	2026-03-29 07:34:58.591972165 +0300
++++ sdk/vendor-disasm/v2_0_2_1/libmpi/mpi_venc.S	2026-03-29 07:34:59.455307854 +0300
+@@ -16,37 +16,41 @@
+ 00000000 l    d  .text.memunmap	00000000 .text.memunmap
+ 00000000 l     F .text.memunmap	00000044 memunmap
+ 00000000 l    d  .text.mpi_venc_check_chn.part.0	00000000 .text.mpi_venc_check_chn.part.0
+-00000000 l     F .text.mpi_venc_check_chn.part.0	00000064 mpi_venc_check_chn.part.0
++00000000 l     F .text.mpi_venc_check_chn.part.0	0000006c mpi_venc_check_chn.part.0
+ 00000000 l       .rodata.mpi_venc_check_chn.part.0.str1.4	00000000 .LC3
+ 00000000 l    d  .text.mpi_venc_check_null.part.1	00000000 .text.mpi_venc_check_null.part.1
+ 00000000 l     F .text.mpi_venc_check_null.part.1	0000005c mpi_venc_check_null.part.1
+ 00000000 l       .rodata.mpi_venc_check_null.part.1.str1.4	00000000 .LC4
+ 00000000 l    d  .text.mpi_venc_check_roi_idex.part.2	00000000 .text.mpi_venc_check_roi_idex.part.2
+-00000000 l     F .text.mpi_venc_check_roi_idex.part.2	00000064 mpi_venc_check_roi_idex.part.2
++00000000 l     F .text.mpi_venc_check_roi_idex.part.2	0000006c mpi_venc_check_roi_idex.part.2
+ 00000000 l       .rodata.mpi_venc_check_roi_idex.part.2.str1.4	00000000 .LC5
+ 00000000 l    d  .text.hi_mpi_venc_send_frame.part.19	00000000 .text.hi_mpi_venc_send_frame.part.19
+ 00000000 l     F .text.hi_mpi_venc_send_frame.part.19	000000e4 hi_mpi_venc_send_frame.part.19
+ 00000000 l    d  .text.hi_mpi_venc_send_frame_ex.part.20	00000000 .text.hi_mpi_venc_send_frame_ex.part.20
+ 00000000 l     F .text.hi_mpi_venc_send_frame_ex.part.20	00000100 hi_mpi_venc_send_frame_ex.part.20
++00000000 l    d  .text.hi_mpi_venc_send_multi_frame.part.21	00000000 .text.hi_mpi_venc_send_multi_frame.part.21
++00000000 l     F .text.hi_mpi_venc_send_multi_frame.part.21	000000c0 hi_mpi_venc_send_multi_frame.part.21
+ 00000000 l    d  .text.mpi_venc_init	00000000 .text.mpi_venc_init
+ 00000000 l       .rodata.mpi_venc_init.str1.4	00000000 .LC6
+-00000000 l    d  .text.MPI_VENC_OPEN	00000000 .text.MPI_VENC_OPEN
+-00000000 l     F .text.MPI_VENC_OPEN	000001d8 MPI_VENC_OPEN
+-00000000 l       .rodata.MPI_VENC_OPEN.str1.4	00000000 .LC7
+-00000040 l       .rodata.MPI_VENC_OPEN.str1.4	00000000 .LC8
++00000000 l    d  .text.mpi_venc_open	00000000 .text.mpi_venc_open
++00000000 l     F .text.mpi_venc_open	000001d8 mpi_venc_open
++00000000 l       .rodata.mpi_venc_open.str1.4	00000000 .LC7
++00000040 l       .rodata.mpi_venc_open.str1.4	00000000 .LC8
+ 00000000 l    d  .text.venc_virt2_user	00000000 .text.venc_virt2_user
+ 00000000 l    d  .text.venc_virt2_phy	00000000 .text.venc_virt2_phy
+ 00000000 l    d  .text.venc_phy2_user	00000000 .text.venc_phy2_user
+ 00000000 l    d  .text.venc_phy2_virt	00000000 .text.venc_phy2_virt
+ 00000000 l    d  .text.cal_psnr	00000000 .text.cal_psnr
+ 00000000 l    d  .text.hi_mpi_venc_get_stream.part.16	00000000 .text.hi_mpi_venc_get_stream.part.16
+-00000000 l     F .text.hi_mpi_venc_get_stream.part.16	00000394 hi_mpi_venc_get_stream.part.16
+-00000054 l       .rodata.hi_mpi_venc_get_stream.part.16.str1.4	00000000 .LC10
++00000000 l     F .text.hi_mpi_venc_get_stream.part.16	000003fc hi_mpi_venc_get_stream.part.16
++0000004c l       .rodata.hi_mpi_venc_get_stream.part.16.str1.4	00000000 .LC10
++00000090 l       .rodata.hi_mpi_venc_get_stream.part.16.str1.4	00000000 .LC11
+ 00000000 l       .rodata.hi_mpi_venc_get_stream.part.16.str1.4	00000000 .LC9
+ 00000000 l    d  .text.hi_mpi_venc_create_chn	00000000 .text.hi_mpi_venc_create_chn
++00000000 l       .rodata.hi_mpi_venc_create_chn.str1.4	00000000 .LC12
+ 00000000 l    d  .text.hi_mpi_venc_reset_chn	00000000 .text.hi_mpi_venc_reset_chn
+-00000000 l    d  .text.hi_mpi_venc_start_recv_frame	00000000 .text.hi_mpi_venc_start_recv_frame
+-00000000 l    d  .text.hi_mpi_venc_stop_recv_frame	00000000 .text.hi_mpi_venc_stop_recv_frame
++00000000 l    d  .text.hi_mpi_venc_start_chn	00000000 .text.hi_mpi_venc_start_chn
++00000000 l    d  .text.hi_mpi_venc_stop_chn	00000000 .text.hi_mpi_venc_stop_chn
+ 00000000 l    d  .text.hi_mpi_venc_query_status	00000000 .text.hi_mpi_venc_query_status
+ 00000000 l    d  .text.hi_mpi_venc_destroy_chn	00000000 .text.hi_mpi_venc_destroy_chn
+ 00000000 l    d  .text.hi_mpi_venc_get_chn_attr	00000000 .text.hi_mpi_venc_get_chn_attr
+@@ -57,12 +61,16 @@
+ 00000000 l    d  .text.hi_mpi_venc_release_stream	00000000 .text.hi_mpi_venc_release_stream
+ 00000000 l    d  .text.hi_mpi_venc_insert_user_data	00000000 .text.hi_mpi_venc_insert_user_data
+ 00000000 l    d  .text.hi_mpi_venc_send_frame	00000000 .text.hi_mpi_venc_send_frame
++00000000 l       .rodata.hi_mpi_venc_send_frame.str1.4	00000000 .LC13
+ 00000000 l    d  .text.hi_mpi_venc_send_frame_ex	00000000 .text.hi_mpi_venc_send_frame_ex
++00000000 l    d  .text.hi_mpi_venc_send_multi_frame	00000000 .text.hi_mpi_venc_send_multi_frame
++00000000 l    d  .text.hi_mpi_venc_set_chn_config	00000000 .text.hi_mpi_venc_set_chn_config
++00000000 l    d  .text.hi_mpi_venc_get_chn_config	00000000 .text.hi_mpi_venc_get_chn_config
+ 00000000 l    d  .text.hi_mpi_venc_request_idr	00000000 .text.hi_mpi_venc_request_idr
+ 00000000 l    d  .text.hi_mpi_venc_get_fd	00000000 .text.hi_mpi_venc_get_fd
+ 00000000 l    d  .text.hi_mpi_venc_close_fd	00000000 .text.hi_mpi_venc_close_fd
+-00000000 l       .rodata.hi_mpi_venc_close_fd.str1.4	00000000 .LC11
+-00000020 l       .rodata.hi_mpi_venc_close_fd.str1.4	00000000 .LC12
++00000000 l       .rodata.hi_mpi_venc_close_fd.str1.4	00000000 .LC14
++00000020 l       .rodata.hi_mpi_venc_close_fd.str1.4	00000000 .LC15
+ 00000000 l    d  .text.mpi_venc_exit	00000000 .text.mpi_venc_exit
+ 00000000 l    d  .text.hi_mpi_venc_get_roi_attr	00000000 .text.hi_mpi_venc_get_roi_attr
+ 00000000 l    d  .text.hi_mpi_venc_set_roi_attr	00000000 .text.hi_mpi_venc_set_roi_attr
+@@ -96,8 +104,8 @@
+ 00000000 l    d  .text.hi_mpi_venc_get_stream_buf_info	00000000 .text.hi_mpi_venc_get_stream_buf_info
+ 00000000 l    d  .text.hi_mpi_venc_set_h265_slice_split	00000000 .text.hi_mpi_venc_set_h265_slice_split
+ 00000000 l    d  .text.hi_mpi_venc_get_h265_slice_split	00000000 .text.hi_mpi_venc_get_h265_slice_split
+-00000000 l    d  .text.hi_mpi_venc_set_h265_pred_unit	00000000 .text.hi_mpi_venc_set_h265_pred_unit
+-00000000 l    d  .text.hi_mpi_venc_get_h265_pred_unit	00000000 .text.hi_mpi_venc_get_h265_pred_unit
++00000000 l    d  .text.hi_mpi_venc_set_h265_pu	00000000 .text.hi_mpi_venc_set_h265_pu
++00000000 l    d  .text.hi_mpi_venc_get_h265_pu	00000000 .text.hi_mpi_venc_get_h265_pu
+ 00000000 l    d  .text.hi_mpi_venc_set_h265_trans	00000000 .text.hi_mpi_venc_set_h265_trans
+ 00000000 l    d  .text.hi_mpi_venc_get_h265_trans	00000000 .text.hi_mpi_venc_get_h265_trans
+ 00000000 l    d  .text.hi_mpi_venc_set_h265_entropy	00000000 .text.hi_mpi_venc_set_h265_entropy
+@@ -115,21 +123,21 @@
+ 00000000 l    d  .text.hi_mpi_venc_attach_vb_pool	00000000 .text.hi_mpi_venc_attach_vb_pool
+ 00000000 l    d  .text.hi_mpi_venc_detach_vb_pool	00000000 .text.hi_mpi_venc_detach_vb_pool
+ 00000000 l    d  .text.hi_mpi_venc_set_mod_param	00000000 .text.hi_mpi_venc_set_mod_param
+-00000000 l       .rodata.hi_mpi_venc_set_mod_param.str1.4	00000000 .LC13
++00000000 l       .rodata.hi_mpi_venc_set_mod_param.str1.4	00000000 .LC16
+ 00000000 l    d  .text.hi_mpi_venc_get_mod_param	00000000 .text.hi_mpi_venc_get_mod_param
+ 00000000 l    d  .text.hi_mpi_venc_set_sse_region	00000000 .text.hi_mpi_venc_set_sse_region
+-00000000 l       .rodata.hi_mpi_venc_set_sse_region.str1.4	00000000 .LC14
++00000000 l       .rodata.hi_mpi_venc_set_sse_region.str1.4	00000000 .LC17
+ 00000000 l    d  .text.hi_mpi_venc_get_sse_region	00000000 .text.hi_mpi_venc_get_sse_region
+ 00000000 l    d  .text.hi_mpi_venc_set_scene_mode	00000000 .text.hi_mpi_venc_set_scene_mode
+ 00000000 l    d  .text.hi_mpi_venc_get_scene_mode	00000000 .text.hi_mpi_venc_get_scene_mode
+ 00000000 l    d  .text.hi_mpi_venc_set_chn_param	00000000 .text.hi_mpi_venc_set_chn_param
+ 00000000 l    d  .text.hi_mpi_venc_get_chn_param	00000000 .text.hi_mpi_venc_get_chn_param
+-00000000 l    d  .text.hi_mpi_venc_get_foreground_protect	00000000 .text.hi_mpi_venc_get_foreground_protect
+-00000000 l    d  .text.hi_mpi_venc_set_foreground_protect	00000000 .text.hi_mpi_venc_set_foreground_protect
++00000000 l    d  .text.hi_mpi_venc_get_fg_protect	00000000 .text.hi_mpi_venc_get_fg_protect
++00000000 l    d  .text.hi_mpi_venc_set_fg_protect	00000000 .text.hi_mpi_venc_set_fg_protect
+ 00000000 l    d  .text.hi_mpi_venc_set_de_breath_effect	00000000 .text.hi_mpi_venc_set_de_breath_effect
+ 00000000 l    d  .text.hi_mpi_venc_get_de_breath_effect	00000000 .text.hi_mpi_venc_get_de_breath_effect
+-00000000 l    d  .text.hi_mpi_venc_set_cu_prediction	00000000 .text.hi_mpi_venc_set_cu_prediction
+-00000000 l    d  .text.hi_mpi_venc_get_cu_prediction	00000000 .text.hi_mpi_venc_get_cu_prediction
++00000000 l    d  .text.hi_mpi_venc_set_cu_pred	00000000 .text.hi_mpi_venc_set_cu_pred
++00000000 l    d  .text.hi_mpi_venc_get_cu_pred	00000000 .text.hi_mpi_venc_get_cu_pred
+ 00000000 l    d  .text.hi_mpi_venc_set_skip_bias	00000000 .text.hi_mpi_venc_set_skip_bias
+ 00000000 l    d  .text.hi_mpi_venc_get_skip_bias	00000000 .text.hi_mpi_venc_get_skip_bias
+ 00000000 l    d  .text.hi_mpi_venc_set_hierarchical_qp	00000000 .text.hi_mpi_venc_set_hierarchical_qp
+@@ -138,8 +146,13 @@
+ 00000000 l    d  .text.hi_mpi_venc_get_rc_adv_param	00000000 .text.hi_mpi_venc_get_rc_adv_param
+ 00000000 l    d  .text.hi_mpi_venc_set_slice_split	00000000 .text.hi_mpi_venc_set_slice_split
+ 00000000 l    d  .text.hi_mpi_venc_get_slice_split	00000000 .text.hi_mpi_venc_get_slice_split
+-00000000 l    d  .text.MPI_VENC_Init	00000000 .text.MPI_VENC_Init
+-00000000 l    d  .text.MPI_VENC_Exit	00000000 .text.MPI_VENC_Exit
++00000000 l    d  .text.hi_mpi_venc_set_search_window	00000000 .text.hi_mpi_venc_set_search_window
++00000000 l    d  .text.hi_mpi_venc_get_search_window	00000000 .text.hi_mpi_venc_get_search_window
++00000000 l    d  .text.hi_mpi_venc_enable_svc	00000000 .text.hi_mpi_venc_enable_svc
++00000000 l    d  .text.hi_mpi_venc_set_svc_param	00000000 .text.hi_mpi_venc_set_svc_param
++00000000 l    d  .text.hi_mpi_venc_get_svc_param	00000000 .text.hi_mpi_venc_get_svc_param
++00000000 l    d  .text.hi_mpi_venc_get_svc_scene_complexity	00000000 .text.hi_mpi_venc_get_svc_scene_complexity
++00000000 l    d  .text.hi_mpi_venc_send_svc_region	00000000 .text.hi_mpi_venc_send_svc_region
+ 00000000 l    d  .text.HI_MPI_VENC_CreateChn	00000000 .text.HI_MPI_VENC_CreateChn
+ 00000000 l    d  .text.HI_MPI_VENC_ResetChn	00000000 .text.HI_MPI_VENC_ResetChn
+ 00000000 l    d  .text.HI_MPI_VENC_StartRecvFrame	00000000 .text.HI_MPI_VENC_StartRecvFrame
+@@ -155,6 +168,9 @@
+ 00000000 l    d  .text.HI_MPI_VENC_InsertUserData	00000000 .text.HI_MPI_VENC_InsertUserData
+ 00000000 l    d  .text.HI_MPI_VENC_SendFrame	00000000 .text.HI_MPI_VENC_SendFrame
+ 00000000 l    d  .text.HI_MPI_VENC_SendFrameEx	00000000 .text.HI_MPI_VENC_SendFrameEx
++00000000 l    d  .text.HI_MPI_VENC_SendMultiFrame	00000000 .text.HI_MPI_VENC_SendMultiFrame
++00000000 l    d  .text.HI_MPI_VENC_GetChnConfig	00000000 .text.HI_MPI_VENC_GetChnConfig
++00000000 l    d  .text.HI_MPI_VENC_SetChnConfig	00000000 .text.HI_MPI_VENC_SetChnConfig
+ 00000000 l    d  .text.HI_MPI_VENC_RequestIDR	00000000 .text.HI_MPI_VENC_RequestIDR
+ 00000000 l    d  .text.HI_MPI_VENC_GetFd	00000000 .text.HI_MPI_VENC_GetFd
+ 00000000 l    d  .text.HI_MPI_VENC_CloseFd	00000000 .text.HI_MPI_VENC_CloseFd
+@@ -230,42 +246,58 @@
+ 00000000 l    d  .text.HI_MPI_VENC_GetRcAdvParam	00000000 .text.HI_MPI_VENC_GetRcAdvParam
+ 00000000 l    d  .text.HI_MPI_VENC_SetSliceSplit	00000000 .text.HI_MPI_VENC_SetSliceSplit
+ 00000000 l    d  .text.HI_MPI_VENC_GetSliceSplit	00000000 .text.HI_MPI_VENC_GetSliceSplit
++00000000 l    d  .text.HI_MPI_VENC_SetSearchWindow	00000000 .text.HI_MPI_VENC_SetSearchWindow
++00000000 l    d  .text.HI_MPI_VENC_GetSearchWindow	00000000 .text.HI_MPI_VENC_GetSearchWindow
++00000000 l    d  .text.HI_MPI_VENC_EnableSvc	00000000 .text.HI_MPI_VENC_EnableSvc
++00000000 l    d  .text.HI_MPI_VENC_SetSvcParam	00000000 .text.HI_MPI_VENC_SetSvcParam
++00000000 l    d  .text.HI_MPI_VENC_GetSvcParam	00000000 .text.HI_MPI_VENC_GetSvcParam
++00000000 l    d  .text.HI_MPI_VENC_GetSvcSceneComplexity	00000000 .text.HI_MPI_VENC_GetSvcSceneComplexity
++00000000 l    d  .text.HI_MPI_VENC_SendSvcRegion	00000000 .text.HI_MPI_VENC_SendSvcRegion
+ 00000000 l    d  .bss.g_mpi_venc_chn	00000000 .bss.g_mpi_venc_chn
+ 00000000 l     O .bss.g_mpi_venc_chn	00000580 g_mpi_venc_chn
+-00000000 l    d  .bss.s_mpi_venc_init	00000000 .bss.s_mpi_venc_init
+-00000000 l     O .bss.s_mpi_venc_init	00000004 s_mpi_venc_init
+-00000000 l    d  .bss.s_venc_mutex	00000000 .bss.s_venc_mutex
+-00000000 l     O .bss.s_venc_mutex	00000018 s_venc_mutex
++00000000 l    d  .bss.g_mpi_venc_init	00000000 .bss.g_mpi_venc_init
++00000000 l     O .bss.g_mpi_venc_init	00000004 g_mpi_venc_init
++00000000 l    d  .bss.g_venc_mutex	00000000 .bss.g_venc_mutex
++00000000 l     O .bss.g_venc_mutex	00000018 g_venc_mutex
+ 00000000 l    d  .data.g_venc_fd	00000000 .data.g_venc_fd
+ 00000000 l     O .data.g_venc_fd	00000004 g_venc_fd
+-00000000 l    d  .data.venc_mem_fd	00000000 .data.venc_mem_fd
+-00000000 l    d  .rodata.MPI_VENC_OPEN.str1.4	00000000 .rodata.MPI_VENC_OPEN.str1.4
+-00000000 l    d  .rodata.__FUNCTION__.13098	00000000 .rodata.__FUNCTION__.13098
+-00000000 l     O .rodata.__FUNCTION__.13098	0000000e __FUNCTION__.13098
+-00000000 l    d  .rodata.__FUNCTION__.13115	00000000 .rodata.__FUNCTION__.13115
+-00000000 l     O .rodata.__FUNCTION__.13115	00000014 __FUNCTION__.13115
+-00000000 l    d  .rodata.__FUNCTION__.13126	00000000 .rodata.__FUNCTION__.13126
+-00000000 l     O .rodata.__FUNCTION__.13126	0000000e __FUNCTION__.13126
+-00000000 l    d  .rodata.__FUNCTION__.13132	00000000 .rodata.__FUNCTION__.13132
+-00000000 l     O .rodata.__FUNCTION__.13132	00000013 __FUNCTION__.13132
+-00000000 l    d  .rodata.__FUNCTION__.13136	00000000 .rodata.__FUNCTION__.13136
+-00000000 l     O .rodata.__FUNCTION__.13136	00000018 __FUNCTION__.13136
+-00000000 l    d  .rodata.__FUNCTION__.13140	00000000 .rodata.__FUNCTION__.13140
+-00000000 l     O .rodata.__FUNCTION__.13140	00000016 __FUNCTION__.13140
+-00000000 l    d  .rodata.__FUNCTION__.13148	00000000 .rodata.__FUNCTION__.13148
+-00000000 l     O .rodata.__FUNCTION__.13148	00000007 __FUNCTION__.13148
+-00000000 l    d  .rodata.__FUNCTION__.13315	00000000 .rodata.__FUNCTION__.13315
+-00000000 l     O .rodata.__FUNCTION__.13315	00000017 __FUNCTION__.13315
+-00000000 l    d  .rodata.__FUNCTION__.13375	00000000 .rodata.__FUNCTION__.13375
+-00000000 l     O .rodata.__FUNCTION__.13375	00000017 __FUNCTION__.13375
+-00000000 l    d  .rodata.__FUNCTION__.13386	00000000 .rodata.__FUNCTION__.13386
+-00000000 l     O .rodata.__FUNCTION__.13386	0000001a __FUNCTION__.13386
+-00000000 l    d  .rodata.__FUNCTION__.13842	00000000 .rodata.__FUNCTION__.13842
+-00000000 l     O .rodata.__FUNCTION__.13842	0000001b __FUNCTION__.13842
+-00000000 l    d  .rodata.__FUNCTION__.13852	00000000 .rodata.__FUNCTION__.13852
+-00000000 l     O .rodata.__FUNCTION__.13852	0000001b __FUNCTION__.13852
++00000000 l    d  .data.g_venc_mem_fd	00000000 .data.g_venc_mem_fd
++00000000 l    d  .rodata.__FUNCTION__.13286	00000000 .rodata.__FUNCTION__.13286
++00000000 l     O .rodata.__FUNCTION__.13286	0000000e __FUNCTION__.13286
++00000000 l    d  .rodata.__FUNCTION__.13305	00000000 .rodata.__FUNCTION__.13305
++00000000 l     O .rodata.__FUNCTION__.13305	00000014 __FUNCTION__.13305
++00000000 l    d  .rodata.__FUNCTION__.13316	00000000 .rodata.__FUNCTION__.13316
++00000000 l     O .rodata.__FUNCTION__.13316	0000000e __FUNCTION__.13316
++00000000 l    d  .rodata.__FUNCTION__.13322	00000000 .rodata.__FUNCTION__.13322
++00000000 l     O .rodata.__FUNCTION__.13322	00000013 __FUNCTION__.13322
++00000000 l    d  .rodata.__FUNCTION__.13326	00000000 .rodata.__FUNCTION__.13326
++00000000 l     O .rodata.__FUNCTION__.13326	00000018 __FUNCTION__.13326
++00000000 l    d  .rodata.__FUNCTION__.13330	00000000 .rodata.__FUNCTION__.13330
++00000000 l     O .rodata.__FUNCTION__.13330	00000016 __FUNCTION__.13330
++00000000 l    d  .rodata.__FUNCTION__.13338	00000000 .rodata.__FUNCTION__.13338
++00000000 l     O .rodata.__FUNCTION__.13338	00000007 __FUNCTION__.13338
++00000000 l    d  .rodata.__FUNCTION__.13403	00000000 .rodata.__FUNCTION__.13403
++00000000 l     O .rodata.__FUNCTION__.13403	00000017 __FUNCTION__.13403
++00000000 l    d  .rodata.__FUNCTION__.13450	00000000 .rodata.__FUNCTION__.13450
++00000000 l     O .rodata.__FUNCTION__.13450	00000018 __FUNCTION__.13450
++00000000 l    d  .rodata.__FUNCTION__.13530	00000000 .rodata.__FUNCTION__.13530
++00000000 l     O .rodata.__FUNCTION__.13530	00000018 __FUNCTION__.13530
++00000000 l    d  .rodata.__FUNCTION__.13548	00000000 .rodata.__FUNCTION__.13548
++00000000 l     O .rodata.__FUNCTION__.13548	00000017 __FUNCTION__.13548
++00000000 l    d  .rodata.__FUNCTION__.13588	00000000 .rodata.__FUNCTION__.13588
++00000000 l     O .rodata.__FUNCTION__.13588	00000017 __FUNCTION__.13588
++00000000 l    d  .rodata.__FUNCTION__.13599	00000000 .rodata.__FUNCTION__.13599
++00000000 l     O .rodata.__FUNCTION__.13599	0000001a __FUNCTION__.13599
++00000000 l    d  .rodata.__FUNCTION__.13610	00000000 .rodata.__FUNCTION__.13610
++00000000 l     O .rodata.__FUNCTION__.13610	0000001d __FUNCTION__.13610
++00000000 l    d  .rodata.__FUNCTION__.14082	00000000 .rodata.__FUNCTION__.14082
++00000000 l     O .rodata.__FUNCTION__.14082	0000001b __FUNCTION__.14082
++00000000 l    d  .rodata.__FUNCTION__.14092	00000000 .rodata.__FUNCTION__.14092
++00000000 l     O .rodata.__FUNCTION__.14092	0000001b __FUNCTION__.14092
+ 00000000 l    d  .rodata.hi_mpi_venc_close_fd.str1.4	00000000 .rodata.hi_mpi_venc_close_fd.str1.4
++00000000 l    d  .rodata.hi_mpi_venc_create_chn.str1.4	00000000 .rodata.hi_mpi_venc_create_chn.str1.4
+ 00000000 l    d  .rodata.hi_mpi_venc_get_stream.part.16.str1.4	00000000 .rodata.hi_mpi_venc_get_stream.part.16.str1.4
++00000000 l    d  .rodata.hi_mpi_venc_send_frame.str1.4	00000000 .rodata.hi_mpi_venc_send_frame.str1.4
+ 00000000 l    d  .rodata.hi_mpi_venc_set_mod_param.str1.4	00000000 .rodata.hi_mpi_venc_set_mod_param.str1.4
+ 00000000 l    d  .rodata.hi_mpi_venc_set_sse_region.str1.4	00000000 .rodata.hi_mpi_venc_set_sse_region.str1.4
+ 00000000 l    d  .rodata.memmap.str1.4	00000000 .rodata.memmap.str1.4
+@@ -274,6 +306,7 @@
+ 00000000 l    d  .rodata.mpi_venc_check_null.part.1.str1.4	00000000 .rodata.mpi_venc_check_null.part.1.str1.4
+ 00000000 l    d  .rodata.mpi_venc_check_roi_idex.part.2.str1.4	00000000 .rodata.mpi_venc_check_roi_idex.part.2.str1.4
+ 00000000 l    d  .rodata.mpi_venc_init.str1.4	00000000 .rodata.mpi_venc_init.str1.4
++00000000 l    d  .rodata.mpi_venc_open.str1.4	00000000 .rodata.mpi_venc_open.str1.4
+ 00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+ 00000000 l    d  .comment	00000000 .comment
+ 00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+@@ -282,7 +315,7 @@
+ 00000000         *UND*	00000000 open
+ 00000000         *UND*	00000000 fprintf
+ 00000000         *UND*	00000000 _GLOBAL_OFFSET_TABLE_
+-00000000 g     O .data.venc_mem_fd	00000004 venc_mem_fd
++00000000 g     O .data.g_venc_mem_fd	00000004 g_venc_mem_fd
+ 00000000         *UND*	00000000 stderr
+ 00000000         *UND*	00000000 mmap
+ 00000000         *UND*	00000000 munmap
+@@ -303,12 +336,12 @@
+ 00000000         *UND*	00000000 __aeabi_ul2d
+ 00000000 g     F .text.cal_psnr	000000c8 cal_psnr
+ 00000000         *UND*	00000000 log10
+-00000000 g     F .text.hi_mpi_venc_create_chn	000001d8 hi_mpi_venc_create_chn
++00000000 g     F .text.hi_mpi_venc_create_chn	0000025c hi_mpi_venc_create_chn
+ 00000000 g     F .text.hi_mpi_venc_reset_chn	00000054 hi_mpi_venc_reset_chn
+-00000000 g     F .text.hi_mpi_venc_start_recv_frame	0000007c hi_mpi_venc_start_recv_frame
+-00000000 g     F .text.hi_mpi_venc_stop_recv_frame	00000054 hi_mpi_venc_stop_recv_frame
++00000000 g     F .text.hi_mpi_venc_start_chn	0000007c hi_mpi_venc_start_chn
++00000000 g     F .text.hi_mpi_venc_stop_chn	00000054 hi_mpi_venc_stop_chn
+ 00000000 g     F .text.hi_mpi_venc_query_status	00000164 hi_mpi_venc_query_status
+-00000000 g     F .text.hi_mpi_venc_destroy_chn	0000009c hi_mpi_venc_destroy_chn
++00000000 g     F .text.hi_mpi_venc_destroy_chn	00000110 hi_mpi_venc_destroy_chn
+ 00000000 g     F .text.hi_mpi_venc_get_chn_attr	0000007c hi_mpi_venc_get_chn_attr
+ 00000000 g     F .text.hi_mpi_venc_set_chn_attr	0000007c hi_mpi_venc_set_chn_attr
+ 00000000 g     F .text.hi_mpi_venc_set_rc_param	0000007c hi_mpi_venc_set_rc_param
+@@ -316,14 +349,17 @@
+ 00000000 g     F .text.hi_mpi_venc_get_stream	00000098 hi_mpi_venc_get_stream
+ 00000000 g     F .text.hi_mpi_venc_release_stream	000001ac hi_mpi_venc_release_stream
+ 00000000 g     F .text.hi_mpi_venc_insert_user_data	000000d8 hi_mpi_venc_insert_user_data
+-00000000 g     F .text.hi_mpi_venc_send_frame	000000d8 hi_mpi_venc_send_frame
+-00000000 g     F .text.hi_mpi_venc_send_frame_ex	000000d8 hi_mpi_venc_send_frame_ex
++00000000 g     F .text.hi_mpi_venc_send_frame	000000cc hi_mpi_venc_send_frame
++00000000 g     F .text.hi_mpi_venc_send_frame_ex	000000cc hi_mpi_venc_send_frame_ex
++00000000 g     F .text.hi_mpi_venc_send_multi_frame	000000cc hi_mpi_venc_send_multi_frame
++00000000 g     F .text.hi_mpi_venc_set_chn_config	0000007c hi_mpi_venc_set_chn_config
++00000000 g     F .text.hi_mpi_venc_get_chn_config	0000007c hi_mpi_venc_get_chn_config
+ 00000000 g     F .text.hi_mpi_venc_request_idr	00000074 hi_mpi_venc_request_idr
+ 00000000 g     F .text.hi_mpi_venc_get_fd	00000050 hi_mpi_venc_get_fd
+ 00000000 g     F .text.hi_mpi_venc_close_fd	00000120 hi_mpi_venc_close_fd
+ 00000000         *UND*	00000000 printf
+ 00000000         *UND*	00000000 perror
+-00000000 g     F .text.mpi_venc_exit	000000a0 mpi_venc_exit
++00000000 g     F .text.mpi_venc_exit	000000a8 mpi_venc_exit
+ 00000000 g     F .text.hi_mpi_venc_get_roi_attr	000000a0 hi_mpi_venc_get_roi_attr
+ 00000000 g     F .text.hi_mpi_venc_set_roi_attr	00000098 hi_mpi_venc_set_roi_attr
+ 00000000 g     F .text.hi_mpi_venc_get_roi_attr_ex	000000a0 hi_mpi_venc_get_roi_attr_ex
+@@ -356,8 +392,8 @@
+ 00000000 g     F .text.hi_mpi_venc_get_stream_buf_info	000001a8 hi_mpi_venc_get_stream_buf_info
+ 00000000 g     F .text.hi_mpi_venc_set_h265_slice_split	0000007c hi_mpi_venc_set_h265_slice_split
+ 00000000 g     F .text.hi_mpi_venc_get_h265_slice_split	0000007c hi_mpi_venc_get_h265_slice_split
+-00000000 g     F .text.hi_mpi_venc_set_h265_pred_unit	0000007c hi_mpi_venc_set_h265_pred_unit
+-00000000 g     F .text.hi_mpi_venc_get_h265_pred_unit	0000007c hi_mpi_venc_get_h265_pred_unit
++00000000 g     F .text.hi_mpi_venc_set_h265_pu	0000007c hi_mpi_venc_set_h265_pu
++00000000 g     F .text.hi_mpi_venc_get_h265_pu	0000007c hi_mpi_venc_get_h265_pu
+ 00000000 g     F .text.hi_mpi_venc_set_h265_trans	0000007c hi_mpi_venc_set_h265_trans
+ 00000000 g     F .text.hi_mpi_venc_get_h265_trans	0000007c hi_mpi_venc_get_h265_trans
+ 00000000 g     F .text.hi_mpi_venc_set_h265_entropy	0000007c hi_mpi_venc_set_h265_entropy
+@@ -377,18 +413,18 @@
+ 00000000 g     F .text.hi_mpi_venc_set_mod_param	0000014c hi_mpi_venc_set_mod_param
+ 00000000         *UND*	00000000 puts
+ 00000000 g     F .text.hi_mpi_venc_get_mod_param	0000014c hi_mpi_venc_get_mod_param
+-00000000 g     F .text.hi_mpi_venc_set_sse_region	000000e8 hi_mpi_venc_set_sse_region
+-00000000 g     F .text.hi_mpi_venc_get_sse_region	000000ec hi_mpi_venc_get_sse_region
++00000000 g     F .text.hi_mpi_venc_set_sse_region	000000f0 hi_mpi_venc_set_sse_region
++00000000 g     F .text.hi_mpi_venc_get_sse_region	000000f4 hi_mpi_venc_get_sse_region
+ 00000000 g     F .text.hi_mpi_venc_set_scene_mode	00000074 hi_mpi_venc_set_scene_mode
+ 00000000 g     F .text.hi_mpi_venc_get_scene_mode	0000007c hi_mpi_venc_get_scene_mode
+ 00000000 g     F .text.hi_mpi_venc_set_chn_param	0000007c hi_mpi_venc_set_chn_param
+ 00000000 g     F .text.hi_mpi_venc_get_chn_param	0000007c hi_mpi_venc_get_chn_param
+-00000000 g     F .text.hi_mpi_venc_get_foreground_protect	0000007c hi_mpi_venc_get_foreground_protect
+-00000000 g     F .text.hi_mpi_venc_set_foreground_protect	0000007c hi_mpi_venc_set_foreground_protect
++00000000 g     F .text.hi_mpi_venc_get_fg_protect	0000007c hi_mpi_venc_get_fg_protect
++00000000 g     F .text.hi_mpi_venc_set_fg_protect	0000007c hi_mpi_venc_set_fg_protect
+ 00000000 g     F .text.hi_mpi_venc_set_de_breath_effect	0000007c hi_mpi_venc_set_de_breath_effect
+ 00000000 g     F .text.hi_mpi_venc_get_de_breath_effect	0000007c hi_mpi_venc_get_de_breath_effect
+-00000000 g     F .text.hi_mpi_venc_set_cu_prediction	0000007c hi_mpi_venc_set_cu_prediction
+-00000000 g     F .text.hi_mpi_venc_get_cu_prediction	0000007c hi_mpi_venc_get_cu_prediction
++00000000 g     F .text.hi_mpi_venc_set_cu_pred	0000007c hi_mpi_venc_set_cu_pred
++00000000 g     F .text.hi_mpi_venc_get_cu_pred	0000007c hi_mpi_venc_get_cu_pred
+ 00000000 g     F .text.hi_mpi_venc_set_skip_bias	0000007c hi_mpi_venc_set_skip_bias
+ 00000000 g     F .text.hi_mpi_venc_get_skip_bias	0000007c hi_mpi_venc_get_skip_bias
+ 00000000 g     F .text.hi_mpi_venc_set_hierarchical_qp	0000007c hi_mpi_venc_set_hierarchical_qp
+@@ -397,8 +433,13 @@
+ 00000000 g     F .text.hi_mpi_venc_get_rc_adv_param	0000007c hi_mpi_venc_get_rc_adv_param
+ 00000000 g     F .text.hi_mpi_venc_set_slice_split	0000007c hi_mpi_venc_set_slice_split
+ 00000000 g     F .text.hi_mpi_venc_get_slice_split	0000007c hi_mpi_venc_get_slice_split
+-00000000 g     F .text.MPI_VENC_Init	00000004 MPI_VENC_Init
+-00000000 g     F .text.MPI_VENC_Exit	00000004 MPI_VENC_Exit
++00000000 g     F .text.hi_mpi_venc_set_search_window	0000007c hi_mpi_venc_set_search_window
++00000000 g     F .text.hi_mpi_venc_get_search_window	0000007c hi_mpi_venc_get_search_window
++00000000 g     F .text.hi_mpi_venc_enable_svc	00000074 hi_mpi_venc_enable_svc
++00000000 g     F .text.hi_mpi_venc_set_svc_param	0000007c hi_mpi_venc_set_svc_param
++00000000 g     F .text.hi_mpi_venc_get_svc_param	0000007c hi_mpi_venc_get_svc_param
++00000000 g     F .text.hi_mpi_venc_get_svc_scene_complexity	0000007c hi_mpi_venc_get_svc_scene_complexity
++00000000 g     F .text.hi_mpi_venc_send_svc_region	0000007c hi_mpi_venc_send_svc_region
+ 00000000 g     F .text.HI_MPI_VENC_CreateChn	00000004 HI_MPI_VENC_CreateChn
+ 00000000 g     F .text.HI_MPI_VENC_ResetChn	00000004 HI_MPI_VENC_ResetChn
+ 00000000 g     F .text.HI_MPI_VENC_StartRecvFrame	00000004 HI_MPI_VENC_StartRecvFrame
+@@ -414,6 +455,9 @@
+ 00000000 g     F .text.HI_MPI_VENC_InsertUserData	00000004 HI_MPI_VENC_InsertUserData
+ 00000000 g     F .text.HI_MPI_VENC_SendFrame	00000004 HI_MPI_VENC_SendFrame
+ 00000000 g     F .text.HI_MPI_VENC_SendFrameEx	00000004 HI_MPI_VENC_SendFrameEx
++00000000 g     F .text.HI_MPI_VENC_SendMultiFrame	00000004 HI_MPI_VENC_SendMultiFrame
++00000000 g     F .text.HI_MPI_VENC_GetChnConfig	00000004 HI_MPI_VENC_GetChnConfig
++00000000 g     F .text.HI_MPI_VENC_SetChnConfig	00000004 HI_MPI_VENC_SetChnConfig
+ 00000000 g     F .text.HI_MPI_VENC_RequestIDR	00000004 HI_MPI_VENC_RequestIDR
+ 00000000 g     F .text.HI_MPI_VENC_GetFd	00000004 HI_MPI_VENC_GetFd
+ 00000000 g     F .text.HI_MPI_VENC_CloseFd	00000004 HI_MPI_VENC_CloseFd
+@@ -489,6 +533,13 @@
+ 00000000 g     F .text.HI_MPI_VENC_GetRcAdvParam	00000004 HI_MPI_VENC_GetRcAdvParam
+ 00000000 g     F .text.HI_MPI_VENC_SetSliceSplit	00000004 HI_MPI_VENC_SetSliceSplit
+ 00000000 g     F .text.HI_MPI_VENC_GetSliceSplit	00000004 HI_MPI_VENC_GetSliceSplit
++00000000 g     F .text.HI_MPI_VENC_SetSearchWindow	00000004 HI_MPI_VENC_SetSearchWindow
++00000000 g     F .text.HI_MPI_VENC_GetSearchWindow	00000004 HI_MPI_VENC_GetSearchWindow
++00000000 g     F .text.HI_MPI_VENC_EnableSvc	00000004 HI_MPI_VENC_EnableSvc
++00000000 g     F .text.HI_MPI_VENC_SetSvcParam	00000004 HI_MPI_VENC_SetSvcParam
++00000000 g     F .text.HI_MPI_VENC_GetSvcParam	00000004 HI_MPI_VENC_GetSvcParam
++00000000 g     F .text.HI_MPI_VENC_GetSvcSceneComplexity	00000004 HI_MPI_VENC_GetSvcSceneComplexity
++00000000 g     F .text.HI_MPI_VENC_SendSvcRegion	00000004 HI_MPI_VENC_SendSvcRegion
+ 
+ 
+ 
+@@ -531,7 +582,7 @@
+   78:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+ 			78: R_ARM_CALL	pthread_mutex_unlock
+   7c:	e59f2044 	ldr	r2, [pc, #68]	; c8 <mpi_venc_check_mem_fd+0xc8>
+-  80:	e3a0e0f2 	mov	lr, #242	; 0xf2
++  80:	e3a0e0f3 	mov	lr, #243	; 0xf3
+   84:	e59fc040 	ldr	ip, [pc, #64]	; cc <mpi_venc_check_mem_fd+0xcc>
+   88:	e1a0300e 	mov	r3, lr
+   8c:	e7950002 	ldr	r0, [r5, r2]
+@@ -551,13 +602,13 @@
+   bc:	00000098 	.word	0x00000098
+ 			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+   c0:	00000000 	.word	0x00000000
+-			c0: R_ARM_GOT32	venc_mem_fd
++			c0: R_ARM_GOT32	g_venc_mem_fd
+   c4:	0000005c 	.word	0x0000005c
+ 			c4: R_ARM_REL32	.LC0
+   c8:	00000000 	.word	0x00000000
+ 			c8: R_ARM_GOT32	stderr
+   cc:	00000030 	.word	0x00000030
+-			cc: R_ARM_REL32	.rodata.__FUNCTION__.13140
++			cc: R_ARM_REL32	.rodata.__FUNCTION__.13330
+   d0:	00000028 	.word	0x00000028
+ 			d0: R_ARM_REL32	.LC1
+ 
+@@ -630,7 +681,7 @@
+   f8:	15840030 	strne	r0, [r4, #48]	; 0x30
+   fc:	1affffca 	bne	2c <memmap+0x2c>
+  100:	e59f2040 	ldr	r2, [pc, #64]	; 148 <memmap+0x148>
+- 104:	e3003127 	movw	r3, #295	; 0x127
++ 104:	e3a03f4a 	mov	r3, #296	; 0x128
+  108:	e1c404d0 	ldrd	r0, [r4, #64]	; 0x40
+  10c:	e7962002 	ldr	r2, [r6, r2]
+  110:	e1cd01f0 	strd	r0, [sp, #16]
+@@ -650,12 +701,12 @@
+  140:	0000011c 	.word	0x0000011c
+ 			140: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+ 	...
+-			144: R_ARM_GOT32	venc_mem_fd
++			144: R_ARM_GOT32	g_venc_mem_fd
+ 			148: R_ARM_GOT32	stderr
+  14c:	00000014 	.word	0x00000014
+ 			14c: R_ARM_REL32	.LC2
+  150:	00000020 	.word	0x00000020
+-			150: R_ARM_REL32	.rodata.__FUNCTION__.13148
++			150: R_ARM_REL32	.rodata.__FUNCTION__.13338
+ 
+ Disassembly of section .text.memunmap:
+ 
+@@ -683,42 +734,44 @@
+ Disassembly of section .text.mpi_venc_check_chn.part.0:
+ 
+ 00000000 <mpi_venc_check_chn.part.0>:
+-   0:	e59f204c 	ldr	r2, [pc, #76]	; 54 <mpi_venc_check_chn.part.0+0x54>
+-   4:	e3a030c1 	mov	r3, #193	; 0xc1
+-   8:	e59f1048 	ldr	r1, [pc, #72]	; 58 <mpi_venc_check_chn.part.0+0x58>
++   0:	e59f2054 	ldr	r2, [pc, #84]	; 5c <mpi_venc_check_chn.part.0+0x5c>
++   4:	e3a030c0 	mov	r3, #192	; 0xc0
++   8:	e59f1050 	ldr	r1, [pc, #80]	; 60 <mpi_venc_check_chn.part.0+0x60>
+    c:	e08f2002 	add	r2, pc, r2
+-  10:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+-  14:	e24dd00c 	sub	sp, sp, #12
+-  18:	e792e001 	ldr	lr, [r2, r1]
+-  1c:	e59fc038 	ldr	ip, [pc, #56]	; 5c <mpi_venc_check_chn.part.0+0x5c>
+-  20:	e59ee000 	ldr	lr, [lr]
+-  24:	e59f1034 	ldr	r1, [pc, #52]	; 60 <mpi_venc_check_chn.part.0+0x60>
+-  28:	e08fc00c 	add	ip, pc, ip
+-  2c:	e58d0004 	str	r0, [sp, #4]
+-  30:	e1a0200c 	mov	r2, ip
+-  34:	e08f1001 	add	r1, pc, r1
+-  38:	e1a0000e 	mov	r0, lr
+-  3c:	e58dc000 	str	ip, [sp]
+-  40:	ebfffffe 	bl	0 <fprintf>
+-			40: R_ARM_CALL	fprintf
+-  44:	e3080002 	movw	r0, #32770	; 0x8002
+-  48:	e34a0008 	movt	r0, #40968	; 0xa008
+-  4c:	e28dd00c 	add	sp, sp, #12
+-  50:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+-  54:	00000040 	.word	0x00000040
+-			54: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  58:	00000000 	.word	0x00000000
+-			58: R_ARM_GOT32	stderr
+-  5c:	0000002c 	.word	0x0000002c
+-			5c: R_ARM_REL32	.rodata.__FUNCTION__.13132
+-  60:	00000024 	.word	0x00000024
+-			60: R_ARM_REL32	.LC3
++  10:	e92d4010 	push	{r4, lr}
++  14:	e24dd010 	sub	sp, sp, #16
++  18:	e7924001 	ldr	r4, [r2, r1]
++  1c:	e3a0e010 	mov	lr, #16
++  20:	e59fc03c 	ldr	ip, [pc, #60]	; 64 <mpi_venc_check_chn.part.0+0x64>
++  24:	e5944000 	ldr	r4, [r4]
++  28:	e59f1038 	ldr	r1, [pc, #56]	; 68 <mpi_venc_check_chn.part.0+0x68>
++  2c:	e08fc00c 	add	ip, pc, ip
++  30:	e58d0004 	str	r0, [sp, #4]
++  34:	e1a0200c 	mov	r2, ip
++  38:	e08f1001 	add	r1, pc, r1
++  3c:	e1a00004 	mov	r0, r4
++  40:	e58dc000 	str	ip, [sp]
++  44:	e58de008 	str	lr, [sp, #8]
++  48:	ebfffffe 	bl	0 <fprintf>
++			48: R_ARM_CALL	fprintf
++  4c:	e3080002 	movw	r0, #32770	; 0x8002
++  50:	e34a0008 	movt	r0, #40968	; 0xa008
++  54:	e28dd010 	add	sp, sp, #16
++  58:	e8bd8010 	pop	{r4, pc}
++  5c:	00000048 	.word	0x00000048
++			5c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  60:	00000000 	.word	0x00000000
++			60: R_ARM_GOT32	stderr
++  64:	00000030 	.word	0x00000030
++			64: R_ARM_REL32	.rodata.__FUNCTION__.13322
++  68:	00000028 	.word	0x00000028
++			68: R_ARM_REL32	.LC3
+ 
+ Disassembly of section .text.mpi_venc_check_null.part.1:
+ 
+ 00000000 <mpi_venc_check_null.part.1>:
+    0:	e59f2044 	ldr	r2, [pc, #68]	; 4c <mpi_venc_check_null.part.1+0x4c>
+-   4:	e3a0307d 	mov	r3, #125	; 0x7d
++   4:	e3a0307b 	mov	r3, #123	; 0x7b
+    8:	e59f1040 	ldr	r1, [pc, #64]	; 50 <mpi_venc_check_null.part.1+0x50>
+    c:	e08f2002 	add	r2, pc, r2
+   10:	e59fc03c 	ldr	ip, [pc, #60]	; 54 <mpi_venc_check_null.part.1+0x54>
+@@ -742,43 +795,45 @@
+   50:	00000000 	.word	0x00000000
+ 			50: R_ARM_GOT32	stderr
+   54:	00000028 	.word	0x00000028
+-			54: R_ARM_REL32	.rodata.__FUNCTION__.13115
++			54: R_ARM_REL32	.rodata.__FUNCTION__.13305
+   58:	00000028 	.word	0x00000028
+ 			58: R_ARM_REL32	.LC4
+ 
+ Disassembly of section .text.mpi_venc_check_roi_idex.part.2:
+ 
+ 00000000 <mpi_venc_check_roi_idex.part.2>:
+-   0:	e59f204c 	ldr	r2, [pc, #76]	; 54 <mpi_venc_check_roi_idex.part.2+0x54>
++   0:	e59f2054 	ldr	r2, [pc, #84]	; 5c <mpi_venc_check_roi_idex.part.2+0x5c>
+    4:	e3a030d3 	mov	r3, #211	; 0xd3
+-   8:	e59f1048 	ldr	r1, [pc, #72]	; 58 <mpi_venc_check_roi_idex.part.2+0x58>
++   8:	e59f1050 	ldr	r1, [pc, #80]	; 60 <mpi_venc_check_roi_idex.part.2+0x60>
+    c:	e08f2002 	add	r2, pc, r2
+-  10:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+-  14:	e24dd00c 	sub	sp, sp, #12
+-  18:	e792e001 	ldr	lr, [r2, r1]
+-  1c:	e59fc038 	ldr	ip, [pc, #56]	; 5c <mpi_venc_check_roi_idex.part.2+0x5c>
+-  20:	e59ee000 	ldr	lr, [lr]
+-  24:	e59f1034 	ldr	r1, [pc, #52]	; 60 <mpi_venc_check_roi_idex.part.2+0x60>
+-  28:	e08fc00c 	add	ip, pc, ip
+-  2c:	e58d0004 	str	r0, [sp, #4]
+-  30:	e1a0200c 	mov	r2, ip
+-  34:	e08f1001 	add	r1, pc, r1
+-  38:	e1a0000e 	mov	r0, lr
+-  3c:	e58dc000 	str	ip, [sp]
+-  40:	ebfffffe 	bl	0 <fprintf>
+-			40: R_ARM_CALL	fprintf
+-  44:	e3080003 	movw	r0, #32771	; 0x8003
+-  48:	e34a0008 	movt	r0, #40968	; 0xa008
+-  4c:	e28dd00c 	add	sp, sp, #12
+-  50:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+-  54:	00000040 	.word	0x00000040
+-			54: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  58:	00000000 	.word	0x00000000
+-			58: R_ARM_GOT32	stderr
+-  5c:	0000002c 	.word	0x0000002c
+-			5c: R_ARM_REL32	.rodata.__FUNCTION__.13136
+-  60:	00000024 	.word	0x00000024
+-			60: R_ARM_REL32	.LC5
++  10:	e92d4010 	push	{r4, lr}
++  14:	e24dd010 	sub	sp, sp, #16
++  18:	e7924001 	ldr	r4, [r2, r1]
++  1c:	e3a0e008 	mov	lr, #8
++  20:	e59fc03c 	ldr	ip, [pc, #60]	; 64 <mpi_venc_check_roi_idex.part.2+0x64>
++  24:	e5944000 	ldr	r4, [r4]
++  28:	e59f1038 	ldr	r1, [pc, #56]	; 68 <mpi_venc_check_roi_idex.part.2+0x68>
++  2c:	e08fc00c 	add	ip, pc, ip
++  30:	e58d0004 	str	r0, [sp, #4]
++  34:	e1a0200c 	mov	r2, ip
++  38:	e08f1001 	add	r1, pc, r1
++  3c:	e1a00004 	mov	r0, r4
++  40:	e58dc000 	str	ip, [sp]
++  44:	e58de008 	str	lr, [sp, #8]
++  48:	ebfffffe 	bl	0 <fprintf>
++			48: R_ARM_CALL	fprintf
++  4c:	e3080003 	movw	r0, #32771	; 0x8003
++  50:	e34a0008 	movt	r0, #40968	; 0xa008
++  54:	e28dd010 	add	sp, sp, #16
++  58:	e8bd8010 	pop	{r4, pc}
++  5c:	00000048 	.word	0x00000048
++			5c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  60:	00000000 	.word	0x00000000
++			60: R_ARM_GOT32	stderr
++  64:	00000030 	.word	0x00000030
++			64: R_ARM_REL32	.rodata.__FUNCTION__.13326
++  68:	00000028 	.word	0x00000028
++			68: R_ARM_REL32	.LC5
+ 
+ Disassembly of section .text.hi_mpi_venc_send_frame.part.19:
+ 
+@@ -787,12 +842,12 @@
+    4:	e59f30cc 	ldr	r3, [pc, #204]	; d8 <hi_mpi_venc_send_frame.part.19+0xd8>
+    8:	e08fc00c 	add	ip, pc, ip
+    c:	e92d4030 	push	{r4, r5, lr}
+-  10:	e24ddf69 	sub	sp, sp, #420	; 0x1a4
++  10:	e24ddf6d 	sub	sp, sp, #436	; 0x1b4
+   14:	e79c3003 	ldr	r3, [ip, r3]
+   18:	e3a0e033 	mov	lr, #51	; 0x33
+   1c:	f2c00010 	vmov.i32	d16, #0	; 0x00000000
+   20:	e5933000 	ldr	r3, [r3]
+-  24:	e58d319c 	str	r3, [sp, #412]	; 0x19c
++  24:	e58d31ac 	str	r3, [sp, #428]	; 0x1ac
+   28:	e3a03000 	mov	r3, #0
+   2c:	e3a03e15 	mov	r3, #336	; 0x150
+   30:	e58d2008 	str	r2, [sp, #8]
+@@ -820,7 +875,7 @@
+   84:	e0000490 	mul	r0, r0, r4
+   88:	e08f3003 	add	r3, pc, r3
+   8c:	e3041527 	movw	r1, #17703	; 0x4527
+-  90:	e3441190 	movt	r1, #16784	; 0x4190
++  90:	e34411a0 	movt	r1, #16800	; 0x41a0
+   94:	e7930000 	ldr	r0, [r3, r0]
+   98:	e28d3008 	add	r3, sp, #8
+   9c:	e58d3004 	str	r3, [sp, #4]
+@@ -832,10 +887,10 @@
+   b0:	e08f2002 	add	r2, pc, r2
+   b4:	e7923003 	ldr	r3, [r2, r3]
+   b8:	e5932000 	ldr	r2, [r3]
+-  bc:	e59d319c 	ldr	r3, [sp, #412]	; 0x19c
++  bc:	e59d31ac 	ldr	r3, [sp, #428]	; 0x1ac
+   c0:	e0332002 	eors	r2, r3, r2
+   c4:	1a000001 	bne	d0 <hi_mpi_venc_send_frame.part.19+0xd0>
+-  c8:	e28ddf69 	add	sp, sp, #420	; 0x1a4
++  c8:	e28ddf6d 	add	sp, sp, #436	; 0x1b4
+   cc:	e8bd8030 	pop	{r4, r5, pc}
+   d0:	ebfffffe 	bl	0 <__stack_chk_fail>
+ 			d0: R_ARM_CALL	__stack_chk_fail
+@@ -854,7 +909,7 @@
+    0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
+    4:	e1a04000 	mov	r4, r0
+    8:	e59f00e0 	ldr	r0, [pc, #224]	; f0 <hi_mpi_venc_send_frame_ex.part.20+0xf0>
+-   c:	e24ddf67 	sub	sp, sp, #412	; 0x19c
++   c:	e24ddf6b 	sub	sp, sp, #428	; 0x1ac
+   10:	e1a0c001 	mov	ip, r1
+   14:	e3a03e15 	mov	r3, #336	; 0x150
+   18:	e58d2000 	str	r2, [sp]
+@@ -867,7 +922,7 @@
+   34:	e59c0170 	ldr	r0, [ip, #368]	; 0x170
+   38:	e5911150 	ldr	r1, [r1, #336]	; 0x150
+   3c:	e5922000 	ldr	r2, [r2]
+-  40:	e58d2194 	str	r2, [sp, #404]	; 0x194
++  40:	e58d21a4 	str	r2, [sp, #420]	; 0x1a4
+   44:	e3a02000 	mov	r2, #0
+   48:	e1a0200c 	mov	r2, ip
+   4c:	e59c5154 	ldr	r5, [ip, #340]	; 0x154
+@@ -897,7 +952,7 @@
+   a8:	e0000490 	mul	r0, r0, r4
+   ac:	e08f3003 	add	r3, pc, r3
+   b0:	e3041546 	movw	r1, #17734	; 0x4546
+-  b4:	e3441190 	movt	r1, #16784	; 0x4190
++  b4:	e34411a0 	movt	r1, #16800	; 0x41a0
+   b8:	e1a0200d 	mov	r2, sp
+   bc:	e7930000 	ldr	r0, [r3, r0]
+   c0:	ebfffffe 	bl	0 <ioctl>
+@@ -907,10 +962,10 @@
+   cc:	e08f2002 	add	r2, pc, r2
+   d0:	e7923003 	ldr	r3, [r2, r3]
+   d4:	e5932000 	ldr	r2, [r3]
+-  d8:	e59d3194 	ldr	r3, [sp, #404]	; 0x194
++  d8:	e59d31a4 	ldr	r3, [sp, #420]	; 0x1a4
+   dc:	e0332002 	eors	r2, r3, r2
+   e0:	1a000001 	bne	ec <hi_mpi_venc_send_frame_ex.part.20+0xec>
+-  e4:	e28ddf67 	add	sp, sp, #412	; 0x19c
++  e4:	e28ddf6b 	add	sp, sp, #428	; 0x1ac
+   e8:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+   ec:	ebfffffe 	bl	0 <__stack_chk_fail>
+ 			ec: R_ARM_CALL	__stack_chk_fail
+@@ -923,6 +978,66 @@
+   fc:	00000028 	.word	0x00000028
+ 			fc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+ 
++Disassembly of section .text.hi_mpi_venc_send_multi_frame.part.21:
++
++00000000 <hi_mpi_venc_send_multi_frame.part.21>:
++   0:	e92d4070 	push	{r4, r5, r6, lr}
++   4:	e24ddd3d 	sub	sp, sp, #3904	; 0xf40
++   8:	e59fe0a0 	ldr	lr, [pc, #160]	; b0 <hi_mpi_venc_send_multi_frame.part.21+0xb0>
++   c:	e1a05001 	mov	r5, r1
++  10:	e58d2000 	str	r2, [sp]
++  14:	e1a02001 	mov	r2, r1
++  18:	e08fe00e 	add	lr, pc, lr
++  1c:	e3a03e2a 	mov	r3, #672	; 0x2a0
++  20:	e4921008 	ldr	r1, [r2], #8
++  24:	e1a06000 	mov	r6, r0
++  28:	e59fc084 	ldr	ip, [pc, #132]	; b4 <hi_mpi_venc_send_multi_frame.part.21+0xb4>
++  2c:	e28d0008 	add	r0, sp, #8
++  30:	e58d1004 	str	r1, [sp, #4]
++  34:	e1a01003 	mov	r1, r3
++  38:	e79ec00c 	ldr	ip, [lr, ip]
++  3c:	e59cc000 	ldr	ip, [ip]
++  40:	e58dcf3c 	str	ip, [sp, #3900]	; 0xf3c
++  44:	e3a0c000 	mov	ip, #0
++  48:	ebfffffe 	bl	0 <memcpy_s>
++			48: R_ARM_CALL	memcpy_s
++  4c:	e3003c8c 	movw	r3, #3212	; 0xc8c
++  50:	e2852faa 	add	r2, r5, #680	; 0x2a8
++  54:	e1a01003 	mov	r1, r3
++  58:	e28d0faa 	add	r0, sp, #680	; 0x2a8
++  5c:	ebfffffe 	bl	0 <memcpy_s>
++			5c: R_ARM_CALL	memcpy_s
++  60:	e59f3050 	ldr	r3, [pc, #80]	; b8 <hi_mpi_venc_send_multi_frame.part.21+0xb8>
++  64:	e3a00058 	mov	r0, #88	; 0x58
++  68:	e0000690 	mul	r0, r0, r6
++  6c:	e08f3003 	add	r3, pc, r3
++  70:	e3041565 	movw	r1, #17765	; 0x4565
++  74:	e3441f38 	movt	r1, #20280	; 0x4f38
++  78:	e1a0200d 	mov	r2, sp
++  7c:	e7930000 	ldr	r0, [r3, r0]
++  80:	ebfffffe 	bl	0 <ioctl>
++			80: R_ARM_CALL	ioctl
++  84:	e59f2030 	ldr	r2, [pc, #48]	; bc <hi_mpi_venc_send_multi_frame.part.21+0xbc>
++  88:	e59f3024 	ldr	r3, [pc, #36]	; b4 <hi_mpi_venc_send_multi_frame.part.21+0xb4>
++  8c:	e08f2002 	add	r2, pc, r2
++  90:	e7923003 	ldr	r3, [r2, r3]
++  94:	e5932000 	ldr	r2, [r3]
++  98:	e59d3f3c 	ldr	r3, [sp, #3900]	; 0xf3c
++  9c:	e0332002 	eors	r2, r3, r2
++  a0:	1a000001 	bne	ac <hi_mpi_venc_send_multi_frame.part.21+0xac>
++  a4:	e28ddd3d 	add	sp, sp, #3904	; 0xf40
++  a8:	e8bd8070 	pop	{r4, r5, r6, pc}
++  ac:	ebfffffe 	bl	0 <__stack_chk_fail>
++			ac: R_ARM_CALL	__stack_chk_fail
++  b0:	00000090 	.word	0x00000090
++			b0: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  b4:	00000000 	.word	0x00000000
++			b4: R_ARM_GOT32	__stack_chk_guard
++  b8:	00000044 	.word	0x00000044
++			b8: R_ARM_REL32	.bss.g_mpi_venc_chn
++  bc:	00000028 	.word	0x00000028
++			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++
+ Disassembly of section .text.mpi_venc_init:
+ 
+ 00000000 <mpi_venc_init>:
+@@ -973,7 +1088,7 @@
+   a0:	e28dd008 	add	sp, sp, #8
+   a4:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+   a8:	e59f30a0 	ldr	r3, [pc, #160]	; 150 <mpi_venc_init+0x150>
+-  ac:	e3a01055 	mov	r1, #85	; 0x55
++  ac:	e3a0104d 	mov	r1, #77	; 0x4d
+   b0:	e59f209c 	ldr	r2, [pc, #156]	; 154 <mpi_venc_init+0x154>
+   b4:	e2455001 	sub	r5, r5, #1
+   b8:	e7980003 	ldr	r0, [r8, r3]
+@@ -1013,48 +1128,48 @@
+  130:	e28dd008 	add	sp, sp, #8
+  134:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+  138:	00000120 	.word	0x00000120
+-			138: R_ARM_REL32	.bss.s_venc_mutex
++			138: R_ARM_REL32	.bss.g_venc_mutex
+  13c:	00000120 	.word	0x00000120
+ 			13c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+  140:	00000114 	.word	0x00000114
+-			140: R_ARM_REL32	.bss.s_mpi_venc_init
++			140: R_ARM_REL32	.bss.g_mpi_venc_init
+  144:	000000f8 	.word	0x000000f8
+ 			144: R_ARM_REL32	.bss.g_mpi_venc_chn
+  148:	000000b4 	.word	0x000000b4
+-			148: R_ARM_REL32	.bss.s_mpi_venc_init
++			148: R_ARM_REL32	.bss.g_mpi_venc_init
+  14c:	000000b4 	.word	0x000000b4
+-			14c: R_ARM_REL32	.bss.s_venc_mutex
++			14c: R_ARM_REL32	.bss.g_venc_mutex
+  150:	00000000 	.word	0x00000000
+ 			150: R_ARM_GOT32	stderr
+  154:	00000084 	.word	0x00000084
+-			154: R_ARM_REL32	.rodata.__FUNCTION__.13098
++			154: R_ARM_REL32	.rodata.__FUNCTION__.13286
+  158:	00000080 	.word	0x00000080
+ 			158: R_ARM_REL32	.LC6
+  15c:	0000006c 	.word	0x0000006c
+ 			15c: R_ARM_REL32	.bss.g_mpi_venc_chn
+  160:	00000048 	.word	0x00000048
+-			160: R_ARM_REL32	.bss.s_venc_mutex
++			160: R_ARM_REL32	.bss.g_venc_mutex
+ 
+-Disassembly of section .text.MPI_VENC_OPEN:
++Disassembly of section .text.mpi_venc_open:
+ 
+-00000000 <MPI_VENC_OPEN>:
+-   0:	e59f21a4 	ldr	r2, [pc, #420]	; 1ac <MPI_VENC_OPEN+0x1ac>
+-   4:	e59f31a4 	ldr	r3, [pc, #420]	; 1b0 <MPI_VENC_OPEN+0x1b0>
++00000000 <mpi_venc_open>:
++   0:	e59f21a4 	ldr	r2, [pc, #420]	; 1ac <mpi_venc_open+0x1ac>
++   4:	e59f31a4 	ldr	r3, [pc, #420]	; 1b0 <mpi_venc_open+0x1b0>
+    8:	e08f2002 	add	r2, pc, r2
+    c:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, sl, lr}
+   10:	e24dd090 	sub	sp, sp, #144	; 0x90
+   14:	e7923003 	ldr	r3, [r2, r3]
+   18:	e1a08000 	mov	r8, r0
+-  1c:	e59f9190 	ldr	r9, [pc, #400]	; 1b4 <MPI_VENC_OPEN+0x1b4>
++  1c:	e59f9190 	ldr	r9, [pc, #400]	; 1b4 <mpi_venc_open+0x1b4>
+   20:	e5933000 	ldr	r3, [r3]
+   24:	e58d308c 	str	r3, [sp, #140]	; 0x8c
+   28:	e3a03000 	mov	r3, #0
+-  2c:	ebfffffe 	bl	0 <MPI_VENC_OPEN>
++  2c:	ebfffffe 	bl	0 <mpi_venc_open>
+ 			2c: R_ARM_CALL	mpi_venc_init
+   30:	e08f9009 	add	r9, pc, r9
+   34:	e2507000 	subs	r7, r0, #0
+-  38:	1a00003a 	bne	128 <MPI_VENC_OPEN+0x128>
+-  3c:	e59f6174 	ldr	r6, [pc, #372]	; 1b8 <MPI_VENC_OPEN+0x1b8>
++  38:	1a00003a 	bne	128 <mpi_venc_open+0x128>
++  3c:	e59f6174 	ldr	r6, [pc, #372]	; 1b8 <mpi_venc_open+0x1b8>
+   40:	e3a04058 	mov	r4, #88	; 0x58
+   44:	e0040894 	mul	r4, r4, r8
+   48:	e08f6006 	add	r6, pc, r6
+@@ -1065,19 +1180,19 @@
+ 			58: R_ARM_CALL	pthread_mutex_lock
+   5c:	e7963004 	ldr	r3, [r6, r4]
+   60:	e3530000 	cmp	r3, #0
+-  64:	ba00000c 	blt	9c <MPI_VENC_OPEN+0x9c>
++  64:	ba00000c 	blt	9c <mpi_venc_open+0x9c>
+   68:	e1a00005 	mov	r0, r5
+   6c:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+ 			6c: R_ARM_CALL	pthread_mutex_unlock
+-  70:	e59f2144 	ldr	r2, [pc, #324]	; 1bc <MPI_VENC_OPEN+0x1bc>
++  70:	e59f2144 	ldr	r2, [pc, #324]	; 1bc <mpi_venc_open+0x1bc>
+   74:	e1a00007 	mov	r0, r7
+-  78:	e59f3130 	ldr	r3, [pc, #304]	; 1b0 <MPI_VENC_OPEN+0x1b0>
++  78:	e59f3130 	ldr	r3, [pc, #304]	; 1b0 <mpi_venc_open+0x1b0>
+   7c:	e08f2002 	add	r2, pc, r2
+   80:	e7923003 	ldr	r3, [r2, r3]
+   84:	e5932000 	ldr	r2, [r3]
+   88:	e59d308c 	ldr	r3, [sp, #140]	; 0x8c
+   8c:	e0332002 	eors	r2, r3, r2
+-  90:	1a000044 	bne	1a8 <MPI_VENC_OPEN+0x1a8>
++  90:	1a000044 	bne	1a8 <mpi_venc_open+0x1a8>
+   94:	e28dd090 	add	sp, sp, #144	; 0x90
+   98:	e8bd87f0 	pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+   9c:	e3a03080 	mov	r3, #128	; 0x80
+@@ -1087,7 +1202,7 @@
+   ac:	e1a0000a 	mov	r0, sl
+   b0:	ebfffffe 	bl	0 <memset_s>
+ 			b0: R_ARM_CALL	memset_s
+-  b4:	e59f3104 	ldr	r3, [pc, #260]	; 1c0 <MPI_VENC_OPEN+0x1c0>
++  b4:	e59f3104 	ldr	r3, [pc, #260]	; 1c0 <mpi_venc_open+0x1c0>
+   b8:	e3a02009 	mov	r2, #9
+   bc:	e3a01080 	mov	r1, #128	; 0x80
+   c0:	e1a0000a 	mov	r0, sl
+@@ -1100,7 +1215,7 @@
+   d8:	ebfffffe 	bl	0 <open>
+ 			d8: R_ARM_CALL	open
+   dc:	e2503000 	subs	r3, r0, #0
+-  e0:	ba00001f 	blt	164 <MPI_VENC_OPEN+0x164>
++  e0:	ba00001f 	blt	164 <mpi_venc_open+0x164>
+   e4:	e7863004 	str	r3, [r6, r4]
+   e8:	e28d2090 	add	r2, sp, #144	; 0x90
+   ec:	e304150c 	movw	r1, #17676	; 0x450c
+@@ -1109,7 +1224,7 @@
+   f8:	ebfffffe 	bl	0 <ioctl>
+ 			f8: R_ARM_CALL	ioctl
+   fc:	e3500000 	cmp	r0, #0
+- 100:	0affffd8 	beq	68 <MPI_VENC_OPEN+0x68>
++ 100:	0affffd8 	beq	68 <mpi_venc_open+0x68>
+  104:	e7960004 	ldr	r0, [r6, r4]
+  108:	ebfffffe 	bl	0 <close>
+ 			108: R_ARM_CALL	close
+@@ -1120,33 +1235,33 @@
+ 			118: R_ARM_CALL	pthread_mutex_unlock
+  11c:	e3087010 	movw	r7, #32784	; 0x8010
+  120:	e34a7008 	movt	r7, #40968	; 0xa008
+- 124:	eaffffd1 	b	70 <MPI_VENC_OPEN+0x70>
+- 128:	e59f1094 	ldr	r1, [pc, #148]	; 1c4 <MPI_VENC_OPEN+0x1c4>
+- 12c:	e3a0c09d 	mov	ip, #157	; 0x9d
+- 130:	e59f2090 	ldr	r2, [pc, #144]	; 1c8 <MPI_VENC_OPEN+0x1c8>
++ 124:	eaffffd1 	b	70 <mpi_venc_open+0x70>
++ 128:	e59f1094 	ldr	r1, [pc, #148]	; 1c4 <mpi_venc_open+0x1c4>
++ 12c:	e3a0c09b 	mov	ip, #155	; 0x9b
++ 130:	e59f2090 	ldr	r2, [pc, #144]	; 1c8 <mpi_venc_open+0x1c8>
+  134:	e1a0300c 	mov	r3, ip
+  138:	e7991001 	ldr	r1, [r9, r1]
+  13c:	e3087010 	movw	r7, #32784	; 0x8010
+  140:	e08f2002 	add	r2, pc, r2
+  144:	e58d2000 	str	r2, [sp]
+  148:	e5910000 	ldr	r0, [r1]
+- 14c:	e59f1078 	ldr	r1, [pc, #120]	; 1cc <MPI_VENC_OPEN+0x1cc>
++ 14c:	e59f1078 	ldr	r1, [pc, #120]	; 1cc <mpi_venc_open+0x1cc>
+  150:	e58dc004 	str	ip, [sp, #4]
+  154:	e08f1001 	add	r1, pc, r1
+  158:	e34a7008 	movt	r7, #40968	; 0xa008
+  15c:	ebfffffe 	bl	0 <fprintf>
+ 			15c: R_ARM_CALL	fprintf
+- 160:	eaffffc2 	b	70 <MPI_VENC_OPEN+0x70>
++ 160:	eaffffc2 	b	70 <mpi_venc_open+0x70>
+  164:	e3e03000 	mvn	r3, #0
+  168:	e1a00005 	mov	r0, r5
+  16c:	e7863004 	str	r3, [r6, r4]
+  170:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+ 			170: R_ARM_CALL	pthread_mutex_unlock
+- 174:	e59f2048 	ldr	r2, [pc, #72]	; 1c4 <MPI_VENC_OPEN+0x1c4>
+- 178:	e3a030a9 	mov	r3, #169	; 0xa9
+- 17c:	e59fc04c 	ldr	ip, [pc, #76]	; 1d0 <MPI_VENC_OPEN+0x1d0>
++ 174:	e59f2048 	ldr	r2, [pc, #72]	; 1c4 <mpi_venc_open+0x1c4>
++ 178:	e3a030a7 	mov	r3, #167	; 0xa7
++ 17c:	e59fc04c 	ldr	ip, [pc, #76]	; 1d0 <mpi_venc_open+0x1d0>
+  180:	e7990002 	ldr	r0, [r9, r2]
+- 184:	e59f1048 	ldr	r1, [pc, #72]	; 1d4 <MPI_VENC_OPEN+0x1d4>
++ 184:	e59f1048 	ldr	r1, [pc, #72]	; 1d4 <mpi_venc_open+0x1d4>
+  188:	e08fc00c 	add	ip, pc, ip
+  18c:	e5900000 	ldr	r0, [r0]
+  190:	e1a0200c 	mov	r2, ip
+@@ -1155,7 +1270,7 @@
+  19c:	e58dc000 	str	ip, [sp]
+  1a0:	ebfffffe 	bl	0 <fprintf>
+ 			1a0: R_ARM_CALL	fprintf
+- 1a4:	eaffffdc 	b	11c <MPI_VENC_OPEN+0x11c>
++ 1a4:	eaffffdc 	b	11c <mpi_venc_open+0x11c>
+  1a8:	ebfffffe 	bl	0 <__stack_chk_fail>
+ 			1a8: R_ARM_CALL	__stack_chk_fail
+  1ac:	0000019c 	.word	0x0000019c
+@@ -1173,11 +1288,11 @@
+  1c4:	00000000 	.word	0x00000000
+ 			1c4: R_ARM_GOT32	stderr
+  1c8:	00000080 	.word	0x00000080
+-			1c8: R_ARM_REL32	.rodata.__FUNCTION__.13126
++			1c8: R_ARM_REL32	.rodata.__FUNCTION__.13316
+  1cc:	00000070 	.word	0x00000070
+ 			1cc: R_ARM_REL32	.LC7
+  1d0:	00000040 	.word	0x00000040
+-			1d0: R_ARM_REL32	.rodata.__FUNCTION__.13126
++			1d0: R_ARM_REL32	.rodata.__FUNCTION__.13316
+  1d4:	00000038 	.word	0x00000038
+ 			1d4: R_ARM_REL32	.LC8
+ 
+@@ -1375,405 +1490,476 @@
+ 00000000 <hi_mpi_venc_get_stream.part.16>:
+    0:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+    4:	e3720001 	cmn	r2, #1
+-   8:	e59f334c 	ldr	r3, [pc, #844]	; 35c <hi_mpi_venc_get_stream.part.16+0x35c>
+-   c:	e1a06002 	mov	r6, r2
+-  10:	e59f2348 	ldr	r2, [pc, #840]	; 360 <hi_mpi_venc_get_stream.part.16+0x360>
++   8:	e59f33a8 	ldr	r3, [pc, #936]	; 3b8 <hi_mpi_venc_get_stream.part.16+0x3b8>
++   c:	e1a08002 	mov	r8, r2
++  10:	e59f23a4 	ldr	r2, [pc, #932]	; 3bc <hi_mpi_venc_get_stream.part.16+0x3bc>
+   14:	ed2d8b02 	vpush	{d8}
+   18:	e08f2002 	add	r2, pc, r2
+   1c:	e24ddf71 	sub	sp, sp, #452	; 0x1c4
+-  20:	e59f933c 	ldr	r9, [pc, #828]	; 364 <hi_mpi_venc_get_stream.part.16+0x364>
++  20:	e59f9398 	ldr	r9, [pc, #920]	; 3c0 <hi_mpi_venc_get_stream.part.16+0x3c0>
+   24:	e7923003 	ldr	r3, [r2, r3]
+   28:	e08f9009 	add	r9, pc, r9
+   2c:	e5933000 	ldr	r3, [r3]
+   30:	e58d31bc 	str	r3, [sp, #444]	; 0x1bc
+   34:	e3a03000 	mov	r3, #0
+-  38:	ba0000b5 	blt	314 <hi_mpi_venc_get_stream.part.16+0x314>
+-  3c:	e59f8324 	ldr	r8, [pc, #804]	; 368 <hi_mpi_venc_get_stream.part.16+0x368>
+-  40:	e3a04058 	mov	r4, #88	; 0x58
+-  44:	e0040094 	mul	r4, r4, r0
+-  48:	e08f8008 	add	r8, pc, r8
+-  4c:	e1a05000 	mov	r5, r0
+-  50:	e088b004 	add	fp, r8, r4
+-  54:	e2847004 	add	r7, r4, #4
+-  58:	e0887007 	add	r7, r8, r7
++  38:	ba0000c9 	blt	364 <hi_mpi_venc_get_stream.part.16+0x364>
++  3c:	e59f7380 	ldr	r7, [pc, #896]	; 3c4 <hi_mpi_venc_get_stream.part.16+0x3c4>
++  40:	e3a05058 	mov	r5, #88	; 0x58
++  44:	e0050095 	mul	r5, r5, r0
++  48:	e08f7007 	add	r7, pc, r7
++  4c:	e1a04000 	mov	r4, r0
++  50:	e087b005 	add	fp, r7, r5
++  54:	e2856004 	add	r6, r5, #4
++  58:	e0876006 	add	r6, r7, r6
+   5c:	e1a0a001 	mov	sl, r1
+-  60:	e1a00007 	mov	r0, r7
++  60:	e1a00006 	mov	r0, r6
+   64:	ebfffffe 	bl	0 <pthread_mutex_lock>
+ 			64: R_ARM_CALL	pthread_mutex_lock
+-  68:	e7980004 	ldr	r0, [r8, r4]
++  68:	e7970005 	ldr	r0, [r7, r5]
+   6c:	e3041509 	movw	r1, #17673	; 0x4509
+   70:	e3481020 	movt	r1, #32800	; 0x8020
+   74:	e28d2010 	add	r2, sp, #16
+   78:	ebfffffe 	bl	0 <ioctl>
+ 			78: R_ARM_CALL	ioctl
+-  7c:	e2508000 	subs	r8, r0, #0
+-  80:	1a000089 	bne	2ac <hi_mpi_venc_get_stream.part.16+0x2ac>
+-  84:	e59d202c 	ldr	r2, [sp, #44]	; 0x2c
+-  88:	e59b3050 	ldr	r3, [fp, #80]	; 0x50
++  7c:	e2507000 	subs	r7, r0, #0
++  80:	1a000069 	bne	22c <hi_mpi_venc_get_stream.part.16+0x22c>
++  84:	e59b3050 	ldr	r3, [fp, #80]	; 0x50
++  88:	e59d202c 	ldr	r2, [sp, #44]	; 0x2c
+   8c:	e1520003 	cmp	r2, r3
+-  90:	0a000005 	beq	ac <hi_mpi_venc_get_stream.part.16+0xac>
+-  94:	e1a00005 	mov	r0, r5
++  90:	0a00000c 	beq	c8 <hi_mpi_venc_get_stream.part.16+0xc8>
++  94:	e1a00004 	mov	r0, r4
+   98:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
+ 			98: R_ARM_CALL	memunmap
+-  9c:	f2c00010 	vmov.i32	d16, #0	; 0x00000000
+-  a0:	e58b8030 	str	r8, [fp, #48]	; 0x30
+-  a4:	edcb0b08 	vstr	d16, [fp, #32]
+-  a8:	edcb0b0e 	vstr	d16, [fp, #56]	; 0x38
+-  ac:	e59f42b8 	ldr	r4, [pc, #696]	; 36c <hi_mpi_venc_get_stream.part.16+0x36c>
+-  b0:	e3a02058 	mov	r2, #88	; 0x58
+-  b4:	e59d3028 	ldr	r3, [sp, #40]	; 0x28
+-  b8:	e3a01000 	mov	r1, #0
+-  bc:	e08f4004 	add	r4, pc, r4
+-  c0:	e0244592 	mla	r4, r2, r5, r4
+-  c4:	e2212001 	eor	r2, r1, #1
+-  c8:	e1510003 	cmp	r1, r3
+-  cc:	23a02000 	movcs	r2, #0
+-  d0:	32022001 	andcc	r2, r2, #1
+-  d4:	e3520000 	cmp	r2, #0
+-  d8:	0a00001c 	beq	150 <hi_mpi_venc_get_stream.part.16+0x150>
+-  dc:	e5948030 	ldr	r8, [r4, #48]	; 0x30
+-  e0:	e3a01001 	mov	r1, #1
+-  e4:	e3580000 	cmp	r8, #0
+-  e8:	1afffff5 	bne	c4 <hi_mpi_venc_get_stream.part.16+0xc4>
+-  ec:	eddd1b04 	vldr	d17, [sp, #16]
+-  f0:	eddd0b06 	vldr	d16, [sp, #24]
+-  f4:	e59d1020 	ldr	r1, [sp, #32]
+-  f8:	e1a00005 	mov	r0, r5
+-  fc:	e59d2024 	ldr	r2, [sp, #36]	; 0x24
+- 100:	e584304c 	str	r3, [r4, #76]	; 0x4c
+- 104:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
+- 108:	e5841038 	str	r1, [r4, #56]	; 0x38
+- 10c:	e5842048 	str	r2, [r4, #72]	; 0x48
+- 110:	e5843050 	str	r3, [r4, #80]	; 0x50
+- 114:	e584803c 	str	r8, [r4, #60]	; 0x3c
+- 118:	edc41b08 	vstr	d17, [r4, #32]
+- 11c:	edc40b0a 	vstr	d16, [r4, #40]	; 0x28
+- 120:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
+-			120: R_ARM_CALL	memmap
+- 124:	e59f3244 	ldr	r3, [pc, #580]	; 370 <hi_mpi_venc_get_stream.part.16+0x370>
+- 128:	e3a02058 	mov	r2, #88	; 0x58
+- 12c:	e594104c 	ldr	r1, [r4, #76]	; 0x4c
+- 130:	e08f3003 	add	r3, pc, r3
+- 134:	e0233592 	mla	r3, r2, r5, r3
+- 138:	e2282001 	eor	r2, r8, #1
+- 13c:	e1580001 	cmp	r8, r1
+- 140:	23a08000 	movcs	r8, #0
+- 144:	32028001 	andcc	r8, r2, #1
+- 148:	e3580000 	cmp	r8, #0
+- 14c:	1a00004d 	bne	288 <hi_mpi_venc_get_stream.part.16+0x288>
+- 150:	e1a00007 	mov	r0, r7
+- 154:	e28d8d07 	add	r8, sp, #448	; 0x1c0
+- 158:	e28db038 	add	fp, sp, #56	; 0x38
+- 15c:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			15c: R_ARM_CALL	pthread_mutex_unlock
+- 160:	e5286190 	str	r6, [r8, #-400]!	; 0xfffffe70
+- 164:	e3a03d06 	mov	r3, #384	; 0x180
+- 168:	e1a01003 	mov	r1, r3
+- 16c:	e1a0200a 	mov	r2, sl
+- 170:	e1a0000b 	mov	r0, fp
+- 174:	e3a04058 	mov	r4, #88	; 0x58
+- 178:	ebfffffe 	bl	0 <memcpy_s>
+-			178: R_ARM_CALL	memcpy_s
+- 17c:	e59f31f0 	ldr	r3, [pc, #496]	; 374 <hi_mpi_venc_get_stream.part.16+0x374>
+- 180:	e3041506 	movw	r1, #17670	; 0x4506
+- 184:	e0040594 	mul	r4, r4, r5
+- 188:	e08f3003 	add	r3, pc, r3
+- 18c:	e1a02008 	mov	r2, r8
+- 190:	e34c1188 	movt	r1, #49544	; 0xc188
+- 194:	e7930004 	ldr	r0, [r3, r4]
+- 198:	e0834004 	add	r4, r3, r4
+- 19c:	ebfffffe 	bl	0 <ioctl>
+-			19c: R_ARM_CALL	ioctl
+- 1a0:	e1a08000 	mov	r8, r0
+- 1a4:	e1a00007 	mov	r0, r7
+- 1a8:	ebfffffe 	bl	0 <pthread_mutex_lock>
+-			1a8: R_ARM_CALL	pthread_mutex_lock
+- 1ac:	e3580000 	cmp	r8, #0
+- 1b0:	1a000026 	bne	250 <hi_mpi_venc_get_stream.part.16+0x250>
+- 1b4:	e5940048 	ldr	r0, [r4, #72]	; 0x48
+- 1b8:	e59d4038 	ldr	r4, [sp, #56]	; 0x38
+- 1bc:	e3500060 	cmp	r0, #96	; 0x60
+- 1c0:	0a000046 	beq	2e0 <hi_mpi_venc_get_stream.part.16+0x2e0>
+- 1c4:	e3003109 	movw	r3, #265	; 0x109
+- 1c8:	e1500003 	cmp	r0, r3
+- 1cc:	0a000043 	beq	2e0 <hi_mpi_venc_get_stream.part.16+0x2e0>
+- 1d0:	e30033ee 	movw	r3, #1006	; 0x3ee
+- 1d4:	e1500003 	cmp	r0, r3
+- 1d8:	03a09080 	moveq	r9, #128	; 0x80
+- 1dc:	0a000000 	beq	1e4 <hi_mpi_venc_get_stream.part.16+0x1e4>
+- 1e0:	e3a09040 	mov	r9, #64	; 0x40
+- 1e4:	e59d303c 	ldr	r3, [sp, #60]	; 0x3c
+- 1e8:	e3530000 	cmp	r3, #0
+- 1ec:	0a000012 	beq	23c <hi_mpi_venc_get_stream.part.16+0x23c>
+- 1f0:	ee889b10 	vdup.32	d8, r9
+- 1f4:	e2844088 	add	r4, r4, #136	; 0x88
+- 1f8:	e3a06000 	mov	r6, #0
+- 1fc:	f3a08098 	vshr.u64	d8, d8, #32
+- 200:	ed540b22 	vldr	d16, [r4, #-136]	; 0xffffff78
+- 204:	e514307c 	ldr	r3, [r4, #-124]	; 0xffffff84
+- 208:	e1a00005 	mov	r0, r5
+- 20c:	e2866001 	add	r6, r6, #1
+- 210:	e2844088 	add	r4, r4, #136	; 0x88
+- 214:	e0433009 	sub	r3, r3, r9
+- 218:	f2780820 	vadd.i64	d16, d8, d16
+- 21c:	e5043104 	str	r3, [r4, #-260]	; 0xfffffefc
+- 220:	ed440b44 	vstr	d16, [r4, #-272]	; 0xfffffef0
+- 224:	ec532b30 	vmov	r2, r3, d16
+- 228:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
+-			228: R_ARM_CALL	venc_phy2_user
+- 22c:	e59d303c 	ldr	r3, [sp, #60]	; 0x3c
+- 230:	e5040108 	str	r0, [r4, #-264]	; 0xfffffef8
+- 234:	e1560003 	cmp	r6, r3
+- 238:	3afffff0 	bcc	200 <hi_mpi_venc_get_stream.part.16+0x200>
+- 23c:	e3a03d06 	mov	r3, #384	; 0x180
+- 240:	e1a0200b 	mov	r2, fp
+- 244:	e1a0000a 	mov	r0, sl
+- 248:	e1a01003 	mov	r1, r3
+- 24c:	ebfffffe 	bl	0 <memcpy_s>
+-			24c: R_ARM_CALL	memcpy_s
+- 250:	e1a00007 	mov	r0, r7
+- 254:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			254: R_ARM_CALL	pthread_mutex_unlock
+- 258:	e59f2118 	ldr	r2, [pc, #280]	; 378 <hi_mpi_venc_get_stream.part.16+0x378>
+- 25c:	e1a00008 	mov	r0, r8
+- 260:	e59f30f4 	ldr	r3, [pc, #244]	; 35c <hi_mpi_venc_get_stream.part.16+0x35c>
+- 264:	e08f2002 	add	r2, pc, r2
+- 268:	e7923003 	ldr	r3, [r2, r3]
+- 26c:	e5932000 	ldr	r2, [r3]
+- 270:	e59d31bc 	ldr	r3, [sp, #444]	; 0x1bc
+- 274:	e0332002 	eors	r2, r3, r2
+- 278:	1a000036 	bne	358 <hi_mpi_venc_get_stream.part.16+0x358>
+- 27c:	e28ddf71 	add	sp, sp, #452	; 0x1c4
+- 280:	ecbd8b02 	vpop	{d8}
+- 284:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+- 288:	e5932030 	ldr	r2, [r3, #48]	; 0x30
+- 28c:	e3a08001 	mov	r8, #1
+- 290:	e3520000 	cmp	r2, #0
+- 294:	1affffa7 	bne	138 <hi_mpi_venc_get_stream.part.16+0x138>
+- 298:	e1a00007 	mov	r0, r7
+- 29c:	e308800c 	movw	r8, #32780	; 0x800c
+- 2a0:	e34a8008 	movt	r8, #40968	; 0xa008
+- 2a4:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			2a4: R_ARM_CALL	pthread_mutex_unlock
+- 2a8:	eaffffea 	b	258 <hi_mpi_venc_get_stream.part.16+0x258>
+- 2ac:	e59f10c8 	ldr	r1, [pc, #200]	; 37c <hi_mpi_venc_get_stream.part.16+0x37c>
+- 2b0:	e30032ad 	movw	r3, #685	; 0x2ad
+- 2b4:	e59f20c4 	ldr	r2, [pc, #196]	; 380 <hi_mpi_venc_get_stream.part.16+0x380>
+- 2b8:	e7990001 	ldr	r0, [r9, r1]
+- 2bc:	e59f10c0 	ldr	r1, [pc, #192]	; 384 <hi_mpi_venc_get_stream.part.16+0x384>
+- 2c0:	e08f2002 	add	r2, pc, r2
+- 2c4:	e08f1001 	add	r1, pc, r1
+- 2c8:	e5900000 	ldr	r0, [r0]
+- 2cc:	e88d0120 	stm	sp, {r5, r8}
+- 2d0:	ebfffffe 	bl	0 <fprintf>
+-			2d0: R_ARM_CALL	fprintf
+- 2d4:	e1a00007 	mov	r0, r7
+- 2d8:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			2d8: R_ARM_CALL	pthread_mutex_unlock
+- 2dc:	eaffffdd 	b	258 <hi_mpi_venc_get_stream.part.16+0x258>
+- 2e0:	e59d1098 	ldr	r1, [sp, #152]	; 0x98
+- 2e4:	e28d6090 	add	r6, sp, #144	; 0x90
+- 2e8:	e59d209c 	ldr	r2, [sp, #156]	; 0x9c
+- 2ec:	e3510000 	cmp	r1, #0
+- 2f0:	0affffba 	beq	1e0 <hi_mpi_venc_get_stream.part.16+0x1e0>
+- 2f4:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
+-			2f4: R_ARM_CALL	cal_psnr
+- 2f8:	e59f2088 	ldr	r2, [pc, #136]	; 388 <hi_mpi_venc_get_stream.part.16+0x388>
+- 2fc:	e3a03058 	mov	r3, #88	; 0x58
+- 300:	e1c600f0 	strd	r0, [r6]
+- 304:	e08f2002 	add	r2, pc, r2
+- 308:	e0232593 	mla	r3, r3, r5, r2
+- 30c:	e5930048 	ldr	r0, [r3, #72]	; 0x48
+- 310:	eaffffae 	b	1d0 <hi_mpi_venc_get_stream.part.16+0x1d0>
+- 314:	e59f2060 	ldr	r2, [pc, #96]	; 37c <hi_mpi_venc_get_stream.part.16+0x37c>
+- 318:	e3e0c000 	mvn	ip, #0
+- 31c:	e59f1068 	ldr	r1, [pc, #104]	; 38c <hi_mpi_venc_get_stream.part.16+0x38c>
+- 320:	e30032a3 	movw	r3, #675	; 0x2a3
+- 324:	e7990002 	ldr	r0, [r9, r2]
+- 328:	e3088003 	movw	r8, #32771	; 0x8003
+- 32c:	e08f1001 	add	r1, pc, r1
+- 330:	e58d6000 	str	r6, [sp]
+- 334:	e1a02001 	mov	r2, r1
+- 338:	e5900000 	ldr	r0, [r0]
+- 33c:	e58d1008 	str	r1, [sp, #8]
+- 340:	e59f1048 	ldr	r1, [pc, #72]	; 390 <hi_mpi_venc_get_stream.part.16+0x390>
+- 344:	e58dc004 	str	ip, [sp, #4]
+- 348:	e08f1001 	add	r1, pc, r1
+- 34c:	e34a8008 	movt	r8, #40968	; 0xa008
+- 350:	ebfffffe 	bl	0 <fprintf>
+-			350: R_ARM_CALL	fprintf
+- 354:	eaffffbf 	b	258 <hi_mpi_venc_get_stream.part.16+0x258>
+- 358:	ebfffffe 	bl	0 <__stack_chk_fail>
+-			358: R_ARM_CALL	__stack_chk_fail
+- 35c:	00000000 	.word	0x00000000
+-			35c: R_ARM_GOT32	__stack_chk_guard
+- 360:	00000340 	.word	0x00000340
+-			360: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 364:	00000334 	.word	0x00000334
+-			364: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 368:	00000318 	.word	0x00000318
+-			368: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 36c:	000002a8 	.word	0x000002a8
+-			36c: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 370:	00000238 	.word	0x00000238
+-			370: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 374:	000001e4 	.word	0x000001e4
+-			374: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 378:	0000010c 	.word	0x0000010c
+-			378: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 37c:	00000000 	.word	0x00000000
+-			37c: R_ARM_GOT32	stderr
+- 380:	000000b8 	.word	0x000000b8
+-			380: R_ARM_REL32	.rodata.__FUNCTION__.13315
+- 384:	000000b8 	.word	0x000000b8
+-			384: R_ARM_REL32	.LC10
+- 388:	0000007c 	.word	0x0000007c
+-			388: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 38c:	00000058 	.word	0x00000058
+-			38c: R_ARM_REL32	.rodata.__FUNCTION__.13315
+- 390:	00000040 	.word	0x00000040
+-			390: R_ARM_REL32	.LC9
++  9c:	e3500000 	cmp	r0, #0
++  a0:	1a000097 	bne	304 <hi_mpi_venc_get_stream.part.16+0x304>
++  a4:	e59f331c 	ldr	r3, [pc, #796]	; 3c8 <hi_mpi_venc_get_stream.part.16+0x3c8>
++  a8:	e3a02058 	mov	r2, #88	; 0x58
++  ac:	f2c00010 	vmov.i32	d16, #0	; 0x00000000
++  b0:	e08f3003 	add	r3, pc, r3
++  b4:	e0233492 	mla	r3, r2, r4, r3
++  b8:	e3a02000 	mov	r2, #0
++  bc:	e5832030 	str	r2, [r3, #48]	; 0x30
++  c0:	edc30b08 	vstr	d16, [r3, #32]
++  c4:	edc30b0e 	vstr	d16, [r3, #56]	; 0x38
++  c8:	e59f52fc 	ldr	r5, [pc, #764]	; 3cc <hi_mpi_venc_get_stream.part.16+0x3cc>
++  cc:	e3a03058 	mov	r3, #88	; 0x58
++  d0:	e59d0028 	ldr	r0, [sp, #40]	; 0x28
++  d4:	e3a02000 	mov	r2, #0
++  d8:	e08f5005 	add	r5, pc, r5
++  dc:	e0255493 	mla	r5, r3, r4, r5
++  e0:	e2223001 	eor	r3, r2, #1
++  e4:	e1520000 	cmp	r2, r0
++  e8:	23a03000 	movcs	r3, #0
++  ec:	32033001 	andcc	r3, r3, #1
++  f0:	e3530000 	cmp	r3, #0
++  f4:	0a00001c 	beq	16c <hi_mpi_venc_get_stream.part.16+0x16c>
++  f8:	e5957030 	ldr	r7, [r5, #48]	; 0x30
++  fc:	e3a02001 	mov	r2, #1
++ 100:	e3570000 	cmp	r7, #0
++ 104:	1afffff5 	bne	e0 <hi_mpi_venc_get_stream.part.16+0xe0>
++ 108:	e1cd21d0 	ldrd	r2, [sp, #16]
++ 10c:	eddd0b06 	vldr	d16, [sp, #24]
++ 110:	e59d1020 	ldr	r1, [sp, #32]
++ 114:	e1c522f0 	strd	r2, [r5, #32]
++ 118:	e59d2024 	ldr	r2, [sp, #36]	; 0x24
++ 11c:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
++ 120:	e585004c 	str	r0, [r5, #76]	; 0x4c
++ 124:	e1a00004 	mov	r0, r4
++ 128:	e5851038 	str	r1, [r5, #56]	; 0x38
++ 12c:	e5852048 	str	r2, [r5, #72]	; 0x48
++ 130:	e5853050 	str	r3, [r5, #80]	; 0x50
++ 134:	e585703c 	str	r7, [r5, #60]	; 0x3c
++ 138:	edc50b0a 	vstr	d16, [r5, #40]	; 0x28
++ 13c:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
++			13c: R_ARM_CALL	memmap
++ 140:	e59f3288 	ldr	r3, [pc, #648]	; 3d0 <hi_mpi_venc_get_stream.part.16+0x3d0>
++ 144:	e3a02058 	mov	r2, #88	; 0x58
++ 148:	e595104c 	ldr	r1, [r5, #76]	; 0x4c
++ 14c:	e08f3003 	add	r3, pc, r3
++ 150:	e0233492 	mla	r3, r2, r4, r3
++ 154:	e2272001 	eor	r2, r7, #1
++ 158:	e1570001 	cmp	r7, r1
++ 15c:	23a07000 	movcs	r7, #0
++ 160:	32027001 	andcc	r7, r2, #1
++ 164:	e3570000 	cmp	r7, #0
++ 168:	1a000026 	bne	208 <hi_mpi_venc_get_stream.part.16+0x208>
++ 16c:	e1a00006 	mov	r0, r6
++ 170:	e28d7d07 	add	r7, sp, #448	; 0x1c0
++ 174:	e28d9038 	add	r9, sp, #56	; 0x38
++ 178:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			178: R_ARM_CALL	pthread_mutex_unlock
++ 17c:	e5278190 	str	r8, [r7, #-400]!	; 0xfffffe70
++ 180:	e3a03d06 	mov	r3, #384	; 0x180
++ 184:	e1a01003 	mov	r1, r3
++ 188:	e1a0200a 	mov	r2, sl
++ 18c:	e1a00009 	mov	r0, r9
++ 190:	e3a05058 	mov	r5, #88	; 0x58
++ 194:	ebfffffe 	bl	0 <memcpy_s>
++			194: R_ARM_CALL	memcpy_s
++ 198:	e59f3234 	ldr	r3, [pc, #564]	; 3d4 <hi_mpi_venc_get_stream.part.16+0x3d4>
++ 19c:	e3041506 	movw	r1, #17670	; 0x4506
++ 1a0:	e0050495 	mul	r5, r5, r4
++ 1a4:	e08f3003 	add	r3, pc, r3
++ 1a8:	e1a02007 	mov	r2, r7
++ 1ac:	e34c1188 	movt	r1, #49544	; 0xc188
++ 1b0:	e7930005 	ldr	r0, [r3, r5]
++ 1b4:	e0835005 	add	r5, r3, r5
++ 1b8:	ebfffffe 	bl	0 <ioctl>
++			1b8: R_ARM_CALL	ioctl
++ 1bc:	e1a07000 	mov	r7, r0
++ 1c0:	e1a00006 	mov	r0, r6
++ 1c4:	ebfffffe 	bl	0 <pthread_mutex_lock>
++			1c4: R_ARM_CALL	pthread_mutex_lock
++ 1c8:	e3570000 	cmp	r7, #0
++ 1cc:	0a000023 	beq	260 <hi_mpi_venc_get_stream.part.16+0x260>
++ 1d0:	e1a00006 	mov	r0, r6
++ 1d4:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			1d4: R_ARM_CALL	pthread_mutex_unlock
++ 1d8:	e59f21f8 	ldr	r2, [pc, #504]	; 3d8 <hi_mpi_venc_get_stream.part.16+0x3d8>
++ 1dc:	e1a00007 	mov	r0, r7
++ 1e0:	e59f31d0 	ldr	r3, [pc, #464]	; 3b8 <hi_mpi_venc_get_stream.part.16+0x3b8>
++ 1e4:	e08f2002 	add	r2, pc, r2
++ 1e8:	e7923003 	ldr	r3, [r2, r3]
++ 1ec:	e5932000 	ldr	r2, [r3]
++ 1f0:	e59d31bc 	ldr	r3, [sp, #444]	; 0x1bc
++ 1f4:	e0332002 	eors	r2, r3, r2
++ 1f8:	1a00006d 	bne	3b4 <hi_mpi_venc_get_stream.part.16+0x3b4>
++ 1fc:	e28ddf71 	add	sp, sp, #452	; 0x1c4
++ 200:	ecbd8b02 	vpop	{d8}
++ 204:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
++ 208:	e5932030 	ldr	r2, [r3, #48]	; 0x30
++ 20c:	e3a07001 	mov	r7, #1
++ 210:	e3520000 	cmp	r2, #0
++ 214:	1affffce 	bne	154 <hi_mpi_venc_get_stream.part.16+0x154>
++ 218:	e1a00006 	mov	r0, r6
++ 21c:	e308700c 	movw	r7, #32780	; 0x800c
++ 220:	e34a7008 	movt	r7, #40968	; 0xa008
++ 224:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			224: R_ARM_CALL	pthread_mutex_unlock
++ 228:	eaffffea 	b	1d8 <hi_mpi_venc_get_stream.part.16+0x1d8>
++ 22c:	e59f11a8 	ldr	r1, [pc, #424]	; 3dc <hi_mpi_venc_get_stream.part.16+0x3dc>
++ 230:	e3a03fc1 	mov	r3, #772	; 0x304
++ 234:	e59f21a4 	ldr	r2, [pc, #420]	; 3e0 <hi_mpi_venc_get_stream.part.16+0x3e0>
++ 238:	e7990001 	ldr	r0, [r9, r1]
++ 23c:	e59f11a0 	ldr	r1, [pc, #416]	; 3e4 <hi_mpi_venc_get_stream.part.16+0x3e4>
++ 240:	e08f2002 	add	r2, pc, r2
++ 244:	e08f1001 	add	r1, pc, r1
++ 248:	e5900000 	ldr	r0, [r0]
++ 24c:	e88d0090 	stm	sp, {r4, r7}
++ 250:	ebfffffe 	bl	0 <fprintf>
++			250: R_ARM_CALL	fprintf
++ 254:	e1a00006 	mov	r0, r6
++ 258:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			258: R_ARM_CALL	pthread_mutex_unlock
++ 25c:	eaffffdd 	b	1d8 <hi_mpi_venc_get_stream.part.16+0x1d8>
++ 260:	e5950048 	ldr	r0, [r5, #72]	; 0x48
++ 264:	e3500060 	cmp	r0, #96	; 0x60
++ 268:	0a000030 	beq	330 <hi_mpi_venc_get_stream.part.16+0x330>
++ 26c:	e3003109 	movw	r3, #265	; 0x109
++ 270:	e1500003 	cmp	r0, r3
++ 274:	0a00002d 	beq	330 <hi_mpi_venc_get_stream.part.16+0x330>
++ 278:	e59d5038 	ldr	r5, [sp, #56]	; 0x38
++ 27c:	e30033ee 	movw	r3, #1006	; 0x3ee
++ 280:	e1500003 	cmp	r0, r3
++ 284:	e59db03c 	ldr	fp, [sp, #60]	; 0x3c
++ 288:	03a03080 	moveq	r3, #128	; 0x80
++ 28c:	13a03040 	movne	r3, #64	; 0x40
++ 290:	e58d300c 	str	r3, [sp, #12]
++ 294:	e35b0000 	cmp	fp, #0
++ 298:	0a000013 	beq	2ec <hi_mpi_venc_get_stream.part.16+0x2ec>
++ 29c:	e59d300c 	ldr	r3, [sp, #12]
++ 2a0:	e2855088 	add	r5, r5, #136	; 0x88
++ 2a4:	e3a08000 	mov	r8, #0
++ 2a8:	ee883b10 	vdup.32	d8, r3
++ 2ac:	f3a08098 	vshr.u64	d8, d8, #32
++ 2b0:	ed550b22 	vldr	d16, [r5, #-136]	; 0xffffff78
++ 2b4:	e515307c 	ldr	r3, [r5, #-124]	; 0xffffff84
++ 2b8:	e2888001 	add	r8, r8, #1
++ 2bc:	e59d200c 	ldr	r2, [sp, #12]
++ 2c0:	e1a00004 	mov	r0, r4
++ 2c4:	e2855088 	add	r5, r5, #136	; 0x88
++ 2c8:	f2780820 	vadd.i64	d16, d8, d16
++ 2cc:	e0433002 	sub	r3, r3, r2
++ 2d0:	e5053104 	str	r3, [r5, #-260]	; 0xfffffefc
++ 2d4:	ed450b44 	vstr	d16, [r5, #-272]	; 0xfffffef0
++ 2d8:	ec532b30 	vmov	r2, r3, d16
++ 2dc:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
++			2dc: R_ARM_CALL	venc_phy2_user
++ 2e0:	e158000b 	cmp	r8, fp
++ 2e4:	e5050108 	str	r0, [r5, #-264]	; 0xfffffef8
++ 2e8:	1afffff0 	bne	2b0 <hi_mpi_venc_get_stream.part.16+0x2b0>
++ 2ec:	e3a03d06 	mov	r3, #384	; 0x180
++ 2f0:	e1a02009 	mov	r2, r9
++ 2f4:	e1a0000a 	mov	r0, sl
++ 2f8:	e1a01003 	mov	r1, r3
++ 2fc:	ebfffffe 	bl	0 <memcpy_s>
++			2fc: R_ARM_CALL	memcpy_s
++ 300:	eaffffb2 	b	1d0 <hi_mpi_venc_get_stream.part.16+0x1d0>
++ 304:	e59f10d0 	ldr	r1, [pc, #208]	; 3dc <hi_mpi_venc_get_stream.part.16+0x3dc>
++ 308:	e30032e3 	movw	r3, #739	; 0x2e3
++ 30c:	e59f20d4 	ldr	r2, [pc, #212]	; 3e8 <hi_mpi_venc_get_stream.part.16+0x3e8>
++ 310:	e7990001 	ldr	r0, [r9, r1]
++ 314:	e59f10d0 	ldr	r1, [pc, #208]	; 3ec <hi_mpi_venc_get_stream.part.16+0x3ec>
++ 318:	e08f2002 	add	r2, pc, r2
++ 31c:	e08f1001 	add	r1, pc, r1
++ 320:	e5900000 	ldr	r0, [r0]
++ 324:	e58d4000 	str	r4, [sp]
++ 328:	ebfffffe 	bl	0 <fprintf>
++			328: R_ARM_CALL	fprintf
++ 32c:	eaffff5c 	b	a4 <hi_mpi_venc_get_stream.part.16+0xa4>
++ 330:	e59d1098 	ldr	r1, [sp, #152]	; 0x98
++ 334:	e28d5090 	add	r5, sp, #144	; 0x90
++ 338:	e59d209c 	ldr	r2, [sp, #156]	; 0x9c
++ 33c:	e3510000 	cmp	r1, #0
++ 340:	0a000016 	beq	3a0 <hi_mpi_venc_get_stream.part.16+0x3a0>
++ 344:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream.part.16>
++			344: R_ARM_CALL	cal_psnr
++ 348:	e59f20a0 	ldr	r2, [pc, #160]	; 3f0 <hi_mpi_venc_get_stream.part.16+0x3f0>
++ 34c:	e3a03058 	mov	r3, #88	; 0x58
++ 350:	e1c500f0 	strd	r0, [r5]
++ 354:	e08f2002 	add	r2, pc, r2
++ 358:	e0232493 	mla	r3, r3, r4, r2
++ 35c:	e5930048 	ldr	r0, [r3, #72]	; 0x48
++ 360:	eaffffc4 	b	278 <hi_mpi_venc_get_stream.part.16+0x278>
++ 364:	e59f1070 	ldr	r1, [pc, #112]	; 3dc <hi_mpi_venc_get_stream.part.16+0x3dc>
++ 368:	e3e0c000 	mvn	ip, #0
++ 36c:	e59f2080 	ldr	r2, [pc, #128]	; 3f4 <hi_mpi_venc_get_stream.part.16+0x3f4>
++ 370:	e30032fa 	movw	r3, #762	; 0x2fa
++ 374:	e7991001 	ldr	r1, [r9, r1]
++ 378:	e3087003 	movw	r7, #32771	; 0x8003
++ 37c:	e58d8000 	str	r8, [sp]
++ 380:	e5910000 	ldr	r0, [r1]
++ 384:	e59f106c 	ldr	r1, [pc, #108]	; 3f8 <hi_mpi_venc_get_stream.part.16+0x3f8>
++ 388:	e08f2002 	add	r2, pc, r2
++ 38c:	e58dc004 	str	ip, [sp, #4]
++ 390:	e08f1001 	add	r1, pc, r1
++ 394:	e34a7008 	movt	r7, #40968	; 0xa008
++ 398:	ebfffffe 	bl	0 <fprintf>
++			398: R_ARM_CALL	fprintf
++ 39c:	eaffff8d 	b	1d8 <hi_mpi_venc_get_stream.part.16+0x1d8>
++ 3a0:	e59d5038 	ldr	r5, [sp, #56]	; 0x38
++ 3a4:	e3a03040 	mov	r3, #64	; 0x40
++ 3a8:	e58d300c 	str	r3, [sp, #12]
++ 3ac:	e59db03c 	ldr	fp, [sp, #60]	; 0x3c
++ 3b0:	eaffffb7 	b	294 <hi_mpi_venc_get_stream.part.16+0x294>
++ 3b4:	ebfffffe 	bl	0 <__stack_chk_fail>
++			3b4: R_ARM_CALL	__stack_chk_fail
++ 3b8:	00000000 	.word	0x00000000
++			3b8: R_ARM_GOT32	__stack_chk_guard
++ 3bc:	0000039c 	.word	0x0000039c
++			3bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 3c0:	00000390 	.word	0x00000390
++			3c0: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 3c4:	00000374 	.word	0x00000374
++			3c4: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3c8:	00000310 	.word	0x00000310
++			3c8: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3cc:	000002ec 	.word	0x000002ec
++			3cc: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3d0:	0000027c 	.word	0x0000027c
++			3d0: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3d4:	00000228 	.word	0x00000228
++			3d4: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3d8:	000001ec 	.word	0x000001ec
++			3d8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 3dc:	00000000 	.word	0x00000000
++			3dc: R_ARM_GOT32	stderr
++ 3e0:	00000198 	.word	0x00000198
++			3e0: R_ARM_REL32	.rodata.__FUNCTION__.13548
++ 3e4:	00000198 	.word	0x00000198
++			3e4: R_ARM_REL32	.LC10
++ 3e8:	000000c8 	.word	0x000000c8
++			3e8: R_ARM_REL32	.rodata.__FUNCTION__.13530
++ 3ec:	000000c8 	.word	0x000000c8
++			3ec: R_ARM_REL32	.LC11
++ 3f0:	00000094 	.word	0x00000094
++			3f0: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 3f4:	00000064 	.word	0x00000064
++			3f4: R_ARM_REL32	.rodata.__FUNCTION__.13548
++ 3f8:	00000060 	.word	0x00000060
++			3f8: R_ARM_REL32	.LC9
+ 
+ Disassembly of section .text.hi_mpi_venc_create_chn:
+ 
+ 00000000 <hi_mpi_venc_create_chn>:
+-   0:	e59f21bc 	ldr	r2, [pc, #444]	; 1c4 <hi_mpi_venc_create_chn+0x1c4>
++   0:	e59f2228 	ldr	r2, [pc, #552]	; 230 <hi_mpi_venc_create_chn+0x230>
+    4:	e350000f 	cmp	r0, #15
+-   8:	e59f31b8 	ldr	r3, [pc, #440]	; 1c8 <hi_mpi_venc_create_chn+0x1c8>
++   8:	e59f3224 	ldr	r3, [pc, #548]	; 234 <hi_mpi_venc_create_chn+0x234>
+    c:	e08f2002 	add	r2, pc, r2
+   10:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+-  14:	e24dd02c 	sub	sp, sp, #44	; 0x2c
+-  18:	e7923003 	ldr	r3, [r2, r3]
++  14:	e24dd034 	sub	sp, sp, #52	; 0x34
++  18:	e59f6218 	ldr	r6, [pc, #536]	; 238 <hi_mpi_venc_create_chn+0x238>
+   1c:	e1a04000 	mov	r4, r0
+-  20:	e1a07001 	mov	r7, r1
+-  24:	e5933000 	ldr	r3, [r3]
+-  28:	e58d3024 	str	r3, [sp, #36]	; 0x24
+-  2c:	e3a03000 	mov	r3, #0
+-  30:	8a000014 	bhi	88 <hi_mpi_venc_create_chn+0x88>
+-  34:	e1a00004 	mov	r0, r4
+-  38:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
+-			38: R_ARM_CALL	MPI_VENC_OPEN
+-  3c:	e2505000 	subs	r5, r0, #0
+-  40:	1a000005 	bne	5c <hi_mpi_venc_create_chn+0x5c>
+-  44:	e3570000 	cmp	r7, #0
+-  48:	0a000051 	beq	194 <hi_mpi_venc_create_chn+0x194>
+-  4c:	e1a00004 	mov	r0, r4
+-  50:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
+-			50: R_ARM_CALL	mpi_venc_check_mem_fd
+-  54:	e2505000 	subs	r5, r0, #0
+-  58:	0a00000e 	beq	98 <hi_mpi_venc_create_chn+0x98>
+-  5c:	e59f2168 	ldr	r2, [pc, #360]	; 1cc <hi_mpi_venc_create_chn+0x1cc>
+-  60:	e1a00005 	mov	r0, r5
+-  64:	e59f315c 	ldr	r3, [pc, #348]	; 1c8 <hi_mpi_venc_create_chn+0x1c8>
+-  68:	e08f2002 	add	r2, pc, r2
+-  6c:	e7923003 	ldr	r3, [r2, r3]
+-  70:	e5932000 	ldr	r2, [r3]
+-  74:	e59d3024 	ldr	r3, [sp, #36]	; 0x24
+-  78:	e0332002 	eors	r2, r3, r2
+-  7c:	1a00004f 	bne	1c0 <hi_mpi_venc_create_chn+0x1c0>
+-  80:	e28dd02c 	add	sp, sp, #44	; 0x2c
+-  84:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+-  88:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
+-			88: R_ARM_CALL	mpi_venc_check_chn.part.0
+-  8c:	e2505000 	subs	r5, r0, #0
+-  90:	1afffff1 	bne	5c <hi_mpi_venc_create_chn+0x5c>
+-  94:	eaffffe6 	b	34 <hi_mpi_venc_create_chn+0x34>
+-  98:	e59fa130 	ldr	sl, [pc, #304]	; 1d0 <hi_mpi_venc_create_chn+0x1d0>
+-  9c:	e3a03058 	mov	r3, #88	; 0x58
+-  a0:	e0090493 	mul	r9, r3, r4
+-  a4:	e08fa00a 	add	sl, pc, sl
+-  a8:	e08a6009 	add	r6, sl, r9
+-  ac:	e2898004 	add	r8, r9, #4
+-  b0:	e08a8008 	add	r8, sl, r8
+-  b4:	e1a00008 	mov	r0, r8
+-  b8:	ebfffffe 	bl	0 <pthread_mutex_lock>
+-			b8: R_ARM_CALL	pthread_mutex_lock
+-  bc:	e79a0009 	ldr	r0, [sl, r9]
+-  c0:	e3a01c45 	mov	r1, #17664	; 0x4500
+-  c4:	e3441074 	movt	r1, #16500	; 0x4074
+-  c8:	e1a02007 	mov	r2, r7
+-  cc:	ebfffffe 	bl	0 <ioctl>
+-			cc: R_ARM_CALL	ioctl
+-  d0:	e2505000 	subs	r5, r0, #0
+-  d4:	1a00002b 	bne	188 <hi_mpi_venc_create_chn+0x188>
+-  d8:	e79a0009 	ldr	r0, [sl, r9]
+-  dc:	e3041509 	movw	r1, #17673	; 0x4509
+-  e0:	e3481020 	movt	r1, #32800	; 0x8020
+-  e4:	e1a0200d 	mov	r2, sp
+-  e8:	ebfffffe 	bl	0 <ioctl>
+-			e8: R_ARM_CALL	ioctl
+-  ec:	e2505000 	subs	r5, r0, #0
+-  f0:	1a00002b 	bne	1a4 <hi_mpi_venc_create_chn+0x1a4>
+-  f4:	e1cd20d8 	ldrd	r2, [sp, #8]
+-  f8:	e59d1010 	ldr	r1, [sp, #16]
+-  fc:	e1a00004 	mov	r0, r4
+- 100:	e1c622f8 	strd	r2, [r6, #40]	; 0x28
+- 104:	e1cda0d0 	ldrd	sl, [sp]
+- 108:	e59d2014 	ldr	r2, [sp, #20]
+- 10c:	e59d3018 	ldr	r3, [sp, #24]
+- 110:	e5861038 	str	r1, [r6, #56]	; 0x38
+- 114:	e5862048 	str	r2, [r6, #72]	; 0x48
+- 118:	e586304c 	str	r3, [r6, #76]	; 0x4c
+- 11c:	e5865030 	str	r5, [r6, #48]	; 0x30
+- 120:	e586503c 	str	r5, [r6, #60]	; 0x3c
+- 124:	e1c6a2f0 	strd	sl, [r6, #32]
+- 128:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
+-			128: R_ARM_CALL	memmap
+- 12c:	e59f30a0 	ldr	r3, [pc, #160]	; 1d4 <hi_mpi_venc_create_chn+0x1d4>
+- 130:	e1a02005 	mov	r2, r5
+- 134:	e596104c 	ldr	r1, [r6, #76]	; 0x4c
+- 138:	e08f3003 	add	r3, pc, r3
+- 13c:	e0839009 	add	r9, r3, r9
+- 140:	e2220001 	eor	r0, r2, #1
+- 144:	e1520001 	cmp	r2, r1
+- 148:	23a02000 	movcs	r2, #0
+- 14c:	32002001 	andcc	r2, r0, #1
+- 150:	e3520000 	cmp	r2, #0
+- 154:	0a00000b 	beq	188 <hi_mpi_venc_create_chn+0x188>
+- 158:	e5990030 	ldr	r0, [r9, #48]	; 0x30
+- 15c:	e3a02001 	mov	r2, #1
+- 160:	e3500000 	cmp	r0, #0
+- 164:	1afffff5 	bne	140 <hi_mpi_venc_create_chn+0x140>
+- 168:	e1a00008 	mov	r0, r8
+- 16c:	e308500c 	movw	r5, #32780	; 0x800c
+- 170:	e34a5008 	movt	r5, #40968	; 0xa008
++  20:	e7923003 	ldr	r3, [r2, r3]
++  24:	e1a08001 	mov	r8, r1
++  28:	e08f6006 	add	r6, pc, r6
++  2c:	e5933000 	ldr	r3, [r3]
++  30:	e58d302c 	str	r3, [sp, #44]	; 0x2c
++  34:	e3a03000 	mov	r3, #0
++  38:	8a000014 	bhi	90 <hi_mpi_venc_create_chn+0x90>
++  3c:	e1a00004 	mov	r0, r4
++  40:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
++			40: R_ARM_CALL	mpi_venc_open
++  44:	e2505000 	subs	r5, r0, #0
++  48:	1a000005 	bne	64 <hi_mpi_venc_create_chn+0x64>
++  4c:	e3580000 	cmp	r8, #0
++  50:	0a00005f 	beq	1d4 <hi_mpi_venc_create_chn+0x1d4>
++  54:	e1a00004 	mov	r0, r4
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
++			58: R_ARM_CALL	mpi_venc_check_mem_fd
++  5c:	e2505000 	subs	r5, r0, #0
++  60:	0a00000e 	beq	a0 <hi_mpi_venc_create_chn+0xa0>
++  64:	e59f21d0 	ldr	r2, [pc, #464]	; 23c <hi_mpi_venc_create_chn+0x23c>
++  68:	e1a00005 	mov	r0, r5
++  6c:	e59f31c0 	ldr	r3, [pc, #448]	; 234 <hi_mpi_venc_create_chn+0x234>
++  70:	e08f2002 	add	r2, pc, r2
++  74:	e7923003 	ldr	r3, [r2, r3]
++  78:	e5932000 	ldr	r2, [r3]
++  7c:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
++  80:	e0332002 	eors	r2, r3, r2
++  84:	1a000068 	bne	22c <hi_mpi_venc_create_chn+0x22c>
++  88:	e28dd034 	add	sp, sp, #52	; 0x34
++  8c:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
++  90:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
++			90: R_ARM_CALL	mpi_venc_check_chn.part.0
++  94:	e2505000 	subs	r5, r0, #0
++  98:	1afffff1 	bne	64 <hi_mpi_venc_create_chn+0x64>
++  9c:	eaffffe6 	b	3c <hi_mpi_venc_create_chn+0x3c>
++  a0:	e59fb198 	ldr	fp, [pc, #408]	; 240 <hi_mpi_venc_create_chn+0x240>
++  a4:	e3a09058 	mov	r9, #88	; 0x58
++  a8:	e0090499 	mul	r9, r9, r4
++  ac:	e08fb00b 	add	fp, pc, fp
++  b0:	e08b7009 	add	r7, fp, r9
++  b4:	e289a004 	add	sl, r9, #4
++  b8:	e08ba00a 	add	sl, fp, sl
++  bc:	e1a0000a 	mov	r0, sl
++  c0:	ebfffffe 	bl	0 <pthread_mutex_lock>
++			c0: R_ARM_CALL	pthread_mutex_lock
++  c4:	e79b0009 	ldr	r0, [fp, r9]
++  c8:	e3a01c45 	mov	r1, #17664	; 0x4500
++  cc:	e3441074 	movt	r1, #16500	; 0x4074
++  d0:	e1a02008 	mov	r2, r8
++  d4:	ebfffffe 	bl	0 <ioctl>
++			d4: R_ARM_CALL	ioctl
++  d8:	e2505000 	subs	r5, r0, #0
++  dc:	1a000039 	bne	1c8 <hi_mpi_venc_create_chn+0x1c8>
++  e0:	e79b0009 	ldr	r0, [fp, r9]
++  e4:	e3041509 	movw	r1, #17673	; 0x4509
++  e8:	e3481020 	movt	r1, #32800	; 0x8020
++  ec:	e28d2008 	add	r2, sp, #8
++  f0:	ebfffffe 	bl	0 <ioctl>
++			f0: R_ARM_CALL	ioctl
++  f4:	e2505000 	subs	r5, r0, #0
++  f8:	1a000039 	bne	1e4 <hi_mpi_venc_create_chn+0x1e4>
++  fc:	e1cd20d8 	ldrd	r2, [sp, #8]
++ 100:	e1cd01d0 	ldrd	r0, [sp, #16]
++ 104:	e1c722f0 	strd	r2, [r7, #32]
++ 108:	e59d3018 	ldr	r3, [sp, #24]
++ 10c:	e59d201c 	ldr	r2, [sp, #28]
++ 110:	e5873038 	str	r3, [r7, #56]	; 0x38
++ 114:	e59d3020 	ldr	r3, [sp, #32]
++ 118:	e1c702f8 	strd	r0, [r7, #40]	; 0x28
++ 11c:	e5872048 	str	r2, [r7, #72]	; 0x48
++ 120:	e1a00004 	mov	r0, r4
++ 124:	e587304c 	str	r3, [r7, #76]	; 0x4c
++ 128:	e5875030 	str	r5, [r7, #48]	; 0x30
++ 12c:	e587503c 	str	r5, [r7, #60]	; 0x3c
++ 130:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
++			130: R_ARM_CALL	memmap
++ 134:	e59f3108 	ldr	r3, [pc, #264]	; 244 <hi_mpi_venc_create_chn+0x244>
++ 138:	e1a02005 	mov	r2, r5
++ 13c:	e597104c 	ldr	r1, [r7, #76]	; 0x4c
++ 140:	e08f3003 	add	r3, pc, r3
++ 144:	e0839009 	add	r9, r3, r9
++ 148:	e2223001 	eor	r3, r2, #1
++ 14c:	e1520001 	cmp	r2, r1
++ 150:	23a02000 	movcs	r2, #0
++ 154:	32032001 	andcc	r2, r3, #1
++ 158:	e3520000 	cmp	r2, #0
++ 15c:	0a000019 	beq	1c8 <hi_mpi_venc_create_chn+0x1c8>
++ 160:	e5993030 	ldr	r3, [r9, #48]	; 0x30
++ 164:	e3a02001 	mov	r2, #1
++ 168:	e3530000 	cmp	r3, #0
++ 16c:	1afffff5 	bne	148 <hi_mpi_venc_create_chn+0x148>
++ 170:	e1a0000a 	mov	r0, sl
+  174:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+ 			174: R_ARM_CALL	pthread_mutex_unlock
+  178:	e5990000 	ldr	r0, [r9]
+  17c:	e3041501 	movw	r1, #17665	; 0x4501
+  180:	ebfffffe 	bl	0 <ioctl>
+ 			180: R_ARM_CALL	ioctl
+- 184:	eaffffb4 	b	5c <hi_mpi_venc_create_chn+0x5c>
+- 188:	e1a00008 	mov	r0, r8
+- 18c:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			18c: R_ARM_CALL	pthread_mutex_unlock
+- 190:	eaffffb1 	b	5c <hi_mpi_venc_create_chn+0x5c>
+- 194:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
+-			194: R_ARM_CALL	mpi_venc_check_null.part.1
+- 198:	e2505000 	subs	r5, r0, #0
+- 19c:	1affffae 	bne	5c <hi_mpi_venc_create_chn+0x5c>
+- 1a0:	eaffffa9 	b	4c <hi_mpi_venc_create_chn+0x4c>
+- 1a4:	e1a00008 	mov	r0, r8
+- 1a8:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			1a8: R_ARM_CALL	pthread_mutex_unlock
+- 1ac:	e79a0009 	ldr	r0, [sl, r9]
+- 1b0:	e3041501 	movw	r1, #17665	; 0x4501
+- 1b4:	ebfffffe 	bl	0 <ioctl>
+-			1b4: R_ARM_CALL	ioctl
+- 1b8:	e1a05000 	mov	r5, r0
+- 1bc:	eaffffa6 	b	5c <hi_mpi_venc_create_chn+0x5c>
+- 1c0:	ebfffffe 	bl	0 <__stack_chk_fail>
+-			1c0: R_ARM_CALL	__stack_chk_fail
+- 1c4:	000001b0 	.word	0x000001b0
+-			1c4: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 1c8:	00000000 	.word	0x00000000
+-			1c8: R_ARM_GOT32	__stack_chk_guard
+- 1cc:	0000015c 	.word	0x0000015c
+-			1cc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 1d0:	00000124 	.word	0x00000124
+-			1d0: R_ARM_REL32	.bss.g_mpi_venc_chn
+- 1d4:	00000094 	.word	0x00000094
+-			1d4: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 184:	e250c000 	subs	ip, r0, #0
++ 188:	0308500c 	movweq	r5, #32780	; 0x800c
++ 18c:	034a5008 	movteq	r5, #40968	; 0xa008
++ 190:	0affffb3 	beq	64 <hi_mpi_venc_create_chn+0x64>
++ 194:	e59f10ac 	ldr	r1, [pc, #172]	; 248 <hi_mpi_venc_create_chn+0x248>
++ 198:	e30031d2 	movw	r3, #466	; 0x1d2
++ 19c:	e59f20a8 	ldr	r2, [pc, #168]	; 24c <hi_mpi_venc_create_chn+0x24c>
++ 1a0:	e308500c 	movw	r5, #32780	; 0x800c
++ 1a4:	e7960001 	ldr	r0, [r6, r1]
++ 1a8:	e59f10a0 	ldr	r1, [pc, #160]	; 250 <hi_mpi_venc_create_chn+0x250>
++ 1ac:	e08f2002 	add	r2, pc, r2
++ 1b0:	e08f1001 	add	r1, pc, r1
++ 1b4:	e5900000 	ldr	r0, [r0]
++ 1b8:	e88d1010 	stm	sp, {r4, ip}
++ 1bc:	e34a5008 	movt	r5, #40968	; 0xa008
++ 1c0:	ebfffffe 	bl	0 <fprintf>
++			1c0: R_ARM_CALL	fprintf
++ 1c4:	eaffffa6 	b	64 <hi_mpi_venc_create_chn+0x64>
++ 1c8:	e1a0000a 	mov	r0, sl
++ 1cc:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			1cc: R_ARM_CALL	pthread_mutex_unlock
++ 1d0:	eaffffa3 	b	64 <hi_mpi_venc_create_chn+0x64>
++ 1d4:	ebfffffe 	bl	0 <hi_mpi_venc_create_chn>
++			1d4: R_ARM_CALL	mpi_venc_check_null.part.1
++ 1d8:	e2505000 	subs	r5, r0, #0
++ 1dc:	1affffa0 	bne	64 <hi_mpi_venc_create_chn+0x64>
++ 1e0:	eaffff9b 	b	54 <hi_mpi_venc_create_chn+0x54>
++ 1e4:	e1a0000a 	mov	r0, sl
++ 1e8:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			1e8: R_ARM_CALL	pthread_mutex_unlock
++ 1ec:	e79b0009 	ldr	r0, [fp, r9]
++ 1f0:	e3041501 	movw	r1, #17665	; 0x4501
++ 1f4:	ebfffffe 	bl	0 <ioctl>
++			1f4: R_ARM_CALL	ioctl
++ 1f8:	e250c000 	subs	ip, r0, #0
++ 1fc:	0affff98 	beq	64 <hi_mpi_venc_create_chn+0x64>
++ 200:	e59f1040 	ldr	r1, [pc, #64]	; 248 <hi_mpi_venc_create_chn+0x248>
++ 204:	e30031bb 	movw	r3, #443	; 0x1bb
++ 208:	e59f2044 	ldr	r2, [pc, #68]	; 254 <hi_mpi_venc_create_chn+0x254>
++ 20c:	e7960001 	ldr	r0, [r6, r1]
++ 210:	e59f1040 	ldr	r1, [pc, #64]	; 258 <hi_mpi_venc_create_chn+0x258>
++ 214:	e08f2002 	add	r2, pc, r2
++ 218:	e08f1001 	add	r1, pc, r1
++ 21c:	e5900000 	ldr	r0, [r0]
++ 220:	e88d1010 	stm	sp, {r4, ip}
++ 224:	ebfffffe 	bl	0 <fprintf>
++			224: R_ARM_CALL	fprintf
++ 228:	eaffff8d 	b	64 <hi_mpi_venc_create_chn+0x64>
++ 22c:	ebfffffe 	bl	0 <__stack_chk_fail>
++			22c: R_ARM_CALL	__stack_chk_fail
++ 230:	0000021c 	.word	0x0000021c
++			230: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 234:	00000000 	.word	0x00000000
++			234: R_ARM_GOT32	__stack_chk_guard
++ 238:	00000208 	.word	0x00000208
++			238: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 23c:	000001c4 	.word	0x000001c4
++			23c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 240:	0000018c 	.word	0x0000018c
++			240: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 244:	000000fc 	.word	0x000000fc
++			244: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 248:	00000000 	.word	0x00000000
++			248: R_ARM_GOT32	stderr
++ 24c:	00000098 	.word	0x00000098
++			24c: R_ARM_REL32	.rodata.__FUNCTION__.13403
++ 250:	00000098 	.word	0x00000098
++			250: R_ARM_REL32	.LC12
++ 254:	00000038 	.word	0x00000038
++			254: R_ARM_REL32	.rodata.__FUNCTION__.13403
++ 258:	00000038 	.word	0x00000038
++			258: R_ARM_REL32	.LC12
+ 
+ Disassembly of section .text.hi_mpi_venc_reset_chn:
+ 
+@@ -1784,7 +1970,7 @@
+    c:	8a00000b 	bhi	40 <hi_mpi_venc_reset_chn+0x40>
+   10:	e1a00004 	mov	r0, r4
+   14:	ebfffffe 	bl	0 <hi_mpi_venc_reset_chn>
+-			14: R_ARM_CALL	MPI_VENC_OPEN
++			14: R_ARM_CALL	mpi_venc_open
+   18:	e3500000 	cmp	r0, #0
+   1c:	18bd8010 	popne	{r4, pc}
+   20:	e59f2028 	ldr	r2, [pc, #40]	; 50 <hi_mpi_venc_reset_chn+0x50>
+@@ -1804,22 +1990,22 @@
+   50:	0000001c 	.word	0x0000001c
+ 			50: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_start_recv_frame:
++Disassembly of section .text.hi_mpi_venc_start_chn:
+ 
+-00000000 <hi_mpi_venc_start_recv_frame>:
++00000000 <hi_mpi_venc_start_chn>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_start_recv_frame+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_start_chn+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_start_recv_frame>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_start_chn>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_start_recv_frame+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_start_chn+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_start_recv_frame+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_start_recv_frame+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_start_chn+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_start_chn+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -1831,32 +2017,32 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_start_recv_frame>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_start_chn>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_start_recv_frame+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_start_recv_frame>
++  64:	eaffffea 	b	14 <hi_mpi_venc_start_chn+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_start_chn>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_start_recv_frame+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_start_chn+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_stop_recv_frame:
++Disassembly of section .text.hi_mpi_venc_stop_chn:
+ 
+-00000000 <hi_mpi_venc_stop_recv_frame>:
++00000000 <hi_mpi_venc_stop_chn>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4010 	push	{r4, lr}
+    8:	e1a04000 	mov	r4, r0
+-   c:	8a00000b 	bhi	40 <hi_mpi_venc_stop_recv_frame+0x40>
++   c:	8a00000b 	bhi	40 <hi_mpi_venc_stop_chn+0x40>
+   10:	e1a00004 	mov	r0, r4
+-  14:	ebfffffe 	bl	0 <hi_mpi_venc_stop_recv_frame>
+-			14: R_ARM_CALL	MPI_VENC_OPEN
++  14:	ebfffffe 	bl	0 <hi_mpi_venc_stop_chn>
++			14: R_ARM_CALL	mpi_venc_open
+   18:	e3500000 	cmp	r0, #0
+   1c:	18bd8010 	popne	{r4, pc}
+-  20:	e59f2028 	ldr	r2, [pc, #40]	; 50 <hi_mpi_venc_stop_recv_frame+0x50>
++  20:	e59f2028 	ldr	r2, [pc, #40]	; 50 <hi_mpi_venc_stop_chn+0x50>
+   24:	e3a03058 	mov	r3, #88	; 0x58
+   28:	e0040493 	mul	r4, r3, r4
+   2c:	e08f2002 	add	r2, pc, r2
+@@ -1865,11 +2051,11 @@
+   38:	e8bd4010 	pop	{r4, lr}
+   3c:	eafffffe 	b	0 <ioctl>
+ 			3c: R_ARM_JUMP24	ioctl
+-  40:	ebfffffe 	bl	0 <hi_mpi_venc_stop_recv_frame>
++  40:	ebfffffe 	bl	0 <hi_mpi_venc_stop_chn>
+ 			40: R_ARM_CALL	mpi_venc_check_chn.part.0
+   44:	e3500000 	cmp	r0, #0
+   48:	18bd8010 	popne	{r4, pc}
+-  4c:	eaffffef 	b	10 <hi_mpi_venc_stop_recv_frame+0x10>
++  4c:	eaffffef 	b	10 <hi_mpi_venc_stop_chn+0x10>
+   50:	0000001c 	.word	0x0000001c
+ 			50: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+@@ -1891,7 +2077,7 @@
+   30:	8a00003a 	bhi	120 <hi_mpi_venc_query_status+0x120>
+   34:	e1a00005 	mov	r0, r5
+   38:	ebfffffe 	bl	0 <hi_mpi_venc_query_status>
+-			38: R_ARM_CALL	MPI_VENC_OPEN
++			38: R_ARM_CALL	mpi_venc_open
+   3c:	e2506000 	subs	r6, r0, #0
+   40:	1a00002b 	bne	f4 <hi_mpi_venc_query_status+0xf4>
+   44:	e3540000 	cmp	r4, #0
+@@ -1980,52 +2166,87 @@
+ Disassembly of section .text.hi_mpi_venc_destroy_chn:
+ 
+ 00000000 <hi_mpi_venc_destroy_chn>:
+-   0:	e350000f 	cmp	r0, #15
+-   4:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+-   8:	e1a04000 	mov	r4, r0
+-   c:	8a000005 	bhi	28 <hi_mpi_venc_destroy_chn+0x28>
+-  10:	e1a00004 	mov	r0, r4
+-  14:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
+-			14: R_ARM_CALL	MPI_VENC_OPEN
+-  18:	e2505000 	subs	r5, r0, #0
+-  1c:	0a000006 	beq	3c <hi_mpi_venc_destroy_chn+0x3c>
+-  20:	e1a00005 	mov	r0, r5
+-  24:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+-  28:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
+-			28: R_ARM_CALL	mpi_venc_check_chn.part.0
+-  2c:	e2505000 	subs	r5, r0, #0
+-  30:	0afffff6 	beq	10 <hi_mpi_venc_destroy_chn+0x10>
+-  34:	e1a00005 	mov	r0, r5
+-  38:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+-  3c:	e59f7054 	ldr	r7, [pc, #84]	; 98 <hi_mpi_venc_destroy_chn+0x98>
+-  40:	e3a06058 	mov	r6, #88	; 0x58
+-  44:	e0060496 	mul	r6, r6, r4
+-  48:	e08f7007 	add	r7, pc, r7
+-  4c:	e3041501 	movw	r1, #17665	; 0x4501
+-  50:	e0878006 	add	r8, r7, r6
+-  54:	e7970006 	ldr	r0, [r7, r6]
+-  58:	ebfffffe 	bl	0 <ioctl>
+-			58: R_ARM_CALL	ioctl
+-  5c:	e2505000 	subs	r5, r0, #0
+-  60:	1affffee 	bne	20 <hi_mpi_venc_destroy_chn+0x20>
+-  64:	e2866004 	add	r6, r6, #4
+-  68:	e1a00004 	mov	r0, r4
+-  6c:	e0876006 	add	r6, r7, r6
+-  70:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
+-			70: R_ARM_CALL	memunmap
+-  74:	e1a00006 	mov	r0, r6
+-  78:	ebfffffe 	bl	0 <pthread_mutex_lock>
+-			78: R_ARM_CALL	pthread_mutex_lock
+-  7c:	f2c00010 	vmov.i32	d16, #0	; 0x00000000
+-  80:	e5885030 	str	r5, [r8, #48]	; 0x30
+-  84:	e1a00006 	mov	r0, r6
+-  88:	edc80b08 	vstr	d16, [r8, #32]
+-  8c:	edc80b0e 	vstr	d16, [r8, #56]	; 0x38
+-  90:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			90: R_ARM_CALL	pthread_mutex_unlock
+-  94:	eaffffe1 	b	20 <hi_mpi_venc_destroy_chn+0x20>
+-  98:	00000048 	.word	0x00000048
+-			98: R_ARM_REL32	.bss.g_mpi_venc_chn
++   0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
++   4:	e350000f 	cmp	r0, #15
++   8:	e59f60e8 	ldr	r6, [pc, #232]	; f8 <hi_mpi_venc_destroy_chn+0xf8>
++   c:	e24dd00c 	sub	sp, sp, #12
++  10:	e1a04000 	mov	r4, r0
++  14:	e08f6006 	add	r6, pc, r6
++  18:	8a000006 	bhi	38 <hi_mpi_venc_destroy_chn+0x38>
++  1c:	e1a00004 	mov	r0, r4
++  20:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
++			20: R_ARM_CALL	mpi_venc_open
++  24:	e2505000 	subs	r5, r0, #0
++  28:	0a000008 	beq	50 <hi_mpi_venc_destroy_chn+0x50>
++  2c:	e1a00005 	mov	r0, r5
++  30:	e28dd00c 	add	sp, sp, #12
++  34:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
++  38:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
++			38: R_ARM_CALL	mpi_venc_check_chn.part.0
++  3c:	e2505000 	subs	r5, r0, #0
++  40:	0afffff5 	beq	1c <hi_mpi_venc_destroy_chn+0x1c>
++  44:	e1a00005 	mov	r0, r5
++  48:	e28dd00c 	add	sp, sp, #12
++  4c:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
++  50:	e59f20a4 	ldr	r2, [pc, #164]	; fc <hi_mpi_venc_destroy_chn+0xfc>
++  54:	e3a03058 	mov	r3, #88	; 0x58
++  58:	e0030493 	mul	r3, r3, r4
++  5c:	e08f2002 	add	r2, pc, r2
++  60:	e3041501 	movw	r1, #17665	; 0x4501
++  64:	e7920003 	ldr	r0, [r2, r3]
++  68:	ebfffffe 	bl	0 <ioctl>
++			68: R_ARM_CALL	ioctl
++  6c:	e2505000 	subs	r5, r0, #0
++  70:	1affffed 	bne	2c <hi_mpi_venc_destroy_chn+0x2c>
++  74:	e1a00004 	mov	r0, r4
++  78:	ebfffffe 	bl	0 <hi_mpi_venc_destroy_chn>
++			78: R_ARM_CALL	memunmap
++  7c:	e3500000 	cmp	r0, #0
++  80:	1a000011 	bne	cc <hi_mpi_venc_destroy_chn+0xcc>
++  84:	e59f3074 	ldr	r3, [pc, #116]	; 100 <hi_mpi_venc_destroy_chn+0x100>
++  88:	e3a07058 	mov	r7, #88	; 0x58
++  8c:	e0070497 	mul	r7, r7, r4
++  90:	e08f3003 	add	r3, pc, r3
++  94:	e2876004 	add	r6, r7, #4
++  98:	e1a04003 	mov	r4, r3
++  9c:	e0836006 	add	r6, r3, r6
++  a0:	e0844007 	add	r4, r4, r7
++  a4:	e1a00006 	mov	r0, r6
++  a8:	ebfffffe 	bl	0 <pthread_mutex_lock>
++			a8: R_ARM_CALL	pthread_mutex_lock
++  ac:	f2c00010 	vmov.i32	d16, #0	; 0x00000000
++  b0:	e3a03000 	mov	r3, #0
++  b4:	e1a00006 	mov	r0, r6
++  b8:	e5843030 	str	r3, [r4, #48]	; 0x30
++  bc:	edc40b08 	vstr	d16, [r4, #32]
++  c0:	edc40b0e 	vstr	d16, [r4, #56]	; 0x38
++  c4:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			c4: R_ARM_CALL	pthread_mutex_unlock
++  c8:	eaffffd7 	b	2c <hi_mpi_venc_destroy_chn+0x2c>
++  cc:	e59f1030 	ldr	r1, [pc, #48]	; 104 <hi_mpi_venc_destroy_chn+0x104>
++  d0:	e3003233 	movw	r3, #563	; 0x233
++  d4:	e59f202c 	ldr	r2, [pc, #44]	; 108 <hi_mpi_venc_destroy_chn+0x108>
++  d8:	e7960001 	ldr	r0, [r6, r1]
++  dc:	e59f1028 	ldr	r1, [pc, #40]	; 10c <hi_mpi_venc_destroy_chn+0x10c>
++  e0:	e08f2002 	add	r2, pc, r2
++  e4:	e08f1001 	add	r1, pc, r1
++  e8:	e5900000 	ldr	r0, [r0]
++  ec:	e58d4000 	str	r4, [sp]
++  f0:	ebfffffe 	bl	0 <fprintf>
++			f0: R_ARM_CALL	fprintf
++  f4:	eaffffe2 	b	84 <hi_mpi_venc_destroy_chn+0x84>
++  f8:	000000dc 	.word	0x000000dc
++			f8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  fc:	00000098 	.word	0x00000098
++			fc: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 100:	00000068 	.word	0x00000068
++			100: R_ARM_REL32	.bss.g_mpi_venc_chn
++ 104:	00000000 	.word	0x00000000
++			104: R_ARM_GOT32	stderr
++ 108:	00000020 	.word	0x00000020
++			108: R_ARM_REL32	.rodata.__FUNCTION__.13450
++ 10c:	00000020 	.word	0x00000020
++			10c: R_ARM_REL32	.LC11
+ 
+ Disassembly of section .text.hi_mpi_venc_get_chn_attr:
+ 
+@@ -2037,7 +2258,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_chn_attr+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_chn_attr>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_chn_attr+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -2077,7 +2298,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_chn_attr+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_chn_attr>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_chn_attr+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -2117,7 +2338,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_rc_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_rc_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_rc_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -2157,7 +2378,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_rc_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_rc_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_rc_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -2198,7 +2419,7 @@
+   14:	8a000012 	bhi	64 <hi_mpi_venc_get_stream+0x64>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	1a00000d 	bne	60 <hi_mpi_venc_get_stream+0x60>
+   28:	e3550000 	cmp	r5, #0
+@@ -2246,7 +2467,7 @@
+   14:	8a000053 	bhi	168 <hi_mpi_venc_release_stream+0x168>
+   18:	e1a00005 	mov	r0, r5
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_release_stream>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e2509000 	subs	r9, r0, #0
+   24:	1a00004c 	bne	15c <hi_mpi_venc_release_stream+0x15c>
+   28:	e3560000 	cmp	r6, #0
+@@ -2376,7 +2597,7 @@
+   34:	8a00001a 	bhi	a4 <hi_mpi_venc_insert_user_data+0xa4>
+   38:	e1a00004 	mov	r0, r4
+   3c:	ebfffffe 	bl	0 <hi_mpi_venc_insert_user_data>
+-			3c: R_ARM_CALL	MPI_VENC_OPEN
++			3c: R_ARM_CALL	mpi_venc_open
+   40:	e3500000 	cmp	r0, #0
+   44:	1a00000c 	bne	7c <hi_mpi_venc_insert_user_data+0x7c>
+   48:	e3550000 	cmp	r5, #0
+@@ -2429,8 +2650,8 @@
+ 00000000 <hi_mpi_venc_send_frame>:
+    0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
+    4:	e350000f 	cmp	r0, #15
+-   8:	e59f50b8 	ldr	r5, [pc, #184]	; c8 <hi_mpi_venc_send_frame+0xc8>
+-   c:	e24dd014 	sub	sp, sp, #20
++   8:	e59f50ac 	ldr	r5, [pc, #172]	; bc <hi_mpi_venc_send_frame+0xbc>
++   c:	e24dd00c 	sub	sp, sp, #12
+   10:	e1a04000 	mov	r4, r0
+   14:	e1a06001 	mov	r6, r1
+   18:	e08f5005 	add	r5, pc, r5
+@@ -2438,7 +2659,7 @@
+   20:	8a000012 	bhi	70 <hi_mpi_venc_send_frame+0x70>
+   24:	e1a00004 	mov	r0, r4
+   28:	ebfffffe 	bl	0 <hi_mpi_venc_send_frame>
+-			28: R_ARM_CALL	MPI_VENC_OPEN
++			28: R_ARM_CALL	mpi_venc_open
+   2c:	e3500000 	cmp	r0, #0
+   30:	1a00000c 	bne	68 <hi_mpi_venc_send_frame+0x68>
+   34:	e3560000 	cmp	r6, #0
+@@ -2448,7 +2669,7 @@
+   44:	e1a02007 	mov	r2, r7
+   48:	e1a01006 	mov	r1, r6
+   4c:	e1a00004 	mov	r0, r4
+-  50:	e28dd014 	add	sp, sp, #20
++  50:	e28dd00c 	add	sp, sp, #12
+   54:	e8bd40f0 	pop	{r4, r5, r6, r7, lr}
+   58:	eafffffe 	b	0 <hi_mpi_venc_send_frame>
+ 			58: R_ARM_JUMP24	hi_mpi_venc_send_frame.part.19
+@@ -2456,48 +2677,45 @@
+ 			5c: R_ARM_CALL	mpi_venc_check_null.part.1
+   60:	e3500000 	cmp	r0, #0
+   64:	0afffff4 	beq	3c <hi_mpi_venc_send_frame+0x3c>
+-  68:	e28dd014 	add	sp, sp, #20
++  68:	e28dd00c 	add	sp, sp, #12
+   6c:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+   70:	ebfffffe 	bl	0 <hi_mpi_venc_send_frame>
+ 			70: R_ARM_CALL	mpi_venc_check_chn.part.0
+   74:	e3500000 	cmp	r0, #0
+   78:	0affffe9 	beq	24 <hi_mpi_venc_send_frame+0x24>
+-  7c:	e28dd014 	add	sp, sp, #20
++  7c:	e28dd00c 	add	sp, sp, #12
+   80:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+-  84:	e59f2040 	ldr	r2, [pc, #64]	; cc <hi_mpi_venc_send_frame+0xcc>
+-  88:	e3e0e000 	mvn	lr, #0
+-  8c:	e59fc03c 	ldr	ip, [pc, #60]	; d0 <hi_mpi_venc_send_frame+0xd0>
+-  90:	e3a03fd6 	mov	r3, #856	; 0x358
+-  94:	e7950002 	ldr	r0, [r5, r2]
+-  98:	e59f1034 	ldr	r1, [pc, #52]	; d4 <hi_mpi_venc_send_frame+0xd4>
+-  9c:	e08fc00c 	add	ip, pc, ip
+-  a0:	e5900000 	ldr	r0, [r0]
+-  a4:	e1a0200c 	mov	r2, ip
+-  a8:	e08f1001 	add	r1, pc, r1
+-  ac:	e58d7000 	str	r7, [sp]
+-  b0:	e58dc008 	str	ip, [sp, #8]
+-  b4:	e58de004 	str	lr, [sp, #4]
+-  b8:	ebfffffe 	bl	0 <fprintf>
+-			b8: R_ARM_CALL	fprintf
+-  bc:	e3080003 	movw	r0, #32771	; 0x8003
+-  c0:	e34a0008 	movt	r0, #40968	; 0xa008
+-  c4:	eaffffe7 	b	68 <hi_mpi_venc_send_frame+0x68>
+-  c8:	000000a8 	.word	0x000000a8
+-			c8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  cc:	00000000 	.word	0x00000000
+-			cc: R_ARM_GOT32	stderr
+-  d0:	0000002c 	.word	0x0000002c
+-			d0: R_ARM_REL32	.rodata.__FUNCTION__.13375
+-  d4:	00000024 	.word	0x00000024
+-			d4: R_ARM_REL32	.LC9
++  84:	e59f1034 	ldr	r1, [pc, #52]	; c0 <hi_mpi_venc_send_frame+0xc0>
++  88:	e3e0c000 	mvn	ip, #0
++  8c:	e59f2030 	ldr	r2, [pc, #48]	; c4 <hi_mpi_venc_send_frame+0xc4>
++  90:	e3003373 	movw	r3, #883	; 0x373
++  94:	e7950001 	ldr	r0, [r5, r1]
++  98:	e59f1028 	ldr	r1, [pc, #40]	; c8 <hi_mpi_venc_send_frame+0xc8>
++  9c:	e5900000 	ldr	r0, [r0]
++  a0:	e08f2002 	add	r2, pc, r2
++  a4:	e08f1001 	add	r1, pc, r1
++  a8:	e88d1080 	stm	sp, {r7, ip}
++  ac:	ebfffffe 	bl	0 <fprintf>
++			ac: R_ARM_CALL	fprintf
++  b0:	e3080003 	movw	r0, #32771	; 0x8003
++  b4:	e34a0008 	movt	r0, #40968	; 0xa008
++  b8:	eaffffea 	b	68 <hi_mpi_venc_send_frame+0x68>
++  bc:	0000009c 	.word	0x0000009c
++			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  c0:	00000000 	.word	0x00000000
++			c0: R_ARM_GOT32	stderr
++  c4:	0000001c 	.word	0x0000001c
++			c4: R_ARM_REL32	.rodata.__FUNCTION__.13588
++  c8:	0000001c 	.word	0x0000001c
++			c8: R_ARM_REL32	.LC13
+ 
+ Disassembly of section .text.hi_mpi_venc_send_frame_ex:
+ 
+ 00000000 <hi_mpi_venc_send_frame_ex>:
+    0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
+    4:	e350000f 	cmp	r0, #15
+-   8:	e59f50b8 	ldr	r5, [pc, #184]	; c8 <hi_mpi_venc_send_frame_ex+0xc8>
+-   c:	e24dd014 	sub	sp, sp, #20
++   8:	e59f50ac 	ldr	r5, [pc, #172]	; bc <hi_mpi_venc_send_frame_ex+0xbc>
++   c:	e24dd00c 	sub	sp, sp, #12
+   10:	e1a04000 	mov	r4, r0
+   14:	e1a06001 	mov	r6, r1
+   18:	e08f5005 	add	r5, pc, r5
+@@ -2505,7 +2723,7 @@
+   20:	8a000012 	bhi	70 <hi_mpi_venc_send_frame_ex+0x70>
+   24:	e1a00004 	mov	r0, r4
+   28:	ebfffffe 	bl	0 <hi_mpi_venc_send_frame_ex>
+-			28: R_ARM_CALL	MPI_VENC_OPEN
++			28: R_ARM_CALL	mpi_venc_open
+   2c:	e3500000 	cmp	r0, #0
+   30:	1a00000c 	bne	68 <hi_mpi_venc_send_frame_ex+0x68>
+   34:	e3560000 	cmp	r6, #0
+@@ -2515,7 +2733,7 @@
+   44:	e1a02007 	mov	r2, r7
+   48:	e1a01006 	mov	r1, r6
+   4c:	e1a00004 	mov	r0, r4
+-  50:	e28dd014 	add	sp, sp, #20
++  50:	e28dd00c 	add	sp, sp, #12
+   54:	e8bd40f0 	pop	{r4, r5, r6, r7, lr}
+   58:	eafffffe 	b	0 <hi_mpi_venc_send_frame_ex>
+ 			58: R_ARM_JUMP24	hi_mpi_venc_send_frame_ex.part.20
+@@ -2523,40 +2741,181 @@
+ 			5c: R_ARM_CALL	mpi_venc_check_null.part.1
+   60:	e3500000 	cmp	r0, #0
+   64:	0afffff4 	beq	3c <hi_mpi_venc_send_frame_ex+0x3c>
+-  68:	e28dd014 	add	sp, sp, #20
++  68:	e28dd00c 	add	sp, sp, #12
+   6c:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+   70:	ebfffffe 	bl	0 <hi_mpi_venc_send_frame_ex>
+ 			70: R_ARM_CALL	mpi_venc_check_chn.part.0
+   74:	e3500000 	cmp	r0, #0
+   78:	0affffe9 	beq	24 <hi_mpi_venc_send_frame_ex+0x24>
+-  7c:	e28dd014 	add	sp, sp, #20
++  7c:	e28dd00c 	add	sp, sp, #12
+   80:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+-  84:	e59f2040 	ldr	r2, [pc, #64]	; cc <hi_mpi_venc_send_frame_ex+0xcc>
+-  88:	e3e0e000 	mvn	lr, #0
+-  8c:	e59fc03c 	ldr	ip, [pc, #60]	; d0 <hi_mpi_venc_send_frame_ex+0xd0>
+-  90:	e300337f 	movw	r3, #895	; 0x37f
+-  94:	e7950002 	ldr	r0, [r5, r2]
+-  98:	e59f1034 	ldr	r1, [pc, #52]	; d4 <hi_mpi_venc_send_frame_ex+0xd4>
+-  9c:	e08fc00c 	add	ip, pc, ip
+-  a0:	e5900000 	ldr	r0, [r0]
+-  a4:	e1a0200c 	mov	r2, ip
+-  a8:	e08f1001 	add	r1, pc, r1
+-  ac:	e58d7000 	str	r7, [sp]
+-  b0:	e58dc008 	str	ip, [sp, #8]
+-  b4:	e58de004 	str	lr, [sp, #4]
+-  b8:	ebfffffe 	bl	0 <fprintf>
+-			b8: R_ARM_CALL	fprintf
+-  bc:	e3080003 	movw	r0, #32771	; 0x8003
+-  c0:	e34a0008 	movt	r0, #40968	; 0xa008
+-  c4:	eaffffe7 	b	68 <hi_mpi_venc_send_frame_ex+0x68>
+-  c8:	000000a8 	.word	0x000000a8
+-			c8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  cc:	00000000 	.word	0x00000000
+-			cc: R_ARM_GOT32	stderr
+-  d0:	0000002c 	.word	0x0000002c
+-			d0: R_ARM_REL32	.rodata.__FUNCTION__.13386
+-  d4:	00000024 	.word	0x00000024
+-			d4: R_ARM_REL32	.LC9
++  84:	e59f1034 	ldr	r1, [pc, #52]	; c0 <hi_mpi_venc_send_frame_ex+0xc0>
++  88:	e3e0c000 	mvn	ip, #0
++  8c:	e59f2030 	ldr	r2, [pc, #48]	; c4 <hi_mpi_venc_send_frame_ex+0xc4>
++  90:	e3003399 	movw	r3, #921	; 0x399
++  94:	e7950001 	ldr	r0, [r5, r1]
++  98:	e59f1028 	ldr	r1, [pc, #40]	; c8 <hi_mpi_venc_send_frame_ex+0xc8>
++  9c:	e5900000 	ldr	r0, [r0]
++  a0:	e08f2002 	add	r2, pc, r2
++  a4:	e08f1001 	add	r1, pc, r1
++  a8:	e88d1080 	stm	sp, {r7, ip}
++  ac:	ebfffffe 	bl	0 <fprintf>
++			ac: R_ARM_CALL	fprintf
++  b0:	e3080003 	movw	r0, #32771	; 0x8003
++  b4:	e34a0008 	movt	r0, #40968	; 0xa008
++  b8:	eaffffea 	b	68 <hi_mpi_venc_send_frame_ex+0x68>
++  bc:	0000009c 	.word	0x0000009c
++			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  c0:	00000000 	.word	0x00000000
++			c0: R_ARM_GOT32	stderr
++  c4:	0000001c 	.word	0x0000001c
++			c4: R_ARM_REL32	.rodata.__FUNCTION__.13599
++  c8:	0000001c 	.word	0x0000001c
++			c8: R_ARM_REL32	.LC13
++
++Disassembly of section .text.hi_mpi_venc_send_multi_frame:
++
++00000000 <hi_mpi_venc_send_multi_frame>:
++   0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
++   4:	e350000f 	cmp	r0, #15
++   8:	e59f50ac 	ldr	r5, [pc, #172]	; bc <hi_mpi_venc_send_multi_frame+0xbc>
++   c:	e24dd00c 	sub	sp, sp, #12
++  10:	e1a04000 	mov	r4, r0
++  14:	e1a06001 	mov	r6, r1
++  18:	e08f5005 	add	r5, pc, r5
++  1c:	e1a07002 	mov	r7, r2
++  20:	8a000012 	bhi	70 <hi_mpi_venc_send_multi_frame+0x70>
++  24:	e1a00004 	mov	r0, r4
++  28:	ebfffffe 	bl	0 <hi_mpi_venc_send_multi_frame>
++			28: R_ARM_CALL	mpi_venc_open
++  2c:	e3500000 	cmp	r0, #0
++  30:	1a00000c 	bne	68 <hi_mpi_venc_send_multi_frame+0x68>
++  34:	e3560000 	cmp	r6, #0
++  38:	0a000007 	beq	5c <hi_mpi_venc_send_multi_frame+0x5c>
++  3c:	e3770001 	cmn	r7, #1
++  40:	ba00000f 	blt	84 <hi_mpi_venc_send_multi_frame+0x84>
++  44:	e1a02007 	mov	r2, r7
++  48:	e1a01006 	mov	r1, r6
++  4c:	e1a00004 	mov	r0, r4
++  50:	e28dd00c 	add	sp, sp, #12
++  54:	e8bd40f0 	pop	{r4, r5, r6, r7, lr}
++  58:	eafffffe 	b	0 <hi_mpi_venc_send_multi_frame>
++			58: R_ARM_JUMP24	hi_mpi_venc_send_multi_frame.part.21
++  5c:	ebfffffe 	bl	0 <hi_mpi_venc_send_multi_frame>
++			5c: R_ARM_CALL	mpi_venc_check_null.part.1
++  60:	e3500000 	cmp	r0, #0
++  64:	0afffff4 	beq	3c <hi_mpi_venc_send_multi_frame+0x3c>
++  68:	e28dd00c 	add	sp, sp, #12
++  6c:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
++  70:	ebfffffe 	bl	0 <hi_mpi_venc_send_multi_frame>
++			70: R_ARM_CALL	mpi_venc_check_chn.part.0
++  74:	e3500000 	cmp	r0, #0
++  78:	0affffe9 	beq	24 <hi_mpi_venc_send_multi_frame+0x24>
++  7c:	e28dd00c 	add	sp, sp, #12
++  80:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
++  84:	e59f1034 	ldr	r1, [pc, #52]	; c0 <hi_mpi_venc_send_multi_frame+0xc0>
++  88:	e3e0c000 	mvn	ip, #0
++  8c:	e59f2030 	ldr	r2, [pc, #48]	; c4 <hi_mpi_venc_send_multi_frame+0xc4>
++  90:	e30033bf 	movw	r3, #959	; 0x3bf
++  94:	e7950001 	ldr	r0, [r5, r1]
++  98:	e59f1028 	ldr	r1, [pc, #40]	; c8 <hi_mpi_venc_send_multi_frame+0xc8>
++  9c:	e5900000 	ldr	r0, [r0]
++  a0:	e08f2002 	add	r2, pc, r2
++  a4:	e08f1001 	add	r1, pc, r1
++  a8:	e88d1080 	stm	sp, {r7, ip}
++  ac:	ebfffffe 	bl	0 <fprintf>
++			ac: R_ARM_CALL	fprintf
++  b0:	e3080003 	movw	r0, #32771	; 0x8003
++  b4:	e34a0008 	movt	r0, #40968	; 0xa008
++  b8:	eaffffea 	b	68 <hi_mpi_venc_send_multi_frame+0x68>
++  bc:	0000009c 	.word	0x0000009c
++			bc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  c0:	00000000 	.word	0x00000000
++			c0: R_ARM_GOT32	stderr
++  c4:	0000001c 	.word	0x0000001c
++			c4: R_ARM_REL32	.rodata.__FUNCTION__.13610
++  c8:	0000001c 	.word	0x0000001c
++			c8: R_ARM_REL32	.LC13
++
++Disassembly of section .text.hi_mpi_venc_set_chn_config:
++
++00000000 <hi_mpi_venc_set_chn_config>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_chn_config+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_chn_config>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_chn_config+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_chn_config+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_chn_config+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e3041566 	movw	r1, #17766	; 0x4566
++  40:	e344100c 	movt	r1, #16396	; 0x400c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_chn_config>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_chn_config+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_chn_config>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_chn_config+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
++
++Disassembly of section .text.hi_mpi_venc_get_chn_config:
++
++00000000 <hi_mpi_venc_get_chn_config>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_chn_config+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_chn_config>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_chn_config+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_chn_config+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_chn_config+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e3041567 	movw	r1, #17767	; 0x4567
++  40:	e348100c 	movt	r1, #32780	; 0x800c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_chn_config>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_chn_config+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_chn_config>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_chn_config+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+ Disassembly of section .text.hi_mpi_venc_request_idr:
+ 
+@@ -2569,7 +2928,7 @@
+   14:	8a000005 	bhi	30 <hi_mpi_venc_request_idr+0x30>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_request_idr>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	0a000006 	beq	44 <hi_mpi_venc_request_idr+0x44>
+   28:	e28dd008 	add	sp, sp, #8
+@@ -2604,7 +2963,7 @@
+    c:	8a00000a 	bhi	3c <hi_mpi_venc_get_fd+0x3c>
+   10:	e1a00004 	mov	r0, r4
+   14:	ebfffffe 	bl	0 <hi_mpi_venc_get_fd>
+-			14: R_ARM_CALL	MPI_VENC_OPEN
++			14: R_ARM_CALL	mpi_venc_open
+   18:	e3500000 	cmp	r0, #0
+   1c:	1a000005 	bne	38 <hi_mpi_venc_get_fd+0x38>
+   20:	e59f2024 	ldr	r2, [pc, #36]	; 4c <hi_mpi_venc_get_fd+0x4c>
+@@ -2707,65 +3066,67 @@
+  110:	000000e4 	.word	0x000000e4
+ 			110: R_ARM_REL32	.bss.g_mpi_venc_chn
+  114:	00000000 	.word	0x00000000
+-			114: R_ARM_GOT32	venc_mem_fd
++			114: R_ARM_GOT32	g_venc_mem_fd
+  118:	00000044 	.word	0x00000044
+-			118: R_ARM_REL32	.LC11
++			118: R_ARM_REL32	.LC14
+  11c:	0000001c 	.word	0x0000001c
+-			11c: R_ARM_REL32	.LC12
++			11c: R_ARM_REL32	.LC15
+ 
+ Disassembly of section .text.mpi_venc_exit:
+ 
+ 00000000 <mpi_venc_exit>:
+    0:	e92d4070 	push	{r4, r5, r6, lr}
+-   4:	e59f4080 	ldr	r4, [pc, #128]	; 8c <mpi_venc_exit+0x8c>
++   4:	e59f4088 	ldr	r4, [pc, #136]	; 94 <mpi_venc_exit+0x94>
+    8:	e08f4004 	add	r4, pc, r4
+    c:	e1a00004 	mov	r0, r4
+   10:	ebfffffe 	bl	0 <pthread_mutex_lock>
+ 			10: R_ARM_CALL	pthread_mutex_lock
+-  14:	e59f3074 	ldr	r3, [pc, #116]	; 90 <mpi_venc_exit+0x90>
+-  18:	e08f3003 	add	r3, pc, r3
+-  1c:	e5933000 	ldr	r3, [r3]
+-  20:	e3530000 	cmp	r3, #0
+-  24:	0a000014 	beq	7c <mpi_venc_exit+0x7c>
+-  28:	e59f5064 	ldr	r5, [pc, #100]	; 94 <mpi_venc_exit+0x94>
+-  2c:	e3a04000 	mov	r4, #0
++  14:	e59f307c 	ldr	r3, [pc, #124]	; 98 <mpi_venc_exit+0x98>
++  18:	e79f6003 	ldr	r6, [pc, r3]
++  1c:	e3560000 	cmp	r6, #0
++  20:	0a000017 	beq	84 <mpi_venc_exit+0x84>
++  24:	e59f5070 	ldr	r5, [pc, #112]	; 9c <mpi_venc_exit+0x9c>
++  28:	e3a06000 	mov	r6, #0
++  2c:	e1a04006 	mov	r4, r6
+   30:	e08f5005 	add	r5, pc, r5
+   34:	e2855004 	add	r5, r5, #4
+   38:	e1a00004 	mov	r0, r4
+   3c:	e2844001 	add	r4, r4, #1
+   40:	ebfffffe 	bl	0 <mpi_venc_exit>
+ 			40: R_ARM_CALL	hi_mpi_venc_close_fd
+-  44:	e1a00005 	mov	r0, r5
+-  48:	e2855058 	add	r5, r5, #88	; 0x58
+-  4c:	ebfffffe 	bl	0 <pthread_mutex_destroy>
+-			4c: R_ARM_CALL	pthread_mutex_destroy
+-  50:	e3540010 	cmp	r4, #16
+-  54:	1afffff7 	bne	38 <mpi_venc_exit+0x38>
+-  58:	e59f3038 	ldr	r3, [pc, #56]	; 98 <mpi_venc_exit+0x98>
+-  5c:	e3a02000 	mov	r2, #0
+-  60:	e59f0034 	ldr	r0, [pc, #52]	; 9c <mpi_venc_exit+0x9c>
+-  64:	e08f3003 	add	r3, pc, r3
+-  68:	e08f0000 	add	r0, pc, r0
+-  6c:	e5832000 	str	r2, [r3]
+-  70:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			70: R_ARM_CALL	pthread_mutex_unlock
+-  74:	e3a00000 	mov	r0, #0
+-  78:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  7c:	e1a00004 	mov	r0, r4
+-  80:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			80: R_ARM_CALL	pthread_mutex_unlock
+-  84:	e3a00000 	mov	r0, #0
+-  88:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  8c:	0000007c 	.word	0x0000007c
+-			8c: R_ARM_REL32	.bss.s_venc_mutex
+-  90:	00000070 	.word	0x00000070
+-			90: R_ARM_REL32	.bss.s_mpi_venc_init
+-  94:	0000005c 	.word	0x0000005c
+-			94: R_ARM_REL32	.bss.g_mpi_venc_chn
+-  98:	0000002c 	.word	0x0000002c
+-			98: R_ARM_REL32	.bss.s_mpi_venc_init
+-  9c:	0000002c 	.word	0x0000002c
+-			9c: R_ARM_REL32	.bss.s_venc_mutex
++  44:	e3500000 	cmp	r0, #0
++  48:	11a06000 	movne	r6, r0
++  4c:	e1a00005 	mov	r0, r5
++  50:	e2855058 	add	r5, r5, #88	; 0x58
++  54:	ebfffffe 	bl	0 <pthread_mutex_destroy>
++			54: R_ARM_CALL	pthread_mutex_destroy
++  58:	e3540010 	cmp	r4, #16
++  5c:	1afffff5 	bne	38 <mpi_venc_exit+0x38>
++  60:	e59f3038 	ldr	r3, [pc, #56]	; a0 <mpi_venc_exit+0xa0>
++  64:	e3a02000 	mov	r2, #0
++  68:	e59f0034 	ldr	r0, [pc, #52]	; a4 <mpi_venc_exit+0xa4>
++  6c:	e08f3003 	add	r3, pc, r3
++  70:	e08f0000 	add	r0, pc, r0
++  74:	e5832000 	str	r2, [r3]
++  78:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			78: R_ARM_CALL	pthread_mutex_unlock
++  7c:	e1a00006 	mov	r0, r6
++  80:	e8bd8070 	pop	{r4, r5, r6, pc}
++  84:	e1a00004 	mov	r0, r4
++  88:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			88: R_ARM_CALL	pthread_mutex_unlock
++  8c:	e1a00006 	mov	r0, r6
++  90:	e8bd8070 	pop	{r4, r5, r6, pc}
++  94:	00000084 	.word	0x00000084
++			94: R_ARM_REL32	.bss.g_venc_mutex
++  98:	00000078 	.word	0x00000078
++			98: R_ARM_REL32	.bss.g_mpi_venc_init
++  9c:	00000064 	.word	0x00000064
++			9c: R_ARM_REL32	.bss.g_mpi_venc_chn
++  a0:	0000002c 	.word	0x0000002c
++			a0: R_ARM_REL32	.bss.g_mpi_venc_init
++  a4:	0000002c 	.word	0x0000002c
++			a4: R_ARM_REL32	.bss.g_venc_mutex
+ 
+ Disassembly of section .text.hi_mpi_venc_get_roi_attr:
+ 
+@@ -2778,7 +3139,7 @@
+   14:	8a000013 	bhi	68 <hi_mpi_venc_get_roi_attr+0x68>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_get_roi_attr>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	1a00000e 	bne	64 <hi_mpi_venc_get_roi_attr+0x64>
+   28:	e3550007 	cmp	r5, #7
+@@ -2827,7 +3188,7 @@
+   10:	8a000013 	bhi	64 <hi_mpi_venc_set_roi_attr+0x64>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_roi_attr>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000e 	bne	60 <hi_mpi_venc_set_roi_attr+0x60>
+   24:	e3550000 	cmp	r5, #0
+@@ -2876,7 +3237,7 @@
+   14:	8a000013 	bhi	68 <hi_mpi_venc_get_roi_attr_ex+0x68>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_get_roi_attr_ex>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	1a00000e 	bne	64 <hi_mpi_venc_get_roi_attr_ex+0x64>
+   28:	e3550007 	cmp	r5, #7
+@@ -2925,7 +3286,7 @@
+   10:	8a000013 	bhi	64 <hi_mpi_venc_set_roi_attr_ex+0x64>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_roi_attr_ex>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000e 	bne	60 <hi_mpi_venc_set_roi_attr_ex+0x60>
+   24:	e3550000 	cmp	r5, #0
+@@ -2973,7 +3334,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_roi_bg_frame_rate+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_roi_bg_frame_rate>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_roi_bg_frame_rate+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3013,7 +3374,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_roi_bg_frame_rate+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_roi_bg_frame_rate>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_roi_bg_frame_rate+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3053,7 +3414,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3093,7 +3454,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3133,7 +3494,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_intra_pred+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_intra_pred>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_intra_pred+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3173,7 +3534,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_intra_pred+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_intra_pred>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_intra_pred+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3213,7 +3574,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_trans+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_trans>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_trans+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3253,7 +3614,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_trans+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_trans>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_trans+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3293,7 +3654,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_entropy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_entropy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_entropy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3333,7 +3694,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_entropy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_entropy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_entropy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3373,7 +3734,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_dblk+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_dblk>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_dblk+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3413,7 +3774,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_dblk+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_dblk>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_dblk+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3453,7 +3814,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h264_vui+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h264_vui>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h264_vui+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3493,7 +3854,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h264_vui+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h264_vui>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h264_vui+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3533,7 +3894,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_vui+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_vui>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_vui+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3573,7 +3934,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_vui+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_vui>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_vui+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3613,7 +3974,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_jpeg_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_jpeg_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_jpeg_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3653,7 +4014,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_jpeg_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_jpeg_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_jpeg_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3693,7 +4054,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_mjpeg_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_mjpeg_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_mjpeg_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3733,7 +4094,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_mjpeg_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_mjpeg_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_mjpeg_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3773,7 +4134,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_ref_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_ref_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_ref_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3813,7 +4174,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_ref_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_ref_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_ref_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3854,7 +4215,7 @@
+   14:	8a000005 	bhi	30 <hi_mpi_venc_enable_idr+0x30>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_enable_idr>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	0a000006 	beq	44 <hi_mpi_venc_enable_idr+0x44>
+   28:	e28dd008 	add	sp, sp, #8
+@@ -3891,7 +4252,7 @@
+   14:	8a000005 	bhi	30 <hi_mpi_venc_set_jpeg_encode_mode+0x30>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_set_jpeg_encode_mode>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	0a000006 	beq	44 <hi_mpi_venc_set_jpeg_encode_mode+0x44>
+   28:	e28dd008 	add	sp, sp, #8
+@@ -3927,7 +4288,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_jpeg_encode_mode+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_jpeg_encode_mode>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_jpeg_encode_mode+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -3975,7 +4336,7 @@
+   30:	8a000014 	bhi	88 <hi_mpi_venc_get_stream_buf_info+0x88>
+   34:	e1a00004 	mov	r0, r4
+   38:	ebfffffe 	bl	0 <hi_mpi_venc_get_stream_buf_info>
+-			38: R_ARM_CALL	MPI_VENC_OPEN
++			38: R_ARM_CALL	mpi_venc_open
+   3c:	e2506000 	subs	r6, r0, #0
+   40:	1a000005 	bne	5c <hi_mpi_venc_get_stream_buf_info+0x5c>
+   44:	e3550000 	cmp	r5, #0
+@@ -4093,7 +4454,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4133,7 +4494,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4163,22 +4524,22 @@
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_set_h265_pred_unit:
++Disassembly of section .text.hi_mpi_venc_set_h265_pu:
+ 
+-00000000 <hi_mpi_venc_set_h265_pred_unit>:
++00000000 <hi_mpi_venc_set_h265_pu>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_pred_unit+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_pu+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pred_unit>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pu>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_pred_unit+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_pu+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_set_h265_pred_unit+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_h265_pred_unit+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_h265_pu+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_h265_pu+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -4190,35 +4551,35 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pred_unit>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pu>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_set_h265_pred_unit+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pred_unit>
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_h265_pu+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_pu>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_set_h265_pred_unit+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_h265_pu+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_get_h265_pred_unit:
++Disassembly of section .text.hi_mpi_venc_get_h265_pu:
+ 
+-00000000 <hi_mpi_venc_get_h265_pred_unit>:
++00000000 <hi_mpi_venc_get_h265_pu>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_pred_unit+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_pu+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pred_unit>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pu>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_pred_unit+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_pu+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_get_h265_pred_unit+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_h265_pred_unit+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_h265_pu+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_h265_pu+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -4230,15 +4591,15 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pred_unit>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pu>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_get_h265_pred_unit+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pred_unit>
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_h265_pu+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_pu>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_get_h265_pred_unit+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_h265_pu+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+@@ -4253,7 +4614,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_trans+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_trans>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_trans+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4293,7 +4654,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_trans+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_trans>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_trans+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4333,7 +4694,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_entropy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_entropy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_entropy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4373,7 +4734,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_entropy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_entropy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_entropy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4413,7 +4774,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_dblk+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_dblk>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_dblk+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4423,7 +4784,7 @@
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+   3c:	e3041532 	movw	r1, #17714	; 0x4532
+-  40:	e344100c 	movt	r1, #16396	; 0x400c
++  40:	e3441014 	movt	r1, #16404	; 0x4014
+   44:	e7920004 	ldr	r0, [r2, r4]
+   48:	e1a02005 	mov	r2, r5
+   4c:	e8bd4070 	pop	{r4, r5, r6, lr}
+@@ -4453,7 +4814,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_dblk+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_dblk>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_dblk+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4463,7 +4824,7 @@
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+   3c:	e3041533 	movw	r1, #17715	; 0x4533
+-  40:	e348100c 	movt	r1, #32780	; 0x800c
++  40:	e3481014 	movt	r1, #32788	; 0x8014
+   44:	e7920004 	ldr	r0, [r2, r4]
+   48:	e1a02005 	mov	r2, r5
+   4c:	e8bd4070 	pop	{r4, r5, r6, lr}
+@@ -4493,7 +4854,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_h265_sao+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_h265_sao>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_h265_sao+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4533,7 +4894,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_h265_sao+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_h265_sao>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_h265_sao+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4573,7 +4934,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_frame_lost_strategy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_frame_lost_strategy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_frame_lost_strategy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4613,7 +4974,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_frame_lost_strategy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_frame_lost_strategy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_frame_lost_strategy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4653,7 +5014,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_super_frame_strategy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_super_frame_strategy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_super_frame_strategy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4693,7 +5054,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_super_frame_strategy+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_super_frame_strategy>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_super_frame_strategy+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4733,7 +5094,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_intra_refresh+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_intra_refresh>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_intra_refresh+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4773,7 +5134,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_intra_refresh+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_intra_refresh>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_intra_refresh+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4813,7 +5174,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_attach_vb_pool+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_attach_vb_pool>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_attach_vb_pool+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -4852,7 +5213,7 @@
+    c:	8a00000b 	bhi	40 <hi_mpi_venc_detach_vb_pool+0x40>
+   10:	e1a00004 	mov	r0, r4
+   14:	ebfffffe 	bl	0 <hi_mpi_venc_detach_vb_pool>
+-			14: R_ARM_CALL	MPI_VENC_OPEN
++			14: R_ARM_CALL	mpi_venc_open
+   18:	e3500000 	cmp	r0, #0
+   1c:	18bd8010 	popne	{r4, pc}
+   20:	e59f2028 	ldr	r2, [pc, #40]	; 50 <hi_mpi_venc_detach_vb_pool+0x50>
+@@ -4964,11 +5325,11 @@
+  12c:	00000000 	.word	0x00000000
+ 			12c: R_ARM_GOT32	__stack_chk_guard
+  130:	000000f4 	.word	0x000000f4
+-			130: R_ARM_REL32	.bss.s_venc_mutex
++			130: R_ARM_REL32	.bss.g_venc_mutex
+  134:	000000f4 	.word	0x000000f4
+ 			134: R_ARM_REL32	.data.g_venc_fd
+  138:	000000dc 	.word	0x000000dc
+-			138: R_ARM_REL32	.bss.s_venc_mutex
++			138: R_ARM_REL32	.bss.g_venc_mutex
+  13c:	000000c8 	.word	0x000000c8
+ 			13c: R_ARM_REL32	.data.g_venc_fd
+  140:	000000b8 	.word	0x000000b8
+@@ -4976,7 +5337,7 @@
+  144:	00000074 	.word	0x00000074
+ 			144: R_ARM_REL32	.LC0
+  148:	00000048 	.word	0x00000048
+-			148: R_ARM_REL32	.LC13
++			148: R_ARM_REL32	.LC16
+ 
+ Disassembly of section .text.hi_mpi_venc_get_mod_param:
+ 
+@@ -5070,11 +5431,11 @@
+  12c:	00000000 	.word	0x00000000
+ 			12c: R_ARM_GOT32	__stack_chk_guard
+  130:	000000f4 	.word	0x000000f4
+-			130: R_ARM_REL32	.bss.s_venc_mutex
++			130: R_ARM_REL32	.bss.g_venc_mutex
+  134:	000000f4 	.word	0x000000f4
+ 			134: R_ARM_REL32	.data.g_venc_fd
+  138:	000000dc 	.word	0x000000dc
+-			138: R_ARM_REL32	.bss.s_venc_mutex
++			138: R_ARM_REL32	.bss.g_venc_mutex
+  13c:	000000c8 	.word	0x000000c8
+ 			13c: R_ARM_REL32	.data.g_venc_fd
+  140:	000000b8 	.word	0x000000b8
+@@ -5082,22 +5443,22 @@
+  144:	00000074 	.word	0x00000074
+ 			144: R_ARM_REL32	.LC0
+  148:	00000048 	.word	0x00000048
+-			148: R_ARM_REL32	.LC13
++			148: R_ARM_REL32	.LC16
+ 
+ Disassembly of section .text.hi_mpi_venc_set_sse_region:
+ 
+ 00000000 <hi_mpi_venc_set_sse_region>:
+    0:	e92d4070 	push	{r4, r5, r6, lr}
+    4:	e350000f 	cmp	r0, #15
+-   8:	e59f50c4 	ldr	r5, [pc, #196]	; d4 <hi_mpi_venc_set_sse_region+0xd4>
+-   c:	e24dd008 	sub	sp, sp, #8
++   8:	e59f50cc 	ldr	r5, [pc, #204]	; dc <hi_mpi_venc_set_sse_region+0xdc>
++   c:	e24dd010 	sub	sp, sp, #16
+   10:	e1a04000 	mov	r4, r0
+   14:	e1a06001 	mov	r6, r1
+   18:	e08f5005 	add	r5, pc, r5
+   1c:	8a000018 	bhi	84 <hi_mpi_venc_set_sse_region+0x84>
+   20:	e1a00004 	mov	r0, r4
+   24:	ebfffffe 	bl	0 <hi_mpi_venc_set_sse_region>
+-			24: R_ARM_CALL	MPI_VENC_OPEN
++			24: R_ARM_CALL	mpi_venc_open
+   28:	e3500000 	cmp	r0, #0
+   2c:	1a000012 	bne	7c <hi_mpi_venc_set_sse_region+0x7c>
+   30:	e3560000 	cmp	r6, #0
+@@ -5105,7 +5466,7 @@
+   38:	e596c000 	ldr	ip, [r6]
+   3c:	e35c0007 	cmp	ip, #7
+   40:	8a000014 	bhi	98 <hi_mpi_venc_set_sse_region+0x98>
+-  44:	e59f208c 	ldr	r2, [pc, #140]	; d8 <hi_mpi_venc_set_sse_region+0xd8>
++  44:	e59f2094 	ldr	r2, [pc, #148]	; e0 <hi_mpi_venc_set_sse_region+0xe0>
+   48:	e3a03058 	mov	r3, #88	; 0x58
+   4c:	e0040493 	mul	r4, r3, r4
+   50:	e08f2002 	add	r2, pc, r2
+@@ -5113,7 +5474,7 @@
+   58:	e3441018 	movt	r1, #16408	; 0x4018
+   5c:	e7920004 	ldr	r0, [r2, r4]
+   60:	e1a02006 	mov	r2, r6
+-  64:	e28dd008 	add	sp, sp, #8
++  64:	e28dd010 	add	sp, sp, #16
+   68:	e8bd4070 	pop	{r4, r5, r6, lr}
+   6c:	eafffffe 	b	0 <ioctl>
+ 			6c: R_ARM_JUMP24	ioctl
+@@ -5121,48 +5482,50 @@
+ 			70: R_ARM_CALL	mpi_venc_check_null.part.1
+   74:	e3500000 	cmp	r0, #0
+   78:	0affffee 	beq	38 <hi_mpi_venc_set_sse_region+0x38>
+-  7c:	e28dd008 	add	sp, sp, #8
++  7c:	e28dd010 	add	sp, sp, #16
+   80:	e8bd8070 	pop	{r4, r5, r6, pc}
+   84:	ebfffffe 	bl	0 <hi_mpi_venc_set_sse_region>
+ 			84: R_ARM_CALL	mpi_venc_check_chn.part.0
+   88:	e3500000 	cmp	r0, #0
+   8c:	0affffe3 	beq	20 <hi_mpi_venc_set_sse_region+0x20>
+-  90:	e28dd008 	add	sp, sp, #8
++  90:	e28dd010 	add	sp, sp, #16
+   94:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  98:	e59f203c 	ldr	r2, [pc, #60]	; dc <hi_mpi_venc_set_sse_region+0xdc>
+-  9c:	e30036cd 	movw	r3, #1741	; 0x6cd
+-  a0:	e59fe038 	ldr	lr, [pc, #56]	; e0 <hi_mpi_venc_set_sse_region+0xe0>
+-  a4:	e7950002 	ldr	r0, [r5, r2]
+-  a8:	e59f1034 	ldr	r1, [pc, #52]	; e4 <hi_mpi_venc_set_sse_region+0xe4>
+-  ac:	e08fe00e 	add	lr, pc, lr
+-  b0:	e5900000 	ldr	r0, [r0]
+-  b4:	e1a0200e 	mov	r2, lr
+-  b8:	e08f1001 	add	r1, pc, r1
+-  bc:	e58dc004 	str	ip, [sp, #4]
+-  c0:	e58de000 	str	lr, [sp]
+-  c4:	ebfffffe 	bl	0 <fprintf>
+-			c4: R_ARM_CALL	fprintf
+-  c8:	e3080003 	movw	r0, #32771	; 0x8003
+-  cc:	e34a0008 	movt	r0, #40968	; 0xa008
+-  d0:	eaffffe9 	b	7c <hi_mpi_venc_set_sse_region+0x7c>
+-  d4:	000000b4 	.word	0x000000b4
+-			d4: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  d8:	00000080 	.word	0x00000080
+-			d8: R_ARM_REL32	.bss.g_mpi_venc_chn
+-  dc:	00000000 	.word	0x00000000
+-			dc: R_ARM_GOT32	stderr
+-  e0:	0000002c 	.word	0x0000002c
+-			e0: R_ARM_REL32	.rodata.__FUNCTION__.13842
+-  e4:	00000024 	.word	0x00000024
+-			e4: R_ARM_REL32	.LC14
++  98:	e59f2044 	ldr	r2, [pc, #68]	; e4 <hi_mpi_venc_set_sse_region+0xe4>
++  9c:	e3a04008 	mov	r4, #8
++  a0:	e59fe040 	ldr	lr, [pc, #64]	; e8 <hi_mpi_venc_set_sse_region+0xe8>
++  a4:	e300370d 	movw	r3, #1805	; 0x70d
++  a8:	e7950002 	ldr	r0, [r5, r2]
++  ac:	e59f1038 	ldr	r1, [pc, #56]	; ec <hi_mpi_venc_set_sse_region+0xec>
++  b0:	e08fe00e 	add	lr, pc, lr
++  b4:	e5900000 	ldr	r0, [r0]
++  b8:	e1a0200e 	mov	r2, lr
++  bc:	e08f1001 	add	r1, pc, r1
++  c0:	e58dc004 	str	ip, [sp, #4]
++  c4:	e58de000 	str	lr, [sp]
++  c8:	e58d4008 	str	r4, [sp, #8]
++  cc:	ebfffffe 	bl	0 <fprintf>
++			cc: R_ARM_CALL	fprintf
++  d0:	e3080003 	movw	r0, #32771	; 0x8003
++  d4:	e34a0008 	movt	r0, #40968	; 0xa008
++  d8:	eaffffe7 	b	7c <hi_mpi_venc_set_sse_region+0x7c>
++  dc:	000000bc 	.word	0x000000bc
++			dc: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  e0:	00000088 	.word	0x00000088
++			e0: R_ARM_REL32	.bss.g_mpi_venc_chn
++  e4:	00000000 	.word	0x00000000
++			e4: R_ARM_GOT32	stderr
++  e8:	00000030 	.word	0x00000030
++			e8: R_ARM_REL32	.rodata.__FUNCTION__.14082
++  ec:	00000028 	.word	0x00000028
++			ec: R_ARM_REL32	.LC17
+ 
+ Disassembly of section .text.hi_mpi_venc_get_sse_region:
+ 
+ 00000000 <hi_mpi_venc_get_sse_region>:
+    0:	e92d40f0 	push	{r4, r5, r6, r7, lr}
+    4:	e350000f 	cmp	r0, #15
+-   8:	e59f50c8 	ldr	r5, [pc, #200]	; d8 <hi_mpi_venc_get_sse_region+0xd8>
+-   c:	e24dd00c 	sub	sp, sp, #12
++   8:	e59f50d0 	ldr	r5, [pc, #208]	; e0 <hi_mpi_venc_get_sse_region+0xe0>
++   c:	e24dd014 	sub	sp, sp, #20
+   10:	e1a04000 	mov	r4, r0
+   14:	e1a07001 	mov	r7, r1
+   18:	e08f5005 	add	r5, pc, r5
+@@ -5170,14 +5533,14 @@
+   20:	8a000018 	bhi	88 <hi_mpi_venc_get_sse_region+0x88>
+   24:	e1a00004 	mov	r0, r4
+   28:	ebfffffe 	bl	0 <hi_mpi_venc_get_sse_region>
+-			28: R_ARM_CALL	MPI_VENC_OPEN
++			28: R_ARM_CALL	mpi_venc_open
+   2c:	e3500000 	cmp	r0, #0
+   30:	1a000012 	bne	80 <hi_mpi_venc_get_sse_region+0x80>
+   34:	e3560000 	cmp	r6, #0
+   38:	0a00000d 	beq	74 <hi_mpi_venc_get_sse_region+0x74>
+   3c:	e3570007 	cmp	r7, #7
+   40:	8a000015 	bhi	9c <hi_mpi_venc_get_sse_region+0x9c>
+-  44:	e59f2090 	ldr	r2, [pc, #144]	; dc <hi_mpi_venc_get_sse_region+0xdc>
++  44:	e59f2098 	ldr	r2, [pc, #152]	; e4 <hi_mpi_venc_get_sse_region+0xe4>
+   48:	e3a03058 	mov	r3, #88	; 0x58
+   4c:	e0040493 	mul	r4, r3, r4
+   50:	e08f2002 	add	r2, pc, r2
+@@ -5186,7 +5549,7 @@
+   5c:	e7920004 	ldr	r0, [r2, r4]
+   60:	e1a02006 	mov	r2, r6
+   64:	e34c1018 	movt	r1, #49176	; 0xc018
+-  68:	e28dd00c 	add	sp, sp, #12
++  68:	e28dd014 	add	sp, sp, #20
+   6c:	e8bd40f0 	pop	{r4, r5, r6, r7, lr}
+   70:	eafffffe 	b	0 <ioctl>
+ 			70: R_ARM_JUMP24	ioctl
+@@ -5194,40 +5557,42 @@
+ 			74: R_ARM_CALL	mpi_venc_check_null.part.1
+   78:	e3500000 	cmp	r0, #0
+   7c:	0affffee 	beq	3c <hi_mpi_venc_get_sse_region+0x3c>
+-  80:	e28dd00c 	add	sp, sp, #12
++  80:	e28dd014 	add	sp, sp, #20
+   84:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+   88:	ebfffffe 	bl	0 <hi_mpi_venc_get_sse_region>
+ 			88: R_ARM_CALL	mpi_venc_check_chn.part.0
+   8c:	e3500000 	cmp	r0, #0
+   90:	0affffe3 	beq	24 <hi_mpi_venc_get_sse_region+0x24>
+-  94:	e28dd00c 	add	sp, sp, #12
++  94:	e28dd014 	add	sp, sp, #20
+   98:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+-  9c:	e59f203c 	ldr	r2, [pc, #60]	; e0 <hi_mpi_venc_get_sse_region+0xe0>
+-  a0:	e30036da 	movw	r3, #1754	; 0x6da
+-  a4:	e59fc038 	ldr	ip, [pc, #56]	; e4 <hi_mpi_venc_get_sse_region+0xe4>
+-  a8:	e7950002 	ldr	r0, [r5, r2]
+-  ac:	e59f1034 	ldr	r1, [pc, #52]	; e8 <hi_mpi_venc_get_sse_region+0xe8>
+-  b0:	e08fc00c 	add	ip, pc, ip
+-  b4:	e5900000 	ldr	r0, [r0]
+-  b8:	e1a0200c 	mov	r2, ip
+-  bc:	e08f1001 	add	r1, pc, r1
+-  c0:	e58d7004 	str	r7, [sp, #4]
+-  c4:	e58dc000 	str	ip, [sp]
+-  c8:	ebfffffe 	bl	0 <fprintf>
+-			c8: R_ARM_CALL	fprintf
+-  cc:	e3080003 	movw	r0, #32771	; 0x8003
+-  d0:	e34a0008 	movt	r0, #40968	; 0xa008
+-  d4:	eaffffe9 	b	80 <hi_mpi_venc_get_sse_region+0x80>
+-  d8:	000000b8 	.word	0x000000b8
+-			d8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+-  dc:	00000084 	.word	0x00000084
+-			dc: R_ARM_REL32	.bss.g_mpi_venc_chn
+-  e0:	00000000 	.word	0x00000000
+-			e0: R_ARM_GOT32	stderr
+-  e4:	0000002c 	.word	0x0000002c
+-			e4: R_ARM_REL32	.rodata.__FUNCTION__.13852
+-  e8:	00000024 	.word	0x00000024
+-			e8: R_ARM_REL32	.LC14
++  9c:	e59f2044 	ldr	r2, [pc, #68]	; e8 <hi_mpi_venc_get_sse_region+0xe8>
++  a0:	e3a0e008 	mov	lr, #8
++  a4:	e59fc040 	ldr	ip, [pc, #64]	; ec <hi_mpi_venc_get_sse_region+0xec>
++  a8:	e300371a 	movw	r3, #1818	; 0x71a
++  ac:	e7950002 	ldr	r0, [r5, r2]
++  b0:	e59f1038 	ldr	r1, [pc, #56]	; f0 <hi_mpi_venc_get_sse_region+0xf0>
++  b4:	e08fc00c 	add	ip, pc, ip
++  b8:	e5900000 	ldr	r0, [r0]
++  bc:	e1a0200c 	mov	r2, ip
++  c0:	e08f1001 	add	r1, pc, r1
++  c4:	e58d7004 	str	r7, [sp, #4]
++  c8:	e58dc000 	str	ip, [sp]
++  cc:	e58de008 	str	lr, [sp, #8]
++  d0:	ebfffffe 	bl	0 <fprintf>
++			d0: R_ARM_CALL	fprintf
++  d4:	e3080003 	movw	r0, #32771	; 0x8003
++  d8:	e34a0008 	movt	r0, #40968	; 0xa008
++  dc:	eaffffe7 	b	80 <hi_mpi_venc_get_sse_region+0x80>
++  e0:	000000c0 	.word	0x000000c0
++			e0: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++  e4:	0000008c 	.word	0x0000008c
++			e4: R_ARM_REL32	.bss.g_mpi_venc_chn
++  e8:	00000000 	.word	0x00000000
++			e8: R_ARM_GOT32	stderr
++  ec:	00000030 	.word	0x00000030
++			ec: R_ARM_REL32	.rodata.__FUNCTION__.14092
++  f0:	00000028 	.word	0x00000028
++			f0: R_ARM_REL32	.LC17
+ 
+ Disassembly of section .text.hi_mpi_venc_set_scene_mode:
+ 
+@@ -5240,7 +5605,7 @@
+   14:	8a000005 	bhi	30 <hi_mpi_venc_set_scene_mode+0x30>
+   18:	e1a00004 	mov	r0, r4
+   1c:	ebfffffe 	bl	0 <hi_mpi_venc_set_scene_mode>
+-			1c: R_ARM_CALL	MPI_VENC_OPEN
++			1c: R_ARM_CALL	mpi_venc_open
+   20:	e3500000 	cmp	r0, #0
+   24:	0a000006 	beq	44 <hi_mpi_venc_set_scene_mode+0x44>
+   28:	e28dd008 	add	sp, sp, #8
+@@ -5276,7 +5641,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_scene_mode+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_scene_mode>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_scene_mode+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5316,7 +5681,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_chn_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_chn_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_chn_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5356,7 +5721,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_chn_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_chn_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_chn_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5386,22 +5751,22 @@
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_get_foreground_protect:
++Disassembly of section .text.hi_mpi_venc_get_fg_protect:
+ 
+-00000000 <hi_mpi_venc_get_foreground_protect>:
++00000000 <hi_mpi_venc_get_fg_protect>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_get_foreground_protect+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_fg_protect+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_foreground_protect>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_fg_protect>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_get_foreground_protect+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_fg_protect+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_get_foreground_protect+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_foreground_protect+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_fg_protect+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_fg_protect+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -5413,35 +5778,35 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_foreground_protect>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_fg_protect>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_get_foreground_protect+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_foreground_protect>
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_fg_protect+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_fg_protect>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_get_foreground_protect+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_fg_protect+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_set_foreground_protect:
++Disassembly of section .text.hi_mpi_venc_set_fg_protect:
+ 
+-00000000 <hi_mpi_venc_set_foreground_protect>:
++00000000 <hi_mpi_venc_set_fg_protect>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_set_foreground_protect+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_fg_protect+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_foreground_protect>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_fg_protect>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_set_foreground_protect+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_fg_protect+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_set_foreground_protect+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_foreground_protect+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_fg_protect+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_fg_protect+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -5453,15 +5818,15 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_foreground_protect>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_fg_protect>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_set_foreground_protect+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_foreground_protect>
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_fg_protect+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_fg_protect>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_set_foreground_protect+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_fg_protect+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+@@ -5476,7 +5841,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_de_breath_effect+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_de_breath_effect>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_de_breath_effect+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5516,7 +5881,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_de_breath_effect+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_de_breath_effect>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_de_breath_effect+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5546,22 +5911,22 @@
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_set_cu_prediction:
++Disassembly of section .text.hi_mpi_venc_set_cu_pred:
+ 
+-00000000 <hi_mpi_venc_set_cu_prediction>:
++00000000 <hi_mpi_venc_set_cu_pred>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_set_cu_prediction+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_cu_pred+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_prediction>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_pred>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_set_cu_prediction+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_cu_pred+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_set_cu_prediction+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_cu_prediction+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_cu_pred+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_cu_pred+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -5573,35 +5938,35 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_prediction>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_pred>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_set_cu_prediction+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_prediction>
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_cu_pred+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_cu_pred>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_set_cu_prediction+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_cu_pred+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.hi_mpi_venc_get_cu_prediction:
++Disassembly of section .text.hi_mpi_venc_get_cu_pred:
+ 
+-00000000 <hi_mpi_venc_get_cu_prediction>:
++00000000 <hi_mpi_venc_get_cu_pred>:
+    0:	e350000f 	cmp	r0, #15
+    4:	e92d4070 	push	{r4, r5, r6, lr}
+    8:	e1a04000 	mov	r4, r0
+    c:	e1a05001 	mov	r5, r1
+-  10:	8a000010 	bhi	58 <hi_mpi_venc_get_cu_prediction+0x58>
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_cu_pred+0x58>
+   14:	e1a00004 	mov	r0, r4
+-  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_prediction>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_pred>
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+-  20:	1a00000b 	bne	54 <hi_mpi_venc_get_cu_prediction+0x54>
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_cu_pred+0x54>
+   24:	e3550000 	cmp	r5, #0
+-  28:	0a00000e 	beq	68 <hi_mpi_venc_get_cu_prediction+0x68>
+-  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_cu_prediction+0x78>
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_cu_pred+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_cu_pred+0x78>
+   30:	e3a03058 	mov	r3, #88	; 0x58
+   34:	e0040493 	mul	r4, r3, r4
+   38:	e08f2002 	add	r2, pc, r2
+@@ -5613,15 +5978,15 @@
+   50:	eafffffe 	b	0 <ioctl>
+ 			50: R_ARM_JUMP24	ioctl
+   54:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_prediction>
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_pred>
+ 			58: R_ARM_CALL	mpi_venc_check_chn.part.0
+   5c:	e3500000 	cmp	r0, #0
+   60:	18bd8070 	popne	{r4, r5, r6, pc}
+-  64:	eaffffea 	b	14 <hi_mpi_venc_get_cu_prediction+0x14>
+-  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_prediction>
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_cu_pred+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_cu_pred>
+ 			68: R_ARM_CALL	mpi_venc_check_null.part.1
+   6c:	e3500000 	cmp	r0, #0
+-  70:	0affffed 	beq	2c <hi_mpi_venc_get_cu_prediction+0x2c>
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_cu_pred+0x2c>
+   74:	e8bd8070 	pop	{r4, r5, r6, pc}
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+@@ -5636,7 +6001,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_skip_bias+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_skip_bias>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_skip_bias+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5676,7 +6041,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_skip_bias+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_skip_bias>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_skip_bias+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5716,7 +6081,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_hierarchical_qp+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_hierarchical_qp>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_hierarchical_qp+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5756,7 +6121,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_hierarchical_qp+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_hierarchical_qp>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_hierarchical_qp+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5796,7 +6161,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_rc_adv_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_rc_adv_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_rc_adv_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5836,7 +6201,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_rc_adv_param+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_rc_adv_param>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_rc_adv_param+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5876,7 +6241,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_set_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_set_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_set_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5916,7 +6281,7 @@
+   10:	8a000010 	bhi	58 <hi_mpi_venc_get_slice_split+0x58>
+   14:	e1a00004 	mov	r0, r4
+   18:	ebfffffe 	bl	0 <hi_mpi_venc_get_slice_split>
+-			18: R_ARM_CALL	MPI_VENC_OPEN
++			18: R_ARM_CALL	mpi_venc_open
+   1c:	e3500000 	cmp	r0, #0
+   20:	1a00000b 	bne	54 <hi_mpi_venc_get_slice_split+0x54>
+   24:	e3550000 	cmp	r5, #0
+@@ -5946,17 +6311,282 @@
+   78:	00000038 	.word	0x00000038
+ 			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-Disassembly of section .text.MPI_VENC_Init:
++Disassembly of section .text.hi_mpi_venc_set_search_window:
++
++00000000 <hi_mpi_venc_set_search_window>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_search_window+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_search_window>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_search_window+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_search_window+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_search_window+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e3041568 	movw	r1, #17768	; 0x4568
++  40:	e344100c 	movt	r1, #16396	; 0x400c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_search_window>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_search_window+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_search_window>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_search_window+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
++
++Disassembly of section .text.hi_mpi_venc_get_search_window:
++
++00000000 <hi_mpi_venc_get_search_window>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_search_window+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_search_window>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_search_window+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_search_window+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_search_window+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e3041569 	movw	r1, #17769	; 0x4569
++  40:	e348100c 	movt	r1, #32780	; 0x800c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_search_window>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_search_window+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_search_window>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_search_window+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
++
++Disassembly of section .text.hi_mpi_venc_enable_svc:
++
++00000000 <hi_mpi_venc_enable_svc>:
++   0:	e92d4010 	push	{r4, lr}
++   4:	e350000f 	cmp	r0, #15
++   8:	e24dd008 	sub	sp, sp, #8
++   c:	e1a04000 	mov	r4, r0
++  10:	e58d1004 	str	r1, [sp, #4]
++  14:	8a000005 	bhi	30 <hi_mpi_venc_enable_svc+0x30>
++  18:	e1a00004 	mov	r0, r4
++  1c:	ebfffffe 	bl	0 <hi_mpi_venc_enable_svc>
++			1c: R_ARM_CALL	mpi_venc_open
++  20:	e3500000 	cmp	r0, #0
++  24:	0a000006 	beq	44 <hi_mpi_venc_enable_svc+0x44>
++  28:	e28dd008 	add	sp, sp, #8
++  2c:	e8bd8010 	pop	{r4, pc}
++  30:	ebfffffe 	bl	0 <hi_mpi_venc_enable_svc>
++			30: R_ARM_CALL	mpi_venc_check_chn.part.0
++  34:	e3500000 	cmp	r0, #0
++  38:	0afffff6 	beq	18 <hi_mpi_venc_enable_svc+0x18>
++  3c:	e28dd008 	add	sp, sp, #8
++  40:	e8bd8010 	pop	{r4, pc}
++  44:	e59f2024 	ldr	r2, [pc, #36]	; 70 <hi_mpi_venc_enable_svc+0x70>
++  48:	e3a03058 	mov	r3, #88	; 0x58
++  4c:	e0040493 	mul	r4, r3, r4
++  50:	e08f2002 	add	r2, pc, r2
++  54:	e3041563 	movw	r1, #17763	; 0x4563
++  58:	e3441004 	movt	r1, #16388	; 0x4004
++  5c:	e7920004 	ldr	r0, [r2, r4]
++  60:	e28d2004 	add	r2, sp, #4
++  64:	ebfffffe 	bl	0 <ioctl>
++			64: R_ARM_CALL	ioctl
++  68:	e28dd008 	add	sp, sp, #8
++  6c:	e8bd8010 	pop	{r4, pc}
++  70:	00000018 	.word	0x00000018
++			70: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-00000000 <MPI_VENC_Init>:
+-   0:	eafffffe 	b	0 <MPI_VENC_Init>
+-			0: R_ARM_JUMP24	mpi_venc_init
++Disassembly of section .text.hi_mpi_venc_set_svc_param:
+ 
+-Disassembly of section .text.MPI_VENC_Exit:
++00000000 <hi_mpi_venc_set_svc_param>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_set_svc_param+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_set_svc_param>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_set_svc_param+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_set_svc_param+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_set_svc_param+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e304155d 	movw	r1, #17757	; 0x455d
++  40:	e344101c 	movt	r1, #16412	; 0x401c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_set_svc_param>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_set_svc_param+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_set_svc_param>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_set_svc_param+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+-00000000 <MPI_VENC_Exit>:
+-   0:	eafffffe 	b	0 <MPI_VENC_Exit>
+-			0: R_ARM_JUMP24	mpi_venc_exit
++Disassembly of section .text.hi_mpi_venc_get_svc_param:
++
++00000000 <hi_mpi_venc_get_svc_param>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_svc_param+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_param>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_svc_param+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_svc_param+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_svc_param+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e304155e 	movw	r1, #17758	; 0x455e
++  40:	e348101c 	movt	r1, #32796	; 0x801c
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_param>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_svc_param+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_param>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_svc_param+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
++
++Disassembly of section .text.hi_mpi_venc_get_svc_scene_complexity:
++
++00000000 <hi_mpi_venc_get_svc_scene_complexity>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_get_svc_scene_complexity+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_scene_complexity>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_get_svc_scene_complexity+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_get_svc_scene_complexity+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_get_svc_scene_complexity+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e3041564 	movw	r1, #17764	; 0x4564
++  40:	e3481004 	movt	r1, #32772	; 0x8004
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_scene_complexity>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_get_svc_scene_complexity+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_get_svc_scene_complexity>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_get_svc_scene_complexity+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
++
++Disassembly of section .text.hi_mpi_venc_send_svc_region:
++
++00000000 <hi_mpi_venc_send_svc_region>:
++   0:	e350000f 	cmp	r0, #15
++   4:	e92d4070 	push	{r4, r5, r6, lr}
++   8:	e1a04000 	mov	r4, r0
++   c:	e1a05001 	mov	r5, r1
++  10:	8a000010 	bhi	58 <hi_mpi_venc_send_svc_region+0x58>
++  14:	e1a00004 	mov	r0, r4
++  18:	ebfffffe 	bl	0 <hi_mpi_venc_send_svc_region>
++			18: R_ARM_CALL	mpi_venc_open
++  1c:	e3500000 	cmp	r0, #0
++  20:	1a00000b 	bne	54 <hi_mpi_venc_send_svc_region+0x54>
++  24:	e3550000 	cmp	r5, #0
++  28:	0a00000e 	beq	68 <hi_mpi_venc_send_svc_region+0x68>
++  2c:	e59f2044 	ldr	r2, [pc, #68]	; 78 <hi_mpi_venc_send_svc_region+0x78>
++  30:	e3a03058 	mov	r3, #88	; 0x58
++  34:	e0040493 	mul	r4, r3, r4
++  38:	e08f2002 	add	r2, pc, r2
++  3c:	e304155c 	movw	r1, #17756	; 0x455c
++  40:	e3441298 	movt	r1, #17048	; 0x4298
++  44:	e7920004 	ldr	r0, [r2, r4]
++  48:	e1a02005 	mov	r2, r5
++  4c:	e8bd4070 	pop	{r4, r5, r6, lr}
++  50:	eafffffe 	b	0 <ioctl>
++			50: R_ARM_JUMP24	ioctl
++  54:	e8bd8070 	pop	{r4, r5, r6, pc}
++  58:	ebfffffe 	bl	0 <hi_mpi_venc_send_svc_region>
++			58: R_ARM_CALL	mpi_venc_check_chn.part.0
++  5c:	e3500000 	cmp	r0, #0
++  60:	18bd8070 	popne	{r4, r5, r6, pc}
++  64:	eaffffea 	b	14 <hi_mpi_venc_send_svc_region+0x14>
++  68:	ebfffffe 	bl	0 <hi_mpi_venc_send_svc_region>
++			68: R_ARM_CALL	mpi_venc_check_null.part.1
++  6c:	e3500000 	cmp	r0, #0
++  70:	0affffed 	beq	2c <hi_mpi_venc_send_svc_region+0x2c>
++  74:	e8bd8070 	pop	{r4, r5, r6, pc}
++  78:	00000038 	.word	0x00000038
++			78: R_ARM_REL32	.bss.g_mpi_venc_chn
+ 
+ Disassembly of section .text.HI_MPI_VENC_CreateChn:
+ 
+@@ -5974,13 +6604,13 @@
+ 
+ 00000000 <HI_MPI_VENC_StartRecvFrame>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_StartRecvFrame>
+-			0: R_ARM_JUMP24	hi_mpi_venc_start_recv_frame
++			0: R_ARM_JUMP24	hi_mpi_venc_start_chn
+ 
+ Disassembly of section .text.HI_MPI_VENC_StopRecvFrame:
+ 
+ 00000000 <HI_MPI_VENC_StopRecvFrame>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_StopRecvFrame>
+-			0: R_ARM_JUMP24	hi_mpi_venc_stop_recv_frame
++			0: R_ARM_JUMP24	hi_mpi_venc_stop_chn
+ 
+ Disassembly of section .text.HI_MPI_VENC_QueryStatus:
+ 
+@@ -6048,6 +6678,24 @@
+    0:	eafffffe 	b	0 <HI_MPI_VENC_SendFrameEx>
+ 			0: R_ARM_JUMP24	hi_mpi_venc_send_frame_ex
+ 
++Disassembly of section .text.HI_MPI_VENC_SendMultiFrame:
++
++00000000 <HI_MPI_VENC_SendMultiFrame>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_SendMultiFrame>
++			0: R_ARM_JUMP24	hi_mpi_venc_send_multi_frame
++
++Disassembly of section .text.HI_MPI_VENC_GetChnConfig:
++
++00000000 <HI_MPI_VENC_GetChnConfig>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_GetChnConfig>
++			0: R_ARM_JUMP24	hi_mpi_venc_get_chn_config
++
++Disassembly of section .text.HI_MPI_VENC_SetChnConfig:
++
++00000000 <HI_MPI_VENC_SetChnConfig>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_SetChnConfig>
++			0: R_ARM_JUMP24	hi_mpi_venc_set_chn_config
++
+ Disassembly of section .text.HI_MPI_VENC_RequestIDR:
+ 
+ 00000000 <HI_MPI_VENC_RequestIDR>:
+@@ -6262,13 +6910,13 @@
+ 
+ 00000000 <HI_MPI_VENC_SetH265PredUnit>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_SetH265PredUnit>
+-			0: R_ARM_JUMP24	hi_mpi_venc_set_h265_pred_unit
++			0: R_ARM_JUMP24	hi_mpi_venc_set_h265_pu
+ 
+ Disassembly of section .text.HI_MPI_VENC_GetH265PredUnit:
+ 
+ 00000000 <HI_MPI_VENC_GetH265PredUnit>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_GetH265PredUnit>
+-			0: R_ARM_JUMP24	hi_mpi_venc_get_h265_pred_unit
++			0: R_ARM_JUMP24	hi_mpi_venc_get_h265_pu
+ 
+ Disassembly of section .text.HI_MPI_VENC_SetH265Trans:
+ 
+@@ -6418,13 +7066,13 @@
+ 
+ 00000000 <HI_MPI_VENC_GetForegroundProtect>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_GetForegroundProtect>
+-			0: R_ARM_JUMP24	hi_mpi_venc_get_foreground_protect
++			0: R_ARM_JUMP24	hi_mpi_venc_get_fg_protect
+ 
+ Disassembly of section .text.HI_MPI_VENC_SetForegroundProtect:
+ 
+ 00000000 <HI_MPI_VENC_SetForegroundProtect>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_SetForegroundProtect>
+-			0: R_ARM_JUMP24	hi_mpi_venc_set_foreground_protect
++			0: R_ARM_JUMP24	hi_mpi_venc_set_fg_protect
+ 
+ Disassembly of section .text.HI_MPI_VENC_SetDeBreathEffect:
+ 
+@@ -6442,13 +7090,13 @@
+ 
+ 00000000 <HI_MPI_VENC_SetCuPrediction>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_SetCuPrediction>
+-			0: R_ARM_JUMP24	hi_mpi_venc_set_cu_prediction
++			0: R_ARM_JUMP24	hi_mpi_venc_set_cu_pred
+ 
+ Disassembly of section .text.HI_MPI_VENC_GetCuPrediction:
+ 
+ 00000000 <HI_MPI_VENC_GetCuPrediction>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_GetCuPrediction>
+-			0: R_ARM_JUMP24	hi_mpi_venc_get_cu_prediction
++			0: R_ARM_JUMP24	hi_mpi_venc_get_cu_pred
+ 
+ Disassembly of section .text.HI_MPI_VENC_SetSkipBias:
+ 
+@@ -6497,3 +7145,45 @@
+ 00000000 <HI_MPI_VENC_GetSliceSplit>:
+    0:	eafffffe 	b	0 <HI_MPI_VENC_GetSliceSplit>
+ 			0: R_ARM_JUMP24	hi_mpi_venc_get_slice_split
++
++Disassembly of section .text.HI_MPI_VENC_SetSearchWindow:
++
++00000000 <HI_MPI_VENC_SetSearchWindow>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_SetSearchWindow>
++			0: R_ARM_JUMP24	hi_mpi_venc_set_search_window
++
++Disassembly of section .text.HI_MPI_VENC_GetSearchWindow:
++
++00000000 <HI_MPI_VENC_GetSearchWindow>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_GetSearchWindow>
++			0: R_ARM_JUMP24	hi_mpi_venc_get_search_window
++
++Disassembly of section .text.HI_MPI_VENC_EnableSvc:
++
++00000000 <HI_MPI_VENC_EnableSvc>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_EnableSvc>
++			0: R_ARM_JUMP24	hi_mpi_venc_enable_svc
++
++Disassembly of section .text.HI_MPI_VENC_SetSvcParam:
++
++00000000 <HI_MPI_VENC_SetSvcParam>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_SetSvcParam>
++			0: R_ARM_JUMP24	hi_mpi_venc_set_svc_param
++
++Disassembly of section .text.HI_MPI_VENC_GetSvcParam:
++
++00000000 <HI_MPI_VENC_GetSvcParam>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_GetSvcParam>
++			0: R_ARM_JUMP24	hi_mpi_venc_get_svc_param
++
++Disassembly of section .text.HI_MPI_VENC_GetSvcSceneComplexity:
++
++00000000 <HI_MPI_VENC_GetSvcSceneComplexity>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_GetSvcSceneComplexity>
++			0: R_ARM_JUMP24	hi_mpi_venc_get_svc_scene_complexity
++
++Disassembly of section .text.HI_MPI_VENC_SendSvcRegion:
++
++00000000 <HI_MPI_VENC_SendSvcRegion>:
++   0:	eafffffe 	b	0 <HI_MPI_VENC_SendSvcRegion>
++			0: R_ARM_JUMP24	hi_mpi_venc_send_svc_region

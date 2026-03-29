@@ -1,0 +1,253 @@
+
+af_buf.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 af_buf.c
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .text.af_buf_init	00000000 .text.af_buf_init
+00000000 l    d  .text.af_buf_reset	00000000 .text.af_buf_reset
+00000000 l    d  .text.af_buf_get_free	00000000 .text.af_buf_get_free
+00000000 l    d  .text.af_buf_get_busy	00000000 .text.af_buf_get_busy
+00000000 l    d  .text.af_buf_is_list_mem	00000000 .text.af_buf_is_list_mem
+00000000 l    d  .text.af_buf_is_free_list_mem	00000000 .text.af_buf_is_free_list_mem
+00000000 l    d  .text.af_buf_is_busy_list_mem	00000000 .text.af_buf_is_busy_list_mem
+00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 g     F .text.af_buf_init	000000e4 af_buf_init
+00000000         *UND*	00000000 malloc
+00000000         *UND*	00000000 memset_s
+00000000 g     F .text.af_buf_reset	00000090 af_buf_reset
+00000000 g     F .text.af_buf_get_free	00000050 af_buf_get_free
+00000000 g     F .text.af_buf_get_busy	00000050 af_buf_get_busy
+00000000 g     F .text.af_buf_is_list_mem	0000003c af_buf_is_list_mem
+00000000 g     F .text.af_buf_is_free_list_mem	0000005c af_buf_is_free_list_mem
+00000000 g     F .text.af_buf_is_busy_list_mem	0000005c af_buf_is_busy_list_mem
+
+
+
+Disassembly of section .text.af_buf_init:
+
+00000000 <af_buf_init>:
+   0:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+   4:	e2506000 	subs	r6, r0, #0
+   8:	0a000033 	beq	dc <af_buf_init+0xdc>
+   c:	e3510f4b 	cmp	r1, #300	; 0x12c
+  10:	31a04001 	movcc	r4, r1
+  14:	23a04f4b 	movcs	r4, #300	; 0x12c
+  18:	e1b07784 	lsls	r7, r4, #15
+  1c:	0a00002e 	beq	dc <af_buf_init+0xdc>
+  20:	e1a00007 	mov	r0, r7
+  24:	e2865a05 	add	r5, r6, #20480	; 0x5000
+  28:	ebfffffe 	bl	0 <malloc>
+			28: R_ARM_CALL	malloc
+  2c:	e5850460 	str	r0, [r5, #1120]	; 0x460
+  30:	e3500000 	cmp	r0, #0
+  34:	0a000028 	beq	dc <af_buf_init+0xdc>
+  38:	e1a03007 	mov	r3, r7
+  3c:	e1a01007 	mov	r1, r7
+  40:	e3a02000 	mov	r2, #0
+  44:	e2867b15 	add	r7, r6, #21504	; 0x5400
+  48:	ebfffffe 	bl	0 <memset_s>
+			48: R_ARM_CALL	memset_s
+  4c:	e1a03007 	mov	r3, r7
+  50:	e3540000 	cmp	r4, #0
+  54:	e2877070 	add	r7, r7, #112	; 0x70
+  58:	e2833078 	add	r3, r3, #120	; 0x78
+  5c:	e5857470 	str	r7, [r5, #1136]	; 0x470
+  60:	e5857474 	str	r7, [r5, #1140]	; 0x474
+  64:	e5853478 	str	r3, [r5, #1144]	; 0x478
+  68:	e585347c 	str	r3, [r5, #1148]	; 0x47c
+  6c:	0a000014 	beq	c4 <af_buf_init+0xc4>
+  70:	e595c460 	ldr	ip, [r5, #1120]	; 0x460
+  74:	e286303c 	add	r3, r6, #60	; 0x3c
+  78:	e1a01007 	mov	r1, r7
+  7c:	e3a02000 	mov	r2, #0
+  80:	e5831004 	str	r1, [r3, #4]
+  84:	e28ce901 	add	lr, ip, #16384	; 0x4000
+  88:	e5837000 	str	r7, [r3]
+  8c:	e5813000 	str	r3, [r1]
+  90:	e1a01003 	mov	r1, r3
+  94:	e5032004 	str	r2, [r3, #-4]
+  98:	e2822001 	add	r2, r2, #1
+  9c:	e1540002 	cmp	r4, r2
+  a0:	e2833048 	add	r3, r3, #72	; 0x48
+  a4:	e503c07c 	str	ip, [r3, #-124]	; 0xffffff84
+  a8:	e28cc902 	add	ip, ip, #32768	; 0x8000
+  ac:	e503e078 	str	lr, [r3, #-120]	; 0xffffff88
+  b0:	1afffff2 	bne	80 <af_buf_init+0x80>
+  b4:	e3a00048 	mov	r0, #72	; 0x48
+  b8:	e0266490 	mla	r6, r0, r4, r6
+  bc:	e246600c 	sub	r6, r6, #12
+  c0:	e5856474 	str	r6, [r5, #1140]	; 0x474
+  c4:	e5854464 	str	r4, [r5, #1124]	; 0x464
+  c8:	e3a03000 	mov	r3, #0
+  cc:	e5854468 	str	r4, [r5, #1128]	; 0x468
+  d0:	e1a00003 	mov	r0, r3
+  d4:	e585346c 	str	r3, [r5, #1132]	; 0x46c
+  d8:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+  dc:	e3e00000 	mvn	r0, #0
+  e0:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.af_buf_reset:
+
+00000000 <af_buf_reset>:
+   0:	e3500000 	cmp	r0, #0
+   4:	0a00001f 	beq	88 <af_buf_reset+0x88>
+   8:	e92d4030 	push	{r4, r5, lr}
+   c:	e2804a05 	add	r4, r0, #20480	; 0x5000
+  10:	e2805b15 	add	r5, r0, #21504	; 0x5400
+  14:	e5943478 	ldr	r3, [r4, #1144]	; 0x478
+  18:	e2855078 	add	r5, r5, #120	; 0x78
+  1c:	e1530005 	cmp	r3, r5
+  20:	e5932000 	ldr	r2, [r3]
+  24:	12800b15 	addne	r0, r0, #21504	; 0x5400
+  28:	12800070 	addne	r0, r0, #112	; 0x70
+  2c:	11a01002 	movne	r1, r2
+  30:	1a000001 	bne	3c <af_buf_reset+0x3c>
+  34:	ea00000b 	b	68 <af_buf_reset+0x68>
+  38:	e1a01002 	mov	r1, r2
+  3c:	e593e004 	ldr	lr, [r3, #4]
+  40:	e1510005 	cmp	r1, r5
+  44:	e582e004 	str	lr, [r2, #4]
+  48:	e594c474 	ldr	ip, [r4, #1140]	; 0x474
+  4c:	e58e2000 	str	r2, [lr]
+  50:	e5843474 	str	r3, [r4, #1140]	; 0x474
+  54:	e8831001 	stm	r3, {r0, ip}
+  58:	e58c3000 	str	r3, [ip]
+  5c:	e1a03001 	mov	r3, r1
+  60:	e5912000 	ldr	r2, [r1]
+  64:	1afffff3 	bne	38 <af_buf_reset+0x38>
+  68:	e5942464 	ldr	r2, [r4, #1124]	; 0x464
+  6c:	e3a03000 	mov	r3, #0
+  70:	e5845478 	str	r5, [r4, #1144]	; 0x478
+  74:	e1a00003 	mov	r0, r3
+  78:	e584547c 	str	r5, [r4, #1148]	; 0x47c
+  7c:	e5842468 	str	r2, [r4, #1128]	; 0x468
+  80:	e584346c 	str	r3, [r4, #1132]	; 0x46c
+  84:	e8bd8030 	pop	{r4, r5, pc}
+  88:	e3e00000 	mvn	r0, #0
+  8c:	e12fff1e 	bx	lr
+
+Disassembly of section .text.af_buf_get_free:
+
+00000000 <af_buf_get_free>:
+   0:	e3500000 	cmp	r0, #0
+   4:	012fff1e 	bxeq	lr
+   8:	e2803a05 	add	r3, r0, #20480	; 0x5000
+   c:	e2800b15 	add	r0, r0, #21504	; 0x5400
+  10:	e2800070 	add	r0, r0, #112	; 0x70
+  14:	e5932470 	ldr	r2, [r3, #1136]	; 0x470
+  18:	e1520000 	cmp	r2, r0
+  1c:	0a000009 	beq	48 <af_buf_get_free+0x48>
+  20:	e5931468 	ldr	r1, [r3, #1128]	; 0x468
+  24:	e1a00002 	mov	r0, r2
+  28:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+  2c:	e592c004 	ldr	ip, [r2, #4]
+  30:	e2412001 	sub	r2, r1, #1
+  34:	e410e03c 	ldr	lr, [r0], #-60	; 0xffffffc4
+  38:	e58ec004 	str	ip, [lr, #4]
+  3c:	e58ce000 	str	lr, [ip]
+  40:	e5832468 	str	r2, [r3, #1128]	; 0x468
+  44:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+  48:	e3a00000 	mov	r0, #0
+  4c:	e12fff1e 	bx	lr
+
+Disassembly of section .text.af_buf_get_busy:
+
+00000000 <af_buf_get_busy>:
+   0:	e3500000 	cmp	r0, #0
+   4:	012fff1e 	bxeq	lr
+   8:	e2803a05 	add	r3, r0, #20480	; 0x5000
+   c:	e2800b15 	add	r0, r0, #21504	; 0x5400
+  10:	e2800078 	add	r0, r0, #120	; 0x78
+  14:	e5932478 	ldr	r2, [r3, #1144]	; 0x478
+  18:	e1520000 	cmp	r2, r0
+  1c:	0a000009 	beq	48 <af_buf_get_busy+0x48>
+  20:	e593146c 	ldr	r1, [r3, #1132]	; 0x46c
+  24:	e1a00002 	mov	r0, r2
+  28:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+  2c:	e592c004 	ldr	ip, [r2, #4]
+  30:	e2412001 	sub	r2, r1, #1
+  34:	e410e03c 	ldr	lr, [r0], #-60	; 0xffffffc4
+  38:	e58ec004 	str	ip, [lr, #4]
+  3c:	e58ce000 	str	lr, [ip]
+  40:	e583246c 	str	r2, [r3, #1132]	; 0x46c
+  44:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+  48:	e3a00000 	mov	r0, #0
+  4c:	e12fff1e 	bx	lr
+
+Disassembly of section .text.af_buf_is_list_mem:
+
+00000000 <af_buf_is_list_mem>:
+   0:	e3510000 	cmp	r1, #0
+   4:	13500000 	cmpne	r0, #0
+   8:	0a000009 	beq	34 <af_buf_is_list_mem+0x34>
+   c:	e280ca05 	add	ip, r0, #20480	; 0x5000
+  10:	e59cc464 	ldr	ip, [ip, #1124]	; 0x464
+  14:	e15c0002 	cmp	ip, r2
+  18:	9a000005 	bls	34 <af_buf_is_list_mem+0x34>
+  1c:	e3a03048 	mov	r3, #72	; 0x48
+  20:	e0200293 	mla	r0, r3, r2, r0
+  24:	e0410000 	sub	r0, r1, r0
+  28:	e16f0f10 	clz	r0, r0
+  2c:	e1a002a0 	lsr	r0, r0, #5
+  30:	e12fff1e 	bx	lr
+  34:	e3a00000 	mov	r0, #0
+  38:	e12fff1e 	bx	lr
+
+Disassembly of section .text.af_buf_is_free_list_mem:
+
+00000000 <af_buf_is_free_list_mem>:
+   0:	e3510000 	cmp	r1, #0
+   4:	13500000 	cmpne	r0, #0
+   8:	0a00000f 	beq	4c <af_buf_is_free_list_mem+0x4c>
+   c:	e2803a05 	add	r3, r0, #20480	; 0x5000
+  10:	e2800b15 	add	r0, r0, #21504	; 0x5400
+  14:	e2800070 	add	r0, r0, #112	; 0x70
+  18:	e5933470 	ldr	r3, [r3, #1136]	; 0x470
+  1c:	e1530000 	cmp	r3, r0
+  20:	0a000009 	beq	4c <af_buf_is_free_list_mem+0x4c>
+  24:	e243203c 	sub	r2, r3, #60	; 0x3c
+  28:	e1510002 	cmp	r1, r2
+  2c:	1a000002 	bne	3c <af_buf_is_free_list_mem+0x3c>
+  30:	ea000007 	b	54 <af_buf_is_free_list_mem+0x54>
+  34:	e1510002 	cmp	r1, r2
+  38:	0a000005 	beq	54 <af_buf_is_free_list_mem+0x54>
+  3c:	e5933000 	ldr	r3, [r3]
+  40:	e1530000 	cmp	r3, r0
+  44:	e243203c 	sub	r2, r3, #60	; 0x3c
+  48:	1afffff9 	bne	34 <af_buf_is_free_list_mem+0x34>
+  4c:	e3a00000 	mov	r0, #0
+  50:	e12fff1e 	bx	lr
+  54:	e3a00001 	mov	r0, #1
+  58:	e12fff1e 	bx	lr
+
+Disassembly of section .text.af_buf_is_busy_list_mem:
+
+00000000 <af_buf_is_busy_list_mem>:
+   0:	e3510000 	cmp	r1, #0
+   4:	13500000 	cmpne	r0, #0
+   8:	0a00000f 	beq	4c <af_buf_is_busy_list_mem+0x4c>
+   c:	e2803a05 	add	r3, r0, #20480	; 0x5000
+  10:	e2800b15 	add	r0, r0, #21504	; 0x5400
+  14:	e2800078 	add	r0, r0, #120	; 0x78
+  18:	e5933478 	ldr	r3, [r3, #1144]	; 0x478
+  1c:	e1530000 	cmp	r3, r0
+  20:	0a000009 	beq	4c <af_buf_is_busy_list_mem+0x4c>
+  24:	e243203c 	sub	r2, r3, #60	; 0x3c
+  28:	e1510002 	cmp	r1, r2
+  2c:	1a000002 	bne	3c <af_buf_is_busy_list_mem+0x3c>
+  30:	ea000007 	b	54 <af_buf_is_busy_list_mem+0x54>
+  34:	e1510002 	cmp	r1, r2
+  38:	0a000005 	beq	54 <af_buf_is_busy_list_mem+0x54>
+  3c:	e5933000 	ldr	r3, [r3]
+  40:	e1530000 	cmp	r3, r0
+  44:	e243203c 	sub	r2, r3, #60	; 0x3c
+  48:	1afffff9 	bne	34 <af_buf_is_busy_list_mem+0x34>
+  4c:	e3a00000 	mov	r0, #0
+  50:	e12fff1e 	bx	lr
+  54:	e3a00001 	mov	r0, #1
+  58:	e12fff1e 	bx	lr

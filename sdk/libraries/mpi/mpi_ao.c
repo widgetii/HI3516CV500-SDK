@@ -1477,7 +1477,7 @@ ao_check_eq(AUDIO_DEV AoDevId, AO_CHN AoChn, const AUDIO_EQ_CONFIG_S *pstEqCfg)
     HI_S32 i;
 
     for (i = 0; i < VQE_EQ_BAND_NUM; i++) {
-        if ( (pstEqCfg->s8GaindB[i] + 100) > 0x78u ) { // TODO: correct condition
+        if ( (HI_U32)(pstEqCfg->s8GaindB[i] + 100) > 120 ) { /* valid range: [-100, 20] */
             HI_TRACE_AO(RE_DBG_LVL,
                 "eq gain_db[%d]: %d[-100,20] is invalid, ao chn:%d.\n",
                 i, pstEqCfg->s8GaindB[i], AoChn);

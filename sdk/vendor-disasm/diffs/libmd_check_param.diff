@@ -1,0 +1,193 @@
+--- sdk/vendor-disasm/v2_0_2_0/libmd/check_param.S	2026-03-29 07:34:59.031973366 +0300
++++ sdk/vendor-disasm/v2_0_2_1/libmd/check_param.S	2026-03-29 07:34:59.931975822 +0300
+@@ -7,20 +7,20 @@
+ 00000000 l    d  .data	00000000 .data
+ 00000000 l    d  .bss	00000000 .bss
+ 00000000 l    d  .text.md_check_attr	00000000 .text.md_check_attr
+-00000224 l       .rodata.md_check_attr.str1.4	00000000 .LC7
++00000220 l       .rodata.md_check_attr.str1.4	00000000 .LC7
+ 00000000 l       .rodata.md_check_attr.str1.4	00000000 .LC0
+-00000288 l       .rodata.md_check_attr.str1.4	00000000 .LC8
+-00000318 l       .rodata.md_check_attr.str1.4	00000000 .LC10
++00000284 l       .rodata.md_check_attr.str1.4	00000000 .LC8
++00000314 l       .rodata.md_check_attr.str1.4	00000000 .LC10
+ 00000048 l       .rodata.md_check_attr.str1.4	00000000 .LC1
+ 0000008c l       .rodata.md_check_attr.str1.4	00000000 .LC2
+ 000000d4 l       .rodata.md_check_attr.str1.4	00000000 .LC3
+ 0000011c l       .rodata.md_check_attr.str1.4	00000000 .LC4
+ 0000018c l       .rodata.md_check_attr.str1.4	00000000 .LC5
+-000001d8 l       .rodata.md_check_attr.str1.4	00000000 .LC6
+-000002d4 l       .rodata.md_check_attr.str1.4	00000000 .LC9
+-0000037c l       .rodata.md_check_attr.str1.4	00000000 .LC11
+-00000000 l    d  .rodata.__FUNCTION__.9028	00000000 .rodata.__FUNCTION__.9028
+-00000000 l     O .rodata.__FUNCTION__.9028	0000000e __FUNCTION__.9028
++000001d4 l       .rodata.md_check_attr.str1.4	00000000 .LC6
++000002d0 l       .rodata.md_check_attr.str1.4	00000000 .LC9
++00000378 l       .rodata.md_check_attr.str1.4	00000000 .LC11
++00000000 l    d  .rodata.__FUNCTION__.8990	00000000 .rodata.__FUNCTION__.8990
++00000000 l     O .rodata.__FUNCTION__.8990	0000000e __FUNCTION__.8990
+ 00000000 l    d  .rodata.md_check_attr.str1.4	00000000 .rodata.md_check_attr.str1.4
+ 00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+ 00000000 l    d  .comment	00000000 .comment
+@@ -88,7 +88,7 @@
+   c8:	e59f02c0 	ldr	r0, [pc, #704]	; 390 <md_check_attr+0x390>
+   cc:	e3a040ff 	mov	r4, #255	; 0xff
+   d0:	e59f22bc 	ldr	r2, [pc, #700]	; 394 <md_check_attr+0x394>
+-  d4:	e3a03036 	mov	r3, #54	; 0x36
++  d4:	e3a03035 	mov	r3, #53	; 0x35
+   d8:	e7950000 	ldr	r0, [r5, r0]
+   dc:	e58de00c 	str	lr, [sp, #12]
+   e0:	e5900000 	ldr	r0, [r0]
+@@ -125,7 +125,7 @@
+  154:	e59f2248 	ldr	r2, [pc, #584]	; 3a4 <md_check_attr+0x3a4>
+  158:	e3a0c000 	mov	ip, #0
+  15c:	e7950003 	ldr	r0, [r5, r3]
+- 160:	e3a0303c 	mov	r3, #60	; 0x3c
++ 160:	e3a0303b 	mov	r3, #59	; 0x3b
+  164:	e58d1000 	str	r1, [sp]
+  168:	e59f1238 	ldr	r1, [pc, #568]	; 3a8 <md_check_attr+0x3a8>
+  16c:	e5900000 	ldr	r0, [r0]
+@@ -140,7 +140,7 @@
+  18c:	e59f11fc 	ldr	r1, [pc, #508]	; 390 <md_check_attr+0x390>
+  190:	e3a04801 	mov	r4, #65536	; 0x10000
+  194:	e59f2210 	ldr	r2, [pc, #528]	; 3ac <md_check_attr+0x3ac>
+- 198:	e3a03044 	mov	r3, #68	; 0x44
++ 198:	e3a03043 	mov	r3, #67	; 0x43
+  19c:	e7950001 	ldr	r0, [r5, r1]
+  1a0:	e59f1208 	ldr	r1, [pc, #520]	; 3b0 <md_check_attr+0x3b0>
+  1a4:	e5900000 	ldr	r0, [r0]
+@@ -158,7 +158,7 @@
+  1d0:	e59f21dc 	ldr	r2, [pc, #476]	; 3b4 <md_check_attr+0x3b4>
+  1d4:	e3a01040 	mov	r1, #64	; 0x40
+  1d8:	e7950003 	ldr	r0, [r5, r3]
+- 1dc:	e3a0301f 	mov	r3, #31
++ 1dc:	e3a0301e 	mov	r3, #30
+  1e0:	e58d6000 	str	r6, [sp]
+  1e4:	e5900000 	ldr	r0, [r0]
+  1e8:	e98d1002 	stmib	sp, {r1, ip}
+@@ -175,7 +175,7 @@
+  210:	e59f21a4 	ldr	r2, [pc, #420]	; 3bc <md_check_attr+0x3bc>
+  214:	e3a01040 	mov	r1, #64	; 0x40
+  218:	e7950003 	ldr	r0, [r5, r3]
+- 21c:	e3a03022 	mov	r3, #34	; 0x22
++ 21c:	e3a03020 	mov	r3, #32
+  220:	e58dc000 	str	ip, [sp]
+  224:	e5900000 	ldr	r0, [r0]
+  228:	e98d4002 	stmib	sp, {r1, lr}
+@@ -192,7 +192,7 @@
+  250:	e59f216c 	ldr	r2, [pc, #364]	; 3c4 <md_check_attr+0x3c4>
+  254:	e3a0c000 	mov	ip, #0
+  258:	e7950003 	ldr	r0, [r5, r3]
+- 25c:	e3a03025 	mov	r3, #37	; 0x25
++ 25c:	e3a03024 	mov	r3, #36	; 0x24
+  260:	e58d1000 	str	r1, [sp]
+  264:	e59f115c 	ldr	r1, [pc, #348]	; 3c8 <md_check_attr+0x3c8>
+  268:	e5900000 	ldr	r0, [r0]
+@@ -205,7 +205,7 @@
+  280:	e34a001d 	movt	r0, #40989	; 0xa01d
+  284:	eaffff8a 	b	b4 <md_check_attr+0xb4>
+  288:	e59f1100 	ldr	r1, [pc, #256]	; 390 <md_check_attr+0x390>
+- 28c:	e3a0302b 	mov	r3, #43	; 0x2b
++ 28c:	e3a0302a 	mov	r3, #42	; 0x2a
+  290:	e59f2134 	ldr	r2, [pc, #308]	; 3cc <md_check_attr+0x3cc>
+  294:	e7950001 	ldr	r0, [r5, r1]
+  298:	e59f1130 	ldr	r1, [pc, #304]	; 3d0 <md_check_attr+0x3d0>
+@@ -219,7 +219,7 @@
+  2b4:	e34a001d 	movt	r0, #40989	; 0xa01d
+  2b8:	eaffff7d 	b	b4 <md_check_attr+0xb4>
+  2bc:	e59f10cc 	ldr	r1, [pc, #204]	; 390 <md_check_attr+0x390>
+- 2c0:	e3a0302f 	mov	r3, #47	; 0x2f
++ 2c0:	e3a0302e 	mov	r3, #46	; 0x2e
+  2c4:	e59f2108 	ldr	r2, [pc, #264]	; 3d4 <md_check_attr+0x3d4>
+  2c8:	e7950001 	ldr	r0, [r5, r1]
+  2cc:	e59f1104 	ldr	r1, [pc, #260]	; 3d8 <md_check_attr+0x3d8>
+@@ -234,7 +234,7 @@
+  2ec:	e34a001d 	movt	r0, #40989	; 0xa01d
+  2f0:	eaffff6f 	b	b4 <md_check_attr+0xb4>
+  2f4:	e59f1094 	ldr	r1, [pc, #148]	; 390 <md_check_attr+0x390>
+- 2f8:	e3a03032 	mov	r3, #50	; 0x32
++ 2f8:	e3a03031 	mov	r3, #49	; 0x31
+  2fc:	e59f20d8 	ldr	r2, [pc, #216]	; 3dc <md_check_attr+0x3dc>
+  300:	e7950001 	ldr	r0, [r5, r1]
+  304:	e59f10d4 	ldr	r1, [pc, #212]	; 3e0 <md_check_attr+0x3e0>
+@@ -249,7 +249,7 @@
+  324:	e34a001d 	movt	r0, #40989	; 0xa01d
+  328:	eaffff61 	b	b4 <md_check_attr+0xb4>
+  32c:	e59f105c 	ldr	r1, [pc, #92]	; 390 <md_check_attr+0x390>
+- 330:	e3a0303f 	mov	r3, #63	; 0x3f
++ 330:	e3a0303e 	mov	r3, #62	; 0x3e
+  334:	e59f20a8 	ldr	r2, [pc, #168]	; 3e4 <md_check_attr+0x3e4>
+  338:	e7950001 	ldr	r0, [r5, r1]
+  33c:	e59f10a4 	ldr	r1, [pc, #164]	; 3e8 <md_check_attr+0x3e8>
+@@ -262,7 +262,7 @@
+  354:	e34a001d 	movt	r0, #40989	; 0xa01d
+  358:	eaffff55 	b	b4 <md_check_attr+0xb4>
+  35c:	e59f102c 	ldr	r1, [pc, #44]	; 390 <md_check_attr+0x390>
+- 360:	e3a03046 	mov	r3, #70	; 0x46
++ 360:	e3a03045 	mov	r3, #69	; 0x45
+  364:	e59f2080 	ldr	r2, [pc, #128]	; 3ec <md_check_attr+0x3ec>
+  368:	e7950001 	ldr	r0, [r5, r1]
+  36c:	e59f107c 	ldr	r1, [pc, #124]	; 3f0 <md_check_attr+0x3f0>
+@@ -279,50 +279,50 @@
+  390:	00000000 	.word	0x00000000
+ 			390: R_ARM_GOT32	stderr
+  394:	000002a0 	.word	0x000002a0
+-			394: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			394: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  398:	00000298 	.word	0x00000298
+ 			398: R_ARM_REL32	.LC7
+  39c:	00000264 	.word	0x00000264
+-			39c: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			39c: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3a0:	00000260 	.word	0x00000260
+ 			3a0: R_ARM_REL32	.LC0
+  3a4:	0000022c 	.word	0x0000022c
+-			3a4: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3a4: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3a8:	00000228 	.word	0x00000228
+ 			3a8: R_ARM_REL32	.LC8
+  3ac:	000001fc 	.word	0x000001fc
+-			3ac: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3ac: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3b0:	000001fc 	.word	0x000001fc
+ 			3b0: R_ARM_REL32	.LC10
+  3b4:	000001bc 	.word	0x000001bc
+-			3b4: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3b4: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3b8:	000001bc 	.word	0x000001bc
+ 			3b8: R_ARM_REL32	.LC1
+  3bc:	00000184 	.word	0x00000184
+-			3bc: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3bc: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3c0:	00000184 	.word	0x00000184
+ 			3c0: R_ARM_REL32	.LC2
+  3c4:	00000150 	.word	0x00000150
+-			3c4: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3c4: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3c8:	0000014c 	.word	0x0000014c
+ 			3c8: R_ARM_REL32	.LC3
+  3cc:	00000124 	.word	0x00000124
+-			3cc: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3cc: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3d0:	00000124 	.word	0x00000124
+ 			3d0: R_ARM_REL32	.LC4
+  3d4:	000000f8 	.word	0x000000f8
+-			3d4: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3d4: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3d8:	000000f8 	.word	0x000000f8
+ 			3d8: R_ARM_REL32	.LC5
+  3dc:	000000c8 	.word	0x000000c8
+-			3dc: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3dc: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3e0:	000000c8 	.word	0x000000c8
+ 			3e0: R_ARM_REL32	.LC6
+  3e4:	0000009c 	.word	0x0000009c
+-			3e4: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3e4: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3e8:	0000009c 	.word	0x0000009c
+ 			3e8: R_ARM_REL32	.LC9
+  3ec:	00000074 	.word	0x00000074
+-			3ec: R_ARM_REL32	.rodata.__FUNCTION__.9028
++			3ec: R_ARM_REL32	.rodata.__FUNCTION__.8990
+  3f0:	00000074 	.word	0x00000074
+ 			3f0: R_ARM_REL32	.LC11

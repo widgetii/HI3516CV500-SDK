@@ -1,0 +1,35 @@
+--- sdk/vendor-disasm/v2_0_2_0/libmpi/mpi_vgs.S	2026-03-29 07:34:58.601972193 +0300
++++ sdk/vendor-disasm/v2_0_2_1/libmpi/mpi_vgs.S	2026-03-29 07:34:59.461974539 +0300
+@@ -48,10 +48,10 @@
+ 00000000 l     O .bss.g_vgs_mutex	00000018 g_vgs_mutex
+ 00000000 l    d  .data.g_device_id	00000000 .data.g_device_id
+ 00000000 l     O .data.g_device_id	00000004 g_device_id
+-00000000 l    d  .rodata.__FUNCTION__.10776	00000000 .rodata.__FUNCTION__.10776
+-00000000 l     O .rodata.__FUNCTION__.10776	00000013 __FUNCTION__.10776
+-00000000 l    d  .rodata.__FUNCTION__.10798	00000000 .rodata.__FUNCTION__.10798
+-00000000 l     O .rodata.__FUNCTION__.10798	0000001a __FUNCTION__.10798
++00000000 l    d  .rodata.__FUNCTION__.10076	00000000 .rodata.__FUNCTION__.10076
++00000000 l     O .rodata.__FUNCTION__.10076	00000013 __FUNCTION__.10076
++00000000 l    d  .rodata.__FUNCTION__.10098	00000000 .rodata.__FUNCTION__.10098
++00000000 l     O .rodata.__FUNCTION__.10098	0000001a __FUNCTION__.10098
+ 00000000 l    d  .rodata.hi_mpi_vgs_add_scale_task.str1.4	00000000 .rodata.hi_mpi_vgs_add_scale_task.str1.4
+ 00000000 l    d  .rodata.vgs_check_null_ptr.part.1.str1.4	00000000 .rodata.vgs_check_null_ptr.part.1.str1.4
+ 00000000 l    d  .rodata.vgs_check_open.str1.4	00000000 .rodata.vgs_check_open.str1.4
+@@ -157,7 +157,7 @@
+   3c:	00000000 	.word	0x00000000
+ 			3c: R_ARM_GOT32	stderr
+   40:	0000001c 	.word	0x0000001c
+-			40: R_ARM_REL32	.rodata.__FUNCTION__.10776
++			40: R_ARM_REL32	.rodata.__FUNCTION__.10076
+   44:	0000001c 	.word	0x0000001c
+ 			44: R_ARM_REL32	.LC2
+ 
+@@ -265,7 +265,7 @@
+  15c:	00000000 	.word	0x00000000
+ 			15c: R_ARM_GOT32	stderr
+  160:	00000054 	.word	0x00000054
+-			160: R_ARM_REL32	.rodata.__FUNCTION__.10798
++			160: R_ARM_REL32	.rodata.__FUNCTION__.10098
+  164:	00000054 	.word	0x00000054
+ 			164: R_ARM_REL32	.LC3
+ 

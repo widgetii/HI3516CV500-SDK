@@ -685,20 +685,6 @@ mpi_ai_exit()
     return HI_SUCCESS;
 }
 
-// mpi_ai_get_vqe_attr
-
-// mpi_ai_enable_resmp
-
-// mpi_ai_disable_resmp
-
-// hi_mpi_ai_set_record_vqe_attr
-
-// hi_mpi_ai_set_talk_vqe_attr
-
-// hi_mpi_ai_enable_vqe
-
-// hi_mpi_ai_disable_vqe
-
 HI_VOID
 mpi_ai_destroy_get_frm_proc(AI_CHN AiChn)
 {
@@ -707,8 +693,6 @@ mpi_ai_destroy_get_frm_proc(AI_CHN AiChn)
         s_mpi_ai_chn_ctx[AiChn].bHasFrmProc = HI_FALSE;
     }
 }
-
-// hi_mpi_ai_disable_chn
 
 HI_S32
 mpi_ai_release_frame(AI_CHN AiChn, const AUDIO_FRAME_S *pstAudioFrm, const AEC_FRAME_S *pstAecFrm)

@@ -3,6 +3,10 @@
 // Devs should use the actual libs' headers instead!
 //
 
+#ifndef FDK_AAC_MOD_H
+#define FDK_AAC_MOD_H
+
+
 #define PC_FSB_CHANNELS_MAX 16 /* Front/Side/Back channels */
 #define PC_LFE_CHANNELS_MAX 4
 #define PC_ASSOCDATA_MAX 8
@@ -544,3 +548,4 @@ typedef struct TRANSPORTDEC {
 } TRANSPORTDEC;
 
 typedef struct TRANSPORTDEC *HANDLE_TRANSPORTDEC;
+#endif /* FDK_AAC_MOD_H */

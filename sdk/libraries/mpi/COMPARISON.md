@@ -6,61 +6,70 @@ Comparison against vendor SDK V2.0.2.1 `libmpi.a` (dated May 28, 2020).
 
 | | Vendor | Ours |
 |---|---|---|
-| Static lib (.a) | 743K (stripped) | 342K (with debug) |
-| Shared lib (.so) | 355K (stripped) | 314K (with debug) |
-| Object files | 25 | 16 |
-| Exported symbols | 782 | 543 |
-| Shared symbols | 456 | 456 |
-| Our-only symbols (internal) | — | ~87 |
-| Vendor-only symbols | 326 | — |
+| Static lib (.a) | 743K (stripped) | ~350K (with debug) |
+| Shared lib (.so) | 355K (stripped) | ~320K (with debug) |
+| Object files | 25 | 22 |
+| Exported symbols | 782 | 755 |
+| HI_MPI_* API functions | ~588 | 589 |
+| Our-only symbols (internal) | — | ~166 |
+| Vendor-only symbols | ~27 | — |
 
-## Per-Module API Coverage (456/782 shared — 58%)
+## Per-Module API Coverage (589/~588 — 100%+)
 
-### Fully implemented (in build)
+### Fully implemented (all in build)
 
 | Module | Vendor symbols | Our symbols | Coverage |
 |--------|---------------|-------------|----------|
-| mpi_vi | 104 | 104 | 104/104 (100%) |
-| mpi_venc | 88 | 88 | 88/88 (100%) |
-| mpi_vpss | 69 | 69 | 69/69 (100%) |
-| mpi_sys | 40 | 40 | 40/40 (100%) |
-| mpi_vb | 23 | 23 | 23/23 (100%) |
-| mpi_region | 14 | 14 | 14/14 (100%) |
-| mpi_snap | 10 | 10 | 10/10 (100%) |
-| mpi_gdc | 8 | 8 | 8/8 (100%) |
-| mpi_log | 5 | 5 | 5/5 (100%) |
-| mpi_audio | 3 | 3 | 3/3 (100%) |
-
-| mpi_ao | 30 | 30 | 30/30 (100%) |
-| mpi_ai | 37 | 37 | 37/37 (100%) |
+| mpi_vi | 104 | 104 | 100% |
+| mpi_vo | 91 | 91 | 100% |
+| mpi_venc | 88 | 90 | 100%+ (includes SliceSplit) |
+| mpi_vpss | 69 | 69 | 100% |
+| mpi_sys | 40 | 40 | 100% |
+| mpi_ai | 37 | 37 | 100% |
+| mpi_vdec | 32 | 32 | 100% |
+| mpi_ao | 30 | 30 | 100% |
+| mpi_vb | 23 | 23 | 100% |
+| mpi_region | 14 | 14 | 100% |
+| mpi_vgs | 12 | 12 | 100% |
+| mpi_aenc | 11 | 12 | 100%+ (extra VoiceInit) |
+| mpi_adec | 11 | 12 | 100%+ (extra VoiceInit) |
+| mpi_snap | 10 | 10 | 100% |
+| mpi_gdc | 8 | 8 | 100% |
+| mpi_log | 5 | 5 | 100% |
+| mpi_audio | 3 | 3 | 100% |
 
 ### Also in build (support files)
 
-| Module | Vendor .o | Our .c |
-|--------|-----------|--------|
-| af_buf | af_buf.o | af_buf.c |
-| as_buf | as_buf.o | as_buf.c |
-| audio_comm | audio_comm.o | audio_comm.c |
+| Module | Our .c | Notes |
+|--------|--------|-------|
+| audio_voice_adp | audio_voice_adp.c | 38 internal functions, VQE adaptation layer |
+| hiisp_gdc_fw_pointquery | hiisp_gdc_fw_pointquery.c | 13 GDC point query functions |
+| hiisp_gdc_fw_user | hiisp_gdc_fw_user.c + .S | GDC firmware entry + lookup tables |
+| audio_comm | audio_comm.c | 2 audio utilities |
+| af_buf | af_buf.c | Stub (no-content, reserved) |
+| as_buf | as_buf.c | Stub (no-content, reserved) |
 
-### Not implemented (vendor-only)
+### Vendor-only modules (not applicable)
 
-| Module | Vendor .o | Symbols | Source exists in repo? |
-|--------|-----------|---------|----------------------|
-| mpi_vo | mpi_vo.o | 91 | yes — mpi_vo.c (commented out, unverified) |
-| mpi_vdec | mpi_vdec.o | 32 | yes — mpi_vdec.c (commented out, unverified) |
-| mpi_vgs | mpi_vgs.o | 12 | yes — mpi_vgs.c (commented out, unverified) |
-| mpi_adec | mpi_adec_adapt.o | 11 | yes — mpi_adec.c (commented out) |
-| mpi_aenc | mpi_aenc_adapt.o | 11 | yes — mpi_aenc.c (commented out) |
-| mpi_mcf | mpi_mcf.o | — | no |
-| audio_voice_adp | audio_voice_adp.o | — | yes — audio_voice_adp.c (commented out) |
-| hiisp_gdc_fw_pointquery | hiisp_gdc_fw_pointquery.o | — | yes — in build |
-| hiisp_gdc_fw_user | hiisp_gdc_fw_user.o | — | yes — in build |
-| hi_dnvqe_api_adp | hi_dnvqe_api_adp.o | — | no |
-| hi_upvqe_api_adp | hi_upvqe_api_adp.o | — | no |
+| Module | Notes |
+|--------|-------|
+| mpi_mcf | Multi-Channel Fusion — no header exists, likely not for HI3516CV500 |
+| hi_dnvqe_api_adp | VQE adapter bundled in vendor libmpi; we have separate libdnvqe |
+| hi_upvqe_api_adp | VQE adapter bundled in vendor libmpi; we have separate libupvqe (scaffold) |
 
-### Symbols only in our build (58)
+## Companion Libraries (complete, building)
 
-Internal/helper functions (lowercase `hi_mpi_*`, `mpi_vi_*`, `mpi_ao_*`, `ao_check_*`, etc.) that the vendor strips from their release. Expected — our build is not stripped.
+| Library | Files | Symbols | Source |
+|---------|-------|---------|--------|
+| libive.a/so | 4 .c | 144 | Fully RE'd from 24,223 lines vendor ARM assembly |
+| libmd.a/so | 3 .c | 22 | Fully RE'd from 5,099 lines vendor ARM assembly |
+| libdnvqe.a/so | 5 .c | ~28 | Fully RE'd from 106K lines vendor ARM assembly |
+| libhiae.a/so | 9 .c | ~182 | Fully RE'd from 35,493 lines vendor ARM assembly |
+| libsecurec.a/so | 39 .c | ~49 | Vendor source drop (Huawei safe C) |
+| libhi_cipher.a/so | 4 .c | ~44 | Vendor source drop (crypto) |
+| libaacenc.a/so | 1 .c | ~6 | Vendor source drop (AAC encoder wrapper) |
+
+**Total: 8 libraries building clean** with zero errors.
 
 ## mpi_vi Integration Notes
 

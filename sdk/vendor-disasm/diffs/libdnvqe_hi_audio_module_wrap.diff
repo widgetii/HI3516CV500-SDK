@@ -1,0 +1,507 @@
+--- sdk/vendor-disasm/v2_0_2_0/libdnvqe/hi_audio_module_wrap.S	2026-03-29 07:34:59.085306845 +0300
++++ sdk/vendor-disasm/v2_0_2_1/libdnvqe/hi_audio_module_wrap.S	2026-03-29 07:34:59.978642616 +0300
+@@ -2,156 +2,371 @@
+ hi_audio_module_wrap.o:     file format elf32-littlearm
+ 
+ SYMBOL TABLE:
+-00000000 l       .rodata.MODULE_HI_Audio_ModuleHandleInit.str1.1	00000000 .LC0
+-0000000c l       .rodata.MODULE_HI_Audio_ModuleHandleInit.str1.1	00000000 .LC1
+-00000000 l    d  .bss.s_audio_module_mutex	00000000 .bss.s_audio_module_mutex
++00000000 l     F .text.audio_get_module_dl_handle	00000194 audio_get_module_dl_handle
++00000000 l       .rodata.audio_get_module_dl_handle.str1.1	00000000 .LC0
++0000000c l       .rodata.audio_get_module_dl_handle.str1.1	00000000 .LC1
++00000042 l       .rodata.audio_get_module_dl_handle.str1.1	00000000 .LC2
++00000000 l       .rodata.MODULE_hi_audio_module_handle_init.str1.1	00000000 .LC3
++00000071 l       .rodata.MODULE_hi_audio_module_handle_init.str1.1	00000000 .LC5
++00000037 l       .rodata.MODULE_hi_audio_module_handle_init.str1.1	00000000 .LC4
++00000000 l    d  .bss.g_audio_module_mutex	00000000 .bss.g_audio_module_mutex
++00000000 l    d  .rodata.__FUNCTION__.7235	00000000 .rodata.__FUNCTION__.7235
++00000000 l    d  .rodata.__FUNCTION__.7248	00000000 .rodata.__FUNCTION__.7248
++00000000 l    d  .rodata.__FUNCTION__.7255	00000000 .rodata.__FUNCTION__.7255
+ 00000000 l    d  .text	00000000 .text
+ 00000000 l    d  .data	00000000 .data
+ 00000000 l    d  .bss	00000000 .bss
+-00000000 l    d  .text.MODULE_HI_Audio_ModuleHandleInit	00000000 .text.MODULE_HI_Audio_ModuleHandleInit
+-00000000 l    d  .text.MODULE_HI_Audio_ModuleHandleDeInit	00000000 .text.MODULE_HI_Audio_ModuleHandleDeInit
+-00000000 l    d  .rodata.MODULE_HI_Audio_ModuleHandleInit.str1.1	00000000 .rodata.MODULE_HI_Audio_ModuleHandleInit.str1.1
++00000000 l    d  .text.audio_get_module_dl_handle	00000000 .text.audio_get_module_dl_handle
++00000000 l    d  .text.MODULE_hi_audio_module_handle_init	00000000 .text.MODULE_hi_audio_module_handle_init
++00000000 l    d  .text.MODULE_hi_audio_module_handle_deinit	00000000 .text.MODULE_hi_audio_module_handle_deinit
++00000000 l    d  .data.g_audio_module_state	00000000 .data.g_audio_module_state
++00000000 l    d  .rodata.MODULE_hi_audio_module_handle_init.str1.1	00000000 .rodata.MODULE_hi_audio_module_handle_init.str1.1
++00000000 l    d  .rodata.audio_get_module_dl_handle.str1.1	00000000 .rodata.audio_get_module_dl_handle.str1.1
+ 00000000 l    d  .comment	00000000 .comment
+ 00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+ 00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+-00000000 g     F .text.MODULE_HI_Audio_ModuleHandleInit	00000148 MODULE_HI_Audio_ModuleHandleInit
+-00000000         *UND*	00000000 pthread_mutex_lock
+ 00000000         *UND*	00000000 memset
+ 00000000         *UND*	00000000 snprintf_s
+-00000000         *UND*	00000000 DL_HI_Audio_Dlopen
+-00000000         *UND*	00000000 pthread_mutex_unlock
++00000000         *UND*	00000000 fprintf
+ 00000000         *UND*	00000000 __stack_chk_fail
+-00000000         *UND*	00000000 DL_HI_Audio_Dlsym
+-00000000         *UND*	00000000 DL_HI_Audio_Dlclose
+-00000000         *UND*	00000000 strlen
+-00000000         *UND*	00000000 memcpy_s
++00000000         *UND*	00000000 DL_hi_audio_dlopen
++00000000         *UND*	00000000 DL_hi_audio_dlclose
++00000000         *UND*	00000000 DL_hi_audio_dlsym
+ 00000000         *UND*	00000000 _GLOBAL_OFFSET_TABLE_
+ 00000000         *UND*	00000000 __stack_chk_guard
+-00000000 g     F .text.MODULE_HI_Audio_ModuleHandleDeInit	0000003c MODULE_HI_Audio_ModuleHandleDeInit
++00000000         *UND*	00000000 stderr
++00000000 g     F .text.MODULE_hi_audio_module_handle_init	00000230 MODULE_hi_audio_module_handle_init
++00000000         *UND*	00000000 pthread_mutex_lock
++00000000         *UND*	00000000 strlen
++00000000         *UND*	00000000 pthread_mutex_unlock
++00000000         *UND*	00000000 strncmp
++00000000         *UND*	00000000 memcpy_s
++00000000 g     O .data.g_audio_module_state	000002d0 g_audio_module_state
++00000000 g     F .text.MODULE_hi_audio_module_handle_deinit	00000054 MODULE_hi_audio_module_handle_deinit
++
++
+ 
++Disassembly of section .text.audio_get_module_dl_handle:
+ 
++00000000 <audio_get_module_dl_handle>:
++   0:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, sl, lr}
++   4:	e1a09002 	mov	r9, r2
++   8:	e59f2158 	ldr	r2, [pc, #344]	; 168 <audio_get_module_dl_handle+0x168>
++   c:	e1a04003 	mov	r4, r3
++  10:	e59f3154 	ldr	r3, [pc, #340]	; 16c <audio_get_module_dl_handle+0x16c>
++  14:	e24dde11 	sub	sp, sp, #272	; 0x110
++  18:	e08f2002 	add	r2, pc, r2
++  1c:	e28d5008 	add	r5, sp, #8
++  20:	e59d8130 	ldr	r8, [sp, #304]	; 0x130
++  24:	e1a06000 	mov	r6, r0
++  28:	e7923003 	ldr	r3, [r2, r3]
++  2c:	e1a0a001 	mov	sl, r1
++  30:	e3a01000 	mov	r1, #0
++  34:	e3002101 	movw	r2, #257	; 0x101
++  38:	e59f7130 	ldr	r7, [pc, #304]	; 170 <audio_get_module_dl_handle+0x170>
++  3c:	e1a00005 	mov	r0, r5
++  40:	e5933000 	ldr	r3, [r3]
++  44:	e58d310c 	str	r3, [sp, #268]	; 0x10c
++  48:	e3a03000 	mov	r3, #0
++  4c:	ebfffffe 	bl	0 <memset>
++			4c: R_ARM_CALL	memset
++  50:	e59f311c 	ldr	r3, [pc, #284]	; 174 <audio_get_module_dl_handle+0x174>
++  54:	e3a02c01 	mov	r2, #256	; 0x100
++  58:	e88d0440 	stm	sp, {r6, sl}
++  5c:	e08f3003 	add	r3, pc, r3
++  60:	e3001101 	movw	r1, #257	; 0x101
++  64:	e08f7007 	add	r7, pc, r7
++  68:	e1a00005 	mov	r0, r5
++  6c:	ebfffffe 	bl	0 <snprintf_s>
++			6c: R_ARM_CALL	snprintf_s
++  70:	e3500000 	cmp	r0, #0
++  74:	ca000014 	bgt	cc <audio_get_module_dl_handle+0xcc>
++  78:	e59f30f8 	ldr	r3, [pc, #248]	; 178 <audio_get_module_dl_handle+0x178>
++  7c:	e59f20f8 	ldr	r2, [pc, #248]	; 17c <audio_get_module_dl_handle+0x17c>
++  80:	e797c003 	ldr	ip, [r7, r3]
++  84:	e3a03095 	mov	r3, #149	; 0x95
++  88:	e59f10f0 	ldr	r1, [pc, #240]	; 180 <audio_get_module_dl_handle+0x180>
++  8c:	e58d0000 	str	r0, [sp]
++  90:	e08f2002 	add	r2, pc, r2
++  94:	e08f1001 	add	r1, pc, r1
++  98:	e59c0000 	ldr	r0, [ip]
++  9c:	e3e06000 	mvn	r6, #0
++  a0:	ebfffffe 	bl	0 <fprintf>
++			a0: R_ARM_CALL	fprintf
++  a4:	e59f20d8 	ldr	r2, [pc, #216]	; 184 <audio_get_module_dl_handle+0x184>
++  a8:	e1a00006 	mov	r0, r6
++  ac:	e59f30b8 	ldr	r3, [pc, #184]	; 16c <audio_get_module_dl_handle+0x16c>
++  b0:	e08f2002 	add	r2, pc, r2
++  b4:	e7923003 	ldr	r3, [r2, r3]
++  b8:	e5932000 	ldr	r2, [r3]
++  bc:	e59d310c 	ldr	r3, [sp, #268]	; 0x10c
++  c0:	e0332002 	eors	r2, r3, r2
++  c4:	0a000025 	beq	160 <audio_get_module_dl_handle+0x160>
++  c8:	ebfffffe 	bl	0 <__stack_chk_fail>
++			c8: R_ARM_CALL	__stack_chk_fail
++  cc:	e1a01005 	mov	r1, r5
++  d0:	e2840018 	add	r0, r4, #24
++  d4:	ebfffffe 	bl	0 <DL_hi_audio_dlopen>
++			d4: R_ARM_CALL	DL_hi_audio_dlopen
++  d8:	e2506000 	subs	r6, r0, #0
++  dc:	1afffff0 	bne	a4 <audio_get_module_dl_handle+0xa4>
++  e0:	e59f30a0 	ldr	r3, [pc, #160]	; 188 <audio_get_module_dl_handle+0x188>
++  e4:	e3a02c01 	mov	r2, #256	; 0x100
++  e8:	e58d9000 	str	r9, [sp]
++  ec:	e3001101 	movw	r1, #257	; 0x101
++  f0:	e08f3003 	add	r3, pc, r3
++  f4:	e1a00005 	mov	r0, r5
++  f8:	ebfffffe 	bl	0 <snprintf_s>
++			f8: R_ARM_CALL	snprintf_s
++  fc:	e2506000 	subs	r6, r0, #0
++ 100:	ca00000b 	bgt	134 <audio_get_module_dl_handle+0x134>
++ 104:	e5940018 	ldr	r0, [r4, #24]
++ 108:	ebfffffe 	bl	0 <DL_hi_audio_dlclose>
++			108: R_ARM_CALL	DL_hi_audio_dlclose
++ 10c:	e59f3064 	ldr	r3, [pc, #100]	; 178 <audio_get_module_dl_handle+0x178>
++ 110:	e59f2074 	ldr	r2, [pc, #116]	; 18c <audio_get_module_dl_handle+0x18c>
++ 114:	e7970003 	ldr	r0, [r7, r3]
++ 118:	e3a030a1 	mov	r3, #161	; 0xa1
++ 11c:	e59f106c 	ldr	r1, [pc, #108]	; 190 <audio_get_module_dl_handle+0x190>
++ 120:	e58d6000 	str	r6, [sp]
++ 124:	e08f2002 	add	r2, pc, r2
++ 128:	e08f1001 	add	r1, pc, r1
++ 12c:	e5900000 	ldr	r0, [r0]
++ 130:	eaffffd9 	b	9c <audio_get_module_dl_handle+0x9c>
++ 134:	e5941018 	ldr	r1, [r4, #24]
++ 138:	e1a02005 	mov	r2, r5
++ 13c:	e1a00008 	mov	r0, r8
++ 140:	ebfffffe 	bl	0 <DL_hi_audio_dlsym>
++			140: R_ARM_CALL	DL_hi_audio_dlsym
++ 144:	e2506000 	subs	r6, r0, #0
++ 148:	03a03001 	moveq	r3, #1
++ 14c:	05843028 	streq	r3, [r4, #40]	; 0x28
++ 150:	0affffd3 	beq	a4 <audio_get_module_dl_handle+0xa4>
++ 154:	e5940018 	ldr	r0, [r4, #24]
++ 158:	ebfffffe 	bl	0 <DL_hi_audio_dlclose>
++			158: R_ARM_CALL	DL_hi_audio_dlclose
++ 15c:	eaffffd0 	b	a4 <audio_get_module_dl_handle+0xa4>
++ 160:	e28dde11 	add	sp, sp, #272	; 0x110
++ 164:	e8bd87f0 	pop	{r4, r5, r6, r7, r8, r9, sl, pc}
++ 168:	00000148 	.word	0x00000148
++			168: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 16c:	00000000 	.word	0x00000000
++			16c: R_ARM_GOT32	__stack_chk_guard
++ 170:	00000104 	.word	0x00000104
++			170: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 174:	00000110 	.word	0x00000110
++			174: R_ARM_REL32	.LC0
++ 178:	00000000 	.word	0x00000000
++			178: R_ARM_GOT32	stderr
++ 17c:	000000e4 	.word	0x000000e4
++			17c: R_ARM_REL32	.rodata.__FUNCTION__.7248
++ 180:	000000e4 	.word	0x000000e4
++			180: R_ARM_REL32	.LC1
++ 184:	000000cc 	.word	0x000000cc
++			184: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 188:	00000090 	.word	0x00000090
++			188: R_ARM_REL32	.LC2
++ 18c:	00000060 	.word	0x00000060
++			18c: R_ARM_REL32	.rodata.__FUNCTION__.7248
++ 190:	00000060 	.word	0x00000060
++			190: R_ARM_REL32	.LC1
+ 
+-Disassembly of section .text.MODULE_HI_Audio_ModuleHandleInit:
++Disassembly of section .text.MODULE_hi_audio_module_handle_init:
+ 
+-00000000 <MODULE_HI_Audio_ModuleHandleInit>:
+-   0:	e59f312c 	ldr	r3, [pc, #300]	; 134 <MODULE_HI_Audio_ModuleHandleInit+0x134>
+-   4:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, sl, lr}
+-   8:	e1a09002 	mov	r9, r2
+-   c:	e08f3003 	add	r3, pc, r3
+-  10:	e24ddf46 	sub	sp, sp, #280	; 0x118
+-  14:	e59f211c 	ldr	r2, [pc, #284]	; 138 <MODULE_HI_Audio_ModuleHandleInit+0x138>
+-  18:	e3a08000 	mov	r8, #0
+-  1c:	e59f6118 	ldr	r6, [pc, #280]	; 13c <MODULE_HI_Audio_ModuleHandleInit+0x13c>
+-  20:	e28d5010 	add	r5, sp, #16
+-  24:	e7937002 	ldr	r7, [r3, r2]
+-  28:	e1a04000 	mov	r4, r0
+-  2c:	e08f6006 	add	r6, pc, r6
+-  30:	e1a0a001 	mov	sl, r1
+-  34:	e5973000 	ldr	r3, [r7]
+-  38:	e1a00006 	mov	r0, r6
+-  3c:	e58d800c 	str	r8, [sp, #12]
+-  40:	e58d3114 	str	r3, [sp, #276]	; 0x114
++00000000 <MODULE_hi_audio_module_handle_init>:
++   0:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
++   4:	e1a06002 	mov	r6, r2
++   8:	e59f21e8 	ldr	r2, [pc, #488]	; 1f8 <MODULE_hi_audio_module_handle_init+0x1f8>
++   c:	e1a07000 	mov	r7, r0
++  10:	e59f31e4 	ldr	r3, [pc, #484]	; 1fc <MODULE_hi_audio_module_handle_init+0x1fc>
++  14:	e24dd01c 	sub	sp, sp, #28
++  18:	e08f2002 	add	r2, pc, r2
++  1c:	e3a04000 	mov	r4, #0
++  20:	e59f01d8 	ldr	r0, [pc, #472]	; 200 <MODULE_hi_audio_module_handle_init+0x200>
++  24:	e1a0a001 	mov	sl, r1
++  28:	e7923003 	ldr	r3, [r2, r3]
++  2c:	e59f81d0 	ldr	r8, [pc, #464]	; 204 <MODULE_hi_audio_module_handle_init+0x204>
++  30:	e08f0000 	add	r0, pc, r0
++  34:	e5933000 	ldr	r3, [r3]
++  38:	e58d3014 	str	r3, [sp, #20]
++  3c:	e3a03000 	mov	r3, #0
++  40:	e58d4010 	str	r4, [sp, #16]
+   44:	ebfffffe 	bl	0 <pthread_mutex_lock>
+ 			44: R_ARM_CALL	pthread_mutex_lock
+-  48:	e1a01008 	mov	r1, r8
+-  4c:	e3002101 	movw	r2, #257	; 0x101
+-  50:	e1a00005 	mov	r0, r5
+-  54:	ebfffffe 	bl	0 <memset>
+-			54: R_ARM_CALL	memset
+-  58:	e59f30e0 	ldr	r3, [pc, #224]	; 140 <MODULE_HI_Audio_ModuleHandleInit+0x140>
+-  5c:	e3a02c01 	mov	r2, #256	; 0x100
+-  60:	e58d9004 	str	r9, [sp, #4]
+-  64:	e3001101 	movw	r1, #257	; 0x101
+-  68:	e08f3003 	add	r3, pc, r3
+-  6c:	e1a00005 	mov	r0, r5
+-  70:	e58da000 	str	sl, [sp]
+-  74:	ebfffffe 	bl	0 <snprintf_s>
+-			74: R_ARM_CALL	snprintf_s
+-  78:	e1a01005 	mov	r1, r5
+-  7c:	e2840018 	add	r0, r4, #24
+-  80:	ebfffffe 	bl	0 <DL_HI_Audio_Dlopen>
+-			80: R_ARM_CALL	DL_HI_Audio_Dlopen
+-  84:	e2508000 	subs	r8, r0, #0
+-  88:	0a000007 	beq	ac <MODULE_HI_Audio_ModuleHandleInit+0xac>
+-  8c:	e1a00006 	mov	r0, r6
+-  90:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			90: R_ARM_CALL	pthread_mutex_unlock
+-  94:	e59d2114 	ldr	r2, [sp, #276]	; 0x114
+-  98:	e1a00008 	mov	r0, r8
+-  9c:	e5973000 	ldr	r3, [r7]
+-  a0:	e1520003 	cmp	r2, r3
+-  a4:	0a000020 	beq	12c <MODULE_HI_Audio_ModuleHandleInit+0x12c>
+-  a8:	ebfffffe 	bl	0 <__stack_chk_fail>
+-			a8: R_ARM_CALL	__stack_chk_fail
+-  ac:	e59f3090 	ldr	r3, [pc, #144]	; 144 <MODULE_HI_Audio_ModuleHandleInit+0x144>
+-  b0:	e3a02c01 	mov	r2, #256	; 0x100
+-  b4:	e58d9000 	str	r9, [sp]
+-  b8:	e3001101 	movw	r1, #257	; 0x101
+-  bc:	e08f3003 	add	r3, pc, r3
+-  c0:	e1a00005 	mov	r0, r5
+-  c4:	ebfffffe 	bl	0 <snprintf_s>
+-			c4: R_ARM_CALL	snprintf_s
+-  c8:	e5941018 	ldr	r1, [r4, #24]
+-  cc:	e1a02005 	mov	r2, r5
+-  d0:	e28d000c 	add	r0, sp, #12
+-  d4:	ebfffffe 	bl	0 <DL_HI_Audio_Dlsym>
+-			d4: R_ARM_CALL	DL_HI_Audio_Dlsym
+-  d8:	e2508000 	subs	r8, r0, #0
+-  dc:	0a000002 	beq	ec <MODULE_HI_Audio_ModuleHandleInit+0xec>
+-  e0:	e5940018 	ldr	r0, [r4, #24]
+-  e4:	ebfffffe 	bl	0 <DL_HI_Audio_Dlclose>
+-			e4: R_ARM_CALL	DL_HI_Audio_Dlclose
+-  e8:	eaffffe7 	b	8c <MODULE_HI_Audio_ModuleHandleInit+0x8c>
+-  ec:	e59d500c 	ldr	r5, [sp, #12]
+-  f0:	e1a00005 	mov	r0, r5
+-  f4:	ebfffffe 	bl	0 <strlen>
+-			f4: R_ARM_CALL	strlen
+-  f8:	e2803001 	add	r3, r0, #1
+-  fc:	e1a02005 	mov	r2, r5
+- 100:	e3a01014 	mov	r1, #20
+- 104:	e1a00004 	mov	r0, r4
+- 108:	ebfffffe 	bl	0 <memcpy_s>
+-			108: R_ARM_CALL	memcpy_s
+- 10c:	e59d300c 	ldr	r3, [sp, #12]
+- 110:	e593201c 	ldr	r2, [r3, #28]
+- 114:	e584201c 	str	r2, [r4, #28]
+- 118:	e5932020 	ldr	r2, [r3, #32]
+- 11c:	e5933024 	ldr	r3, [r3, #36]	; 0x24
+- 120:	e5842020 	str	r2, [r4, #32]
+- 124:	e5843024 	str	r3, [r4, #36]	; 0x24
+- 128:	eaffffd7 	b	8c <MODULE_HI_Audio_ModuleHandleInit+0x8c>
+- 12c:	e28ddf46 	add	sp, sp, #280	; 0x118
+- 130:	e8bd87f0 	pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+- 134:	00000120 	.word	0x00000120
+-			134: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+- 138:	00000000 	.word	0x00000000
+-			138: R_ARM_GOT32	__stack_chk_guard
+- 13c:	00000108 	.word	0x00000108
+-			13c: R_ARM_REL32	.bss.s_audio_module_mutex
+- 140:	000000d0 	.word	0x000000d0
+-			140: R_ARM_REL32	.LC0
+- 144:	00000080 	.word	0x00000080
+-			144: R_ARM_REL32	.LC1
++  48:	e08f8008 	add	r8, pc, r8
++  4c:	e1a00006 	mov	r0, r6
++  50:	ebfffffe 	bl	0 <strlen>
++			50: R_ARM_CALL	strlen
++  54:	e59f31ac 	ldr	r3, [pc, #428]	; 208 <MODULE_hi_audio_module_handle_init+0x208>
++  58:	e1a0b000 	mov	fp, r0
++  5c:	e7983003 	ldr	r3, [r8, r3]
++  60:	e58d300c 	str	r3, [sp, #12]
++  64:	e59d300c 	ldr	r3, [sp, #12]
++  68:	e0849003 	add	r9, r4, r3
++  6c:	e5995014 	ldr	r5, [r9, #20]
++  70:	e3750001 	cmn	r5, #1
++  74:	1a000016 	bne	d4 <MODULE_hi_audio_module_handle_init+0xd4>
++  78:	e59f318c 	ldr	r3, [pc, #396]	; 20c <MODULE_hi_audio_module_handle_init+0x20c>
++  7c:	e59f218c 	ldr	r2, [pc, #396]	; 210 <MODULE_hi_audio_module_handle_init+0x210>
++  80:	e7980003 	ldr	r0, [r8, r3]
++  84:	e3a0307c 	mov	r3, #124	; 0x7c
++  88:	e59f1184 	ldr	r1, [pc, #388]	; 214 <MODULE_hi_audio_module_handle_init+0x214>
++  8c:	e58d6000 	str	r6, [sp]
++  90:	e08f2002 	add	r2, pc, r2
++  94:	e08f1001 	add	r1, pc, r1
++  98:	e5900000 	ldr	r0, [r0]
++  9c:	ebfffffe 	bl	0 <fprintf>
++			9c: R_ARM_CALL	fprintf
++  a0:	e59f0170 	ldr	r0, [pc, #368]	; 218 <MODULE_hi_audio_module_handle_init+0x218>
++  a4:	e08f0000 	add	r0, pc, r0
++  a8:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			a8: R_ARM_CALL	pthread_mutex_unlock
++  ac:	e59f2168 	ldr	r2, [pc, #360]	; 21c <MODULE_hi_audio_module_handle_init+0x21c>
++  b0:	e1a00005 	mov	r0, r5
++  b4:	e59f3140 	ldr	r3, [pc, #320]	; 1fc <MODULE_hi_audio_module_handle_init+0x1fc>
++  b8:	e08f2002 	add	r2, pc, r2
++  bc:	e7923003 	ldr	r3, [r2, r3]
++  c0:	e5932000 	ldr	r2, [r3]
++  c4:	e59d3014 	ldr	r3, [sp, #20]
++  c8:	e0332002 	eors	r2, r3, r2
++  cc:	0a000047 	beq	1f0 <MODULE_hi_audio_module_handle_init+0x1f0>
++  d0:	ebfffffe 	bl	0 <__stack_chk_fail>
++			d0: R_ARM_CALL	__stack_chk_fail
++  d4:	e1a00009 	mov	r0, r9
++  d8:	ebfffffe 	bl	0 <strlen>
++			d8: R_ARM_CALL	strlen
++  dc:	e15b0000 	cmp	fp, r0
++  e0:	1a000005 	bne	fc <MODULE_hi_audio_module_handle_init+0xfc>
++  e4:	e1a0200b 	mov	r2, fp
++  e8:	e1a01006 	mov	r1, r6
++  ec:	e1a00009 	mov	r0, r9
++  f0:	ebfffffe 	bl	0 <strncmp>
++			f0: R_ARM_CALL	strncmp
++  f4:	e3500000 	cmp	r0, #0
++  f8:	0a00001d 	beq	174 <MODULE_hi_audio_module_handle_init+0x174>
++  fc:	e2844030 	add	r4, r4, #48	; 0x30
++ 100:	e3540e2d 	cmp	r4, #720	; 0x2d0
++ 104:	1affffd6 	bne	64 <MODULE_hi_audio_module_handle_init+0x64>
++ 108:	e3e05000 	mvn	r5, #0
++ 10c:	eaffffe3 	b	a0 <MODULE_hi_audio_module_handle_init+0xa0>
++ 110:	e1a00004 	mov	r0, r4
++ 114:	ebfffffe 	bl	0 <strlen>
++			114: R_ARM_CALL	strlen
++ 118:	e2803001 	add	r3, r0, #1
++ 11c:	e1a02004 	mov	r2, r4
++ 120:	e3a01014 	mov	r1, #20
++ 124:	e1a00007 	mov	r0, r7
++ 128:	ebfffffe 	bl	0 <memcpy_s>
++			128: R_ARM_CALL	memcpy_s
++ 12c:	e2505000 	subs	r5, r0, #0
++ 130:	0a000008 	beq	158 <MODULE_hi_audio_module_handle_init+0x158>
++ 134:	e59f30d0 	ldr	r3, [pc, #208]	; 20c <MODULE_hi_audio_module_handle_init+0x20c>
++ 138:	e59f20e0 	ldr	r2, [pc, #224]	; 220 <MODULE_hi_audio_module_handle_init+0x220>
++ 13c:	e59f10e0 	ldr	r1, [pc, #224]	; 224 <MODULE_hi_audio_module_handle_init+0x224>
++ 140:	e7980003 	ldr	r0, [r8, r3]
++ 144:	e3a030be 	mov	r3, #190	; 0xbe
++ 148:	e58d5000 	str	r5, [sp]
++ 14c:	e08f2002 	add	r2, pc, r2
++ 150:	e08f1001 	add	r1, pc, r1
++ 154:	ea000022 	b	1e4 <MODULE_hi_audio_module_handle_init+0x1e4>
++ 158:	e594301c 	ldr	r3, [r4, #28]
++ 15c:	e587301c 	str	r3, [r7, #28]
++ 160:	e5943020 	ldr	r3, [r4, #32]
++ 164:	e5873020 	str	r3, [r7, #32]
++ 168:	e5943024 	ldr	r3, [r4, #36]	; 0x24
++ 16c:	e5873024 	str	r3, [r7, #36]	; 0x24
++ 170:	eaffffca 	b	a0 <MODULE_hi_audio_module_handle_init+0xa0>
++ 174:	e59d100c 	ldr	r1, [sp, #12]
++ 178:	e28d3010 	add	r3, sp, #16
++ 17c:	e58d3000 	str	r3, [sp]
++ 180:	e284201c 	add	r2, r4, #28
++ 184:	e0812002 	add	r2, r1, r2
++ 188:	e1a03007 	mov	r3, r7
++ 18c:	e1a01006 	mov	r1, r6
++ 190:	e1a0000a 	mov	r0, sl
++ 194:	ebfffffe 	bl	0 <MODULE_hi_audio_module_handle_init>
++			194: R_ARM_CALL	audio_get_module_dl_handle
++ 198:	e2505000 	subs	r5, r0, #0
++ 19c:	1affffbf 	bne	a0 <MODULE_hi_audio_module_handle_init+0xa0>
++ 1a0:	e59d4010 	ldr	r4, [sp, #16]
++ 1a4:	e1a00006 	mov	r0, r6
++ 1a8:	ebfffffe 	bl	0 <strlen>
++			1a8: R_ARM_CALL	strlen
++ 1ac:	e1a02000 	mov	r2, r0
++ 1b0:	e1a01006 	mov	r1, r6
++ 1b4:	e1a00004 	mov	r0, r4
++ 1b8:	ebfffffe 	bl	0 <strncmp>
++			1b8: R_ARM_CALL	strncmp
++ 1bc:	e3500000 	cmp	r0, #0
++ 1c0:	0affffd2 	beq	110 <MODULE_hi_audio_module_handle_init+0x110>
++ 1c4:	e59f3040 	ldr	r3, [pc, #64]	; 20c <MODULE_hi_audio_module_handle_init+0x20c>
++ 1c8:	e59f2058 	ldr	r2, [pc, #88]	; 228 <MODULE_hi_audio_module_handle_init+0x228>
++ 1cc:	e59f1058 	ldr	r1, [pc, #88]	; 22c <MODULE_hi_audio_module_handle_init+0x22c>
++ 1d0:	e7980003 	ldr	r0, [r8, r3]
++ 1d4:	e3a030b7 	mov	r3, #183	; 0xb7
++ 1d8:	e08f2002 	add	r2, pc, r2
++ 1dc:	e08f1001 	add	r1, pc, r1
++ 1e0:	e58d6000 	str	r6, [sp]
++ 1e4:	e5900000 	ldr	r0, [r0]
++ 1e8:	ebfffffe 	bl	0 <fprintf>
++			1e8: R_ARM_CALL	fprintf
++ 1ec:	eaffffc5 	b	108 <MODULE_hi_audio_module_handle_init+0x108>
++ 1f0:	e28dd01c 	add	sp, sp, #28
++ 1f4:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
++ 1f8:	000001d8 	.word	0x000001d8
++			1f8: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 1fc:	00000000 	.word	0x00000000
++			1fc: R_ARM_GOT32	__stack_chk_guard
++ 200:	000001c8 	.word	0x000001c8
++			200: R_ARM_REL32	.bss.g_audio_module_mutex
++ 204:	000001b4 	.word	0x000001b4
++			204: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++	...
++			208: R_ARM_GOT32	g_audio_module_state
++			20c: R_ARM_GOT32	stderr
++ 210:	00000178 	.word	0x00000178
++			210: R_ARM_REL32	.rodata.__FUNCTION__.7235
++ 214:	00000178 	.word	0x00000178
++			214: R_ARM_REL32	.LC3
++ 218:	0000016c 	.word	0x0000016c
++			218: R_ARM_REL32	.bss.g_audio_module_mutex
++ 21c:	0000015c 	.word	0x0000015c
++			21c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
++ 220:	000000cc 	.word	0x000000cc
++			220: R_ARM_REL32	.rodata.__FUNCTION__.7255
++ 224:	000000cc 	.word	0x000000cc
++			224: R_ARM_REL32	.LC5
++ 228:	00000048 	.word	0x00000048
++			228: R_ARM_REL32	.rodata.__FUNCTION__.7255
++ 22c:	00000048 	.word	0x00000048
++			22c: R_ARM_REL32	.LC4
+ 
+-Disassembly of section .text.MODULE_HI_Audio_ModuleHandleDeInit:
++Disassembly of section .text.MODULE_hi_audio_module_handle_deinit:
+ 
+-00000000 <MODULE_HI_Audio_ModuleHandleDeInit>:
++00000000 <MODULE_hi_audio_module_handle_deinit>:
+    0:	e92d4070 	push	{r4, r5, r6, lr}
+-   4:	e1a06000 	mov	r6, r0
+-   8:	e59f5028 	ldr	r5, [pc, #40]	; 38 <MODULE_HI_Audio_ModuleHandleDeInit+0x38>
+-   c:	e3a04000 	mov	r4, #0
+-  10:	e08f5005 	add	r5, pc, r5
+-  14:	e1a00005 	mov	r0, r5
+-  18:	ebfffffe 	bl	0 <pthread_mutex_lock>
+-			18: R_ARM_CALL	pthread_mutex_lock
+-  1c:	e5960018 	ldr	r0, [r6, #24]
+-  20:	ebfffffe 	bl	0 <DL_HI_Audio_Dlclose>
+-			20: R_ARM_CALL	DL_HI_Audio_Dlclose
+-  24:	e5864018 	str	r4, [r6, #24]
+-  28:	e1a00005 	mov	r0, r5
+-  2c:	ebfffffe 	bl	0 <pthread_mutex_unlock>
+-			2c: R_ARM_CALL	pthread_mutex_unlock
+-  30:	e1a00004 	mov	r0, r4
+-  34:	e8bd8070 	pop	{r4, r5, r6, pc}
+-  38:	00000020 	.word	0x00000020
+-			38: R_ARM_REL32	.bss.s_audio_module_mutex
++   4:	e1a04000 	mov	r4, r0
++   8:	e59f003c 	ldr	r0, [pc, #60]	; 4c <MODULE_hi_audio_module_handle_deinit+0x4c>
++   c:	e3a06000 	mov	r6, #0
++  10:	e08f0000 	add	r0, pc, r0
++  14:	ebfffffe 	bl	0 <pthread_mutex_lock>
++			14: R_ARM_CALL	pthread_mutex_lock
++  18:	e5943028 	ldr	r3, [r4, #40]	; 0x28
++  1c:	e3530001 	cmp	r3, #1
++  20:	11a05006 	movne	r5, r6
++  24:	1a000002 	bne	34 <MODULE_hi_audio_module_handle_deinit+0x34>
++  28:	e5940018 	ldr	r0, [r4, #24]
++  2c:	ebfffffe 	bl	0 <DL_hi_audio_dlclose>
++			2c: R_ARM_CALL	DL_hi_audio_dlclose
++  30:	e1a05000 	mov	r5, r0
++  34:	e59f0014 	ldr	r0, [pc, #20]	; 50 <MODULE_hi_audio_module_handle_deinit+0x50>
++  38:	e5846018 	str	r6, [r4, #24]
++  3c:	e08f0000 	add	r0, pc, r0
++  40:	ebfffffe 	bl	0 <pthread_mutex_unlock>
++			40: R_ARM_CALL	pthread_mutex_unlock
++  44:	e1a00005 	mov	r0, r5
++  48:	e8bd8070 	pop	{r4, r5, r6, pc}
++  4c:	00000034 	.word	0x00000034
++			4c: R_ARM_REL32	.bss.g_audio_module_mutex
++  50:	0000000c 	.word	0x0000000c
++			50: R_ARM_REL32	.bss.g_audio_module_mutex

@@ -5,7 +5,6 @@
 #ifndef RE_DNVQE_RESAMPLER_WORK_H
 #define RE_DNVQE_RESAMPLER_WORK_H
 
-#include "hi_types.h"
 #include "re_dnvqe_comm.h"
 
 HI_S32 RES_ReSampler_Create(
@@ -15,5 +14,18 @@ HI_S32 RES_ReSampler_Create(
     DNVQE_RESAMPLER_TYPE_E enReSamplerType);
 
 HI_S32 RES_ReSampler_Destory(DNVQE_RESAMPLER_S *pstReSampler);
+
+HI_S32 RES_ReSampler_GetInputNum(
+    DNVQE_RESAMPLER_S *pstReSampler,
+    HI_S32 s32OutSamps,
+    DNVQE_RESAMPLER_TYPE_E enReSamplerType);
+
+HI_S32 RES_ReSampler_ProcessFrame(
+    DNVQE_RESAMPLER_S *pstReSampler,
+    HI_S16 *pS16OutBuf,
+    HI_S16 *pS16InBuf,
+    HI_S32 s32InSamps,
+    HI_S32 *pS32OutSamps,
+    DNVQE_RESAMPLER_TYPE_E enReSamplerType);
 
 #endif

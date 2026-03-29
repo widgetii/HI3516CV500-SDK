@@ -1,0 +1,233 @@
+
+hi_audio_dl_work.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC0
+0000000f l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC1
+0000001e l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC2
+0000002d l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC3
+0000003b l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC4
+00000070 l       .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .LC5
+0000002c l       .rodata.DL_HI_Audio_Dlsym.str1.1	00000000 .LC7
+00000000 l       .rodata.DL_HI_Audio_Dlsym.str1.1	00000000 .LC6
+00000040 l       .rodata.DL_HI_Audio_Dlsym.str1.1	00000000 .LC8
+00000000 l    d  .rodata.__FUNCTION__.6278	00000000 .rodata.__FUNCTION__.6278
+00000000 l    d  .rodata.__FUNCTION__.6282	00000000 .rodata.__FUNCTION__.6282
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .text.DL_HI_Audio_Dlopen	00000000 .text.DL_HI_Audio_Dlopen
+00000000 l    d  .text.DL_HI_Audio_Dlsym	00000000 .text.DL_HI_Audio_Dlsym
+00000000 l    d  .text.DL_HI_Audio_Dlclose	00000000 .text.DL_HI_Audio_Dlclose
+00000000 l    d  .rodata.DL_HI_Audio_Dlopen.str1.1	00000000 .rodata.DL_HI_Audio_Dlopen.str1.1
+00000000 l    d  .rodata.DL_HI_Audio_Dlsym.str1.1	00000000 .rodata.DL_HI_Audio_Dlsym.str1.1
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .note.GNU-stack	00000000 .note.GNU-stack
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 g     F .text.DL_HI_Audio_Dlopen	00000100 DL_HI_Audio_Dlopen
+00000000         *UND*	00000000 dlopen
+00000000         *UND*	00000000 strcmp
+00000000         *UND*	00000000 fprintf
+00000000         *UND*	00000000 _GLOBAL_OFFSET_TABLE_
+00000000         *UND*	00000000 stderr
+00000000 g     F .text.DL_HI_Audio_Dlsym	000000e0 DL_HI_Audio_Dlsym
+00000000         *UND*	00000000 dlsym
+00000000         *UND*	00000000 dlerror
+00000000 g     F .text.DL_HI_Audio_Dlclose	00000070 DL_HI_Audio_Dlclose
+00000000         *UND*	00000000 dlclose
+
+
+
+Disassembly of section .text.DL_HI_Audio_Dlopen:
+
+00000000 <DL_HI_Audio_Dlopen>:
+   0:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+   4:	e3510000 	cmp	r1, #0
+   8:	13500000 	cmpne	r0, #0
+   c:	e59f70cc 	ldr	r7, [pc, #204]	; e0 <DL_HI_Audio_Dlopen+0xe0>
+  10:	03a05001 	moveq	r5, #1
+  14:	13a05000 	movne	r5, #0
+  18:	e08f7007 	add	r7, pc, r7
+  1c:	0a000027 	beq	c0 <DL_HI_Audio_Dlopen+0xc0>
+  20:	e5805000 	str	r5, [r0]
+  24:	e1a04001 	mov	r4, r1
+  28:	e1a06000 	mov	r6, r0
+  2c:	e3a01001 	mov	r1, #1
+  30:	e1a00004 	mov	r0, r4
+  34:	ebfffffe 	bl	0 <dlopen>
+			34: R_ARM_CALL	dlopen
+  38:	e5860000 	str	r0, [r6]
+  3c:	e3500000 	cmp	r0, #0
+  40:	1a000024 	bne	d8 <DL_HI_Audio_Dlopen+0xd8>
+  44:	e59f1098 	ldr	r1, [pc, #152]	; e4 <DL_HI_Audio_Dlopen+0xe4>
+  48:	e1a00004 	mov	r0, r4
+  4c:	e08f1001 	add	r1, pc, r1
+  50:	ebfffffe 	bl	0 <strcmp>
+			50: R_ARM_CALL	strcmp
+  54:	e59f308c 	ldr	r3, [pc, #140]	; e8 <DL_HI_Audio_Dlopen+0xe8>
+  58:	e3500000 	cmp	r0, #0
+  5c:	e7975003 	ldr	r5, [r7, r3]
+  60:	0a000011 	beq	ac <DL_HI_Audio_Dlopen+0xac>
+  64:	e59f1080 	ldr	r1, [pc, #128]	; ec <DL_HI_Audio_Dlopen+0xec>
+  68:	e1a00004 	mov	r0, r4
+  6c:	e08f1001 	add	r1, pc, r1
+  70:	ebfffffe 	bl	0 <strcmp>
+			70: R_ARM_CALL	strcmp
+  74:	e3500000 	cmp	r0, #0
+  78:	0a00000b 	beq	ac <DL_HI_Audio_Dlopen+0xac>
+  7c:	e59f106c 	ldr	r1, [pc, #108]	; f0 <DL_HI_Audio_Dlopen+0xf0>
+  80:	e1a00004 	mov	r0, r4
+  84:	e08f1001 	add	r1, pc, r1
+  88:	ebfffffe 	bl	0 <strcmp>
+			88: R_ARM_CALL	strcmp
+  8c:	e3500000 	cmp	r0, #0
+  90:	0a000005 	beq	ac <DL_HI_Audio_Dlopen+0xac>
+  94:	e59f1058 	ldr	r1, [pc, #88]	; f4 <DL_HI_Audio_Dlopen+0xf4>
+  98:	e1a00004 	mov	r0, r4
+  9c:	e08f1001 	add	r1, pc, r1
+  a0:	ebfffffe 	bl	0 <strcmp>
+			a0: R_ARM_CALL	strcmp
+  a4:	e3500000 	cmp	r0, #0
+  a8:	1a000006 	bne	c8 <DL_HI_Audio_Dlopen+0xc8>
+  ac:	e59f1044 	ldr	r1, [pc, #68]	; f8 <DL_HI_Audio_Dlopen+0xf8>
+  b0:	e1a02004 	mov	r2, r4
+  b4:	e08f1001 	add	r1, pc, r1
+  b8:	e5950000 	ldr	r0, [r5]
+  bc:	ebfffffe 	bl	0 <fprintf>
+			bc: R_ARM_CALL	fprintf
+  c0:	e3e00000 	mvn	r0, #0
+  c4:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+  c8:	e59f102c 	ldr	r1, [pc, #44]	; fc <DL_HI_Audio_Dlopen+0xfc>
+  cc:	e1a02004 	mov	r2, r4
+  d0:	e08f1001 	add	r1, pc, r1
+  d4:	eafffff7 	b	b8 <DL_HI_Audio_Dlopen+0xb8>
+  d8:	e1a00005 	mov	r0, r5
+  dc:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+  e0:	000000c0 	.word	0x000000c0
+			e0: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+  e4:	00000090 	.word	0x00000090
+			e4: R_ARM_REL32	.LC0
+  e8:	00000000 	.word	0x00000000
+			e8: R_ARM_GOT32	stderr
+  ec:	00000078 	.word	0x00000078
+			ec: R_ARM_REL32	.LC1
+  f0:	00000064 	.word	0x00000064
+			f0: R_ARM_REL32	.LC2
+  f4:	00000050 	.word	0x00000050
+			f4: R_ARM_REL32	.LC3
+  f8:	0000003c 	.word	0x0000003c
+			f8: R_ARM_REL32	.LC4
+  fc:	00000024 	.word	0x00000024
+			fc: R_ARM_REL32	.LC5
+
+Disassembly of section .text.DL_HI_Audio_Dlsym:
+
+00000000 <DL_HI_Audio_Dlsym>:
+   0:	e92d40f7 	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+   4:	e1a07000 	mov	r7, r0
+   8:	e59f50b0 	ldr	r5, [pc, #176]	; c0 <DL_HI_Audio_Dlsym+0xc0>
+   c:	e2510000 	subs	r0, r1, #0
+  10:	e08f5005 	add	r5, pc, r5
+  14:	1a00000e 	bne	54 <DL_HI_Audio_Dlsym+0x54>
+  18:	e59f30a4 	ldr	r3, [pc, #164]	; c4 <DL_HI_Audio_Dlsym+0xc4>
+  1c:	e59f20a4 	ldr	r2, [pc, #164]	; c8 <DL_HI_Audio_Dlsym+0xc8>
+  20:	e7950003 	ldr	r0, [r5, r3]
+  24:	e59f30a0 	ldr	r3, [pc, #160]	; cc <DL_HI_Audio_Dlsym+0xcc>
+  28:	e59f10a0 	ldr	r1, [pc, #160]	; d0 <DL_HI_Audio_Dlsym+0xd0>
+  2c:	e08f3003 	add	r3, pc, r3
+  30:	e58d3000 	str	r3, [sp]
+  34:	e3a0303b 	mov	r3, #59	; 0x3b
+  38:	e08f2002 	add	r2, pc, r2
+  3c:	e08f1001 	add	r1, pc, r1
+  40:	e5900000 	ldr	r0, [r0]
+  44:	ebfffffe 	bl	0 <fprintf>
+			44: R_ARM_CALL	fprintf
+  48:	e3e00000 	mvn	r0, #0
+  4c:	e28dd00c 	add	sp, sp, #12
+  50:	e8bd80f0 	pop	{r4, r5, r6, r7, pc}
+  54:	e3a04000 	mov	r4, #0
+  58:	e1a01002 	mov	r1, r2
+  5c:	e5874000 	str	r4, [r7]
+  60:	e1a06002 	mov	r6, r2
+  64:	ebfffffe 	bl	0 <dlsym>
+			64: R_ARM_CALL	dlsym
+  68:	e1500004 	cmp	r0, r4
+  6c:	e5870000 	str	r0, [r7]
+  70:	11a00004 	movne	r0, r4
+  74:	1afffff4 	bne	4c <DL_HI_Audio_Dlsym+0x4c>
+  78:	e59f3044 	ldr	r3, [pc, #68]	; c4 <DL_HI_Audio_Dlsym+0xc4>
+  7c:	e59f2050 	ldr	r2, [pc, #80]	; d4 <DL_HI_Audio_Dlsym+0xd4>
+  80:	e7954003 	ldr	r4, [r5, r3]
+  84:	e3a03049 	mov	r3, #73	; 0x49
+  88:	e59f1048 	ldr	r1, [pc, #72]	; d8 <DL_HI_Audio_Dlsym+0xd8>
+  8c:	e58d6000 	str	r6, [sp]
+  90:	e08f2002 	add	r2, pc, r2
+  94:	e08f1001 	add	r1, pc, r1
+  98:	e5940000 	ldr	r0, [r4]
+  9c:	ebfffffe 	bl	0 <fprintf>
+			9c: R_ARM_CALL	fprintf
+  a0:	e5944000 	ldr	r4, [r4]
+  a4:	ebfffffe 	bl	0 <dlerror>
+			a4: R_ARM_CALL	dlerror
+  a8:	e59f102c 	ldr	r1, [pc, #44]	; dc <DL_HI_Audio_Dlsym+0xdc>
+  ac:	e1a02000 	mov	r2, r0
+  b0:	e1a00004 	mov	r0, r4
+  b4:	e08f1001 	add	r1, pc, r1
+  b8:	ebfffffe 	bl	0 <fprintf>
+			b8: R_ARM_CALL	fprintf
+  bc:	eaffffe1 	b	48 <DL_HI_Audio_Dlsym+0x48>
+  c0:	000000a8 	.word	0x000000a8
+			c0: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+  c4:	00000000 	.word	0x00000000
+			c4: R_ARM_GOT32	stderr
+  c8:	00000088 	.word	0x00000088
+			c8: R_ARM_REL32	.rodata.__FUNCTION__.6278
+  cc:	00000098 	.word	0x00000098
+			cc: R_ARM_REL32	.LC7
+  d0:	0000008c 	.word	0x0000008c
+			d0: R_ARM_REL32	.LC6
+  d4:	0000003c 	.word	0x0000003c
+			d4: R_ARM_REL32	.rodata.__FUNCTION__.6278
+  d8:	0000003c 	.word	0x0000003c
+			d8: R_ARM_REL32	.LC6
+  dc:	00000020 	.word	0x00000020
+			dc: R_ARM_REL32	.LC8
+
+Disassembly of section .text.DL_HI_Audio_Dlclose:
+
+00000000 <DL_HI_Audio_Dlclose>:
+   0:	e59f3054 	ldr	r3, [pc, #84]	; 5c <DL_HI_Audio_Dlclose+0x5c>
+   4:	e3500000 	cmp	r0, #0
+   8:	e92d4007 	push	{r0, r1, r2, lr}
+   c:	e08f3003 	add	r3, pc, r3
+  10:	1a00000e 	bne	50 <DL_HI_Audio_Dlclose+0x50>
+  14:	e59f2044 	ldr	r2, [pc, #68]	; 60 <DL_HI_Audio_Dlclose+0x60>
+  18:	e59f1044 	ldr	r1, [pc, #68]	; 64 <DL_HI_Audio_Dlclose+0x64>
+  1c:	e7930002 	ldr	r0, [r3, r2]
+  20:	e59f3040 	ldr	r3, [pc, #64]	; 68 <DL_HI_Audio_Dlclose+0x68>
+  24:	e59f2040 	ldr	r2, [pc, #64]	; 6c <DL_HI_Audio_Dlclose+0x6c>
+  28:	e08f3003 	add	r3, pc, r3
+  2c:	e58d3000 	str	r3, [sp]
+  30:	e3a03059 	mov	r3, #89	; 0x59
+  34:	e08f2002 	add	r2, pc, r2
+  38:	e08f1001 	add	r1, pc, r1
+  3c:	e5900000 	ldr	r0, [r0]
+  40:	ebfffffe 	bl	0 <fprintf>
+			40: R_ARM_CALL	fprintf
+  44:	e3e00000 	mvn	r0, #0
+  48:	e28dd00c 	add	sp, sp, #12
+  4c:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+  50:	ebfffffe 	bl	0 <dlclose>
+			50: R_ARM_CALL	dlclose
+  54:	e3a00000 	mov	r0, #0
+  58:	eafffffa 	b	48 <DL_HI_Audio_Dlclose+0x48>
+  5c:	00000048 	.word	0x00000048
+			5c: R_ARM_GOTPC	_GLOBAL_OFFSET_TABLE_
+  60:	00000000 	.word	0x00000000
+			60: R_ARM_GOT32	stderr
+  64:	00000024 	.word	0x00000024
+			64: R_ARM_REL32	.LC6
+  68:	00000038 	.word	0x00000038
+			68: R_ARM_REL32	.LC7
+  6c:	00000030 	.word	0x00000030
+			6c: R_ARM_REL32	.rodata.__FUNCTION__.6282

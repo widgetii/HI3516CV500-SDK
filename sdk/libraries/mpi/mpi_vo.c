@@ -1467,3 +1467,32 @@ HI_MPI_VO_GetVtth2(
         return ioctl(g_vo_fd[4 * VoDev], 0x80044F64, pu32Vtth);
     return ERR_VO_NULL_PTR;
 }
+
+HI_S32
+HI_MPI_VO_GetScreenFrame(
+    VO_LAYER VoLayer,
+    VIDEO_FRAME_INFO_S *pstVFrame,
+    HI_S32 s32MilliSec)
+{
+    return hi_mpi_vo_get_screen_frame(VoLayer, pstVFrame, s32MilliSec);
+}
+
+HI_S32
+HI_MPI_VO_GetChnFrame(
+    VO_LAYER VoLayer,
+    VO_CHN VoChn,
+    VIDEO_FRAME_INFO_S *pstFrame,
+    HI_S32 s32MilliSec)
+{
+    return hi_mpi_vo_get_chn_frame(VoLayer, VoChn, pstFrame, s32MilliSec);
+}
+
+HI_S32
+HI_MPI_VO_SendFrame(
+    VO_LAYER VoLayer,
+    VO_CHN VoChn,
+    VIDEO_FRAME_INFO_S *pstVFrame,
+    HI_S32 s32MilliSec)
+{
+    return hi_mpi_vo_send_frame(VoLayer, VoChn, pstVFrame, s32MilliSec);
+}
