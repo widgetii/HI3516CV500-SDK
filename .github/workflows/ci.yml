@@ -46,9 +46,17 @@ jobs:
           wc -l trace.all.ours.log
           CRASHES=$(grep -c 'CRASH' trace.all.ours.log || true)
           echo "Crashes: $CRASHES"
-          MODULES=$(grep -c '^---' trace.all.ours.log || true)
-          echo "Module sections: $MODULES"
-          grep 'done' trace.all.ours.log && echo "PASS: Test completed" || echo "WARN: Test may not have completed"
+          if [ "$CRASHES" -gt 0 ]; then
+            echo "FAIL: $CRASHES test crashes detected"
+            grep 'CRASH' trace.all.ours.log
+            exit 1
+          fi
+          if ! grep -q '=== done ===' trace.all.ours.log; then
+            echo "FAIL: Test harness did not complete (timeout or fatal error)"
+            tail -20 trace.all.ours.log
+            exit 1
+          fi
+          echo "PASS: All tests completed, zero crashes"
 
       - name: Upload trace artifact
         uses: actions/upload-artifact@v4
