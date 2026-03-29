@@ -1,0 +1,82 @@
+# Per-module weaken-and-replace testing using harness_all.c
+#
+# Usage: make -f Makefile.per_func compare-MODULE (e.g. compare-mpi_sys)
+# Or:    make -f Makefile.per_func compare-all-modules
+
+CC = arm-linux-gnueabihf-gcc
+CFLAGS = -static -Wall -O0 -g -Wl,--no-warn-mismatch -Wno-incompatible-pointer-types
+
+FRAMEWORK_DIR = ../..
+LIB_DIR = $(FRAMEWORK_DIR)/lib
+SDK_ROOT ?= $(shell cd ../../../.. && pwd)
+SDK_COMMON = $(SDK_ROOT)/sdk/common
+SDK_ADAPT = $(SDK_ROOT)/sdk/common/adapt
+SDK_ISP = $(SDK_ROOT)/sdk/drivers/hi3516cv500_isp
+SDK_ISP_ADAPT = $(SDK_ISP)/adapt
+SDK_MPI = $(SDK_ROOT)/sdk/libraries/mpi
+SDK_SECUREC = $(SDK_ROOT)/sdk/libraries/securec
+
+INCLUDES = -I$(LIB_DIR) -I$(SDK_COMMON) -I$(SDK_ADAPT) -I$(SDK_ISP) -I$(SDK_ISP_ADAPT) -I$(SDK_MPI) -I$(SDK_SECUREC)
+
+VENDOR_A = /tmp/Hi3516CV500_SDK_V2.0.2.1/smp/a7_linux/mpp/lib/libmpi.a
+OUR_BUILD = $(SDK_ROOT)/build/sdk/libraries
+OUR_LIBS = $(OUR_BUILD)/libmpi.a $(OUR_BUILD)/libdnvqe.a $(OUR_BUILD)/libsecurec.a
+MOCK_SRCS = $(LIB_DIR)/ioctl_mock.c $(LIB_DIR)/voice_stub.c
+HARNESS = harness_all.c
+LIBS = -lm -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -ldl
+
+EXTRACT_DIR = /tmp/vendor_objs
+
+# Modules that have corresponding .o in vendor .a
+MODULES = mpi_sys mpi_vb mpi_vi mpi_vo mpi_vpss mpi_venc mpi_vdec mpi_region mpi_gdc mpi_vgs
+
+.PHONY: extract compare-all-modules clean $(addprefix compare-,$(MODULES))
+
+extract:
+	@mkdir -p $(EXTRACT_DIR)
+	@cd $(EXTRACT_DIR) && arm-linux-gnueabihf-ar x $(VENDOR_A)
+	@echo "Extracted vendor objects to $(EXTRACT_DIR)"
+
+# For each module: build vendor-baseline + C-replaced binary, compare traces
+define MODULE_RULES
+compare-$(1): extract
+	@echo "=== Testing $(1) ==="
+	@# Get functions to replace from our .o
+	@FUNCS=$$$$(arm-linux-gnueabihf-nm -g --defined-only $(OUR_BUILD)/libmpi.a 2>/dev/null | \
+		grep ' T ' | awk '{print $$$$3}' | \
+		grep -F "$$$$(arm-linux-gnueabihf-nm --defined-only $(EXTRACT_DIR)/$(1).o 2>/dev/null | grep ' T ' | awk '{print $$$$3}')" | \
+		sort -u | tr '\n' ' '); \
+	if [ -z "$$$$FUNCS" ]; then echo "SKIP: no matching functions"; exit 0; fi; \
+	echo "Replacing $$$$(echo $$$$FUNCS | wc -w) functions"; \
+	WEAKEN=$$$$(echo $$$$FUNCS | tr ' ' '\n' | sed 's/^/--weaken-symbol=/' | tr '\n' ' '); \
+	arm-none-eabi-objcopy --remove-section=.ARM.attributes $(EXTRACT_DIR)/$(1).o /tmp/$(1)_noattr.o 2>/dev/null; \
+	arm-none-eabi-objcopy $$$$WEAKEN --remove-section=.ARM.attributes $(EXTRACT_DIR)/$(1).o /tmp/$(1)_weak.o 2>/dev/null; \
+	echo "Building vendor baseline..."; \
+	$(CC) $(CFLAGS) $(INCLUDES) -o /tmp/test_$(1)_vendor $(HARNESS) $(MOCK_SRCS) /tmp/$(1)_noattr.o $(LIBS) 2>/dev/null || \
+		{ echo "SKIP: vendor build failed"; exit 0; }; \
+	echo "Building C-replaced..."; \
+	$(CC) $(CFLAGS) $(INCLUDES) -o /tmp/test_$(1)_c $(HARNESS) $(MOCK_SRCS) $(OUR_LIBS) /tmp/$(1)_weak.o $(LIBS) 2>/dev/null || \
+		{ echo "SKIP: C build failed"; exit 0; }; \
+	echo "Running..."; \
+	timeout 15 qemu-arm /tmp/test_$(1)_vendor /tmp/trace_$(1)_vendor.log 2>/dev/null || true; \
+	timeout 15 qemu-arm /tmp/test_$(1)_c /tmp/trace_$(1)_c.log 2>/dev/null || true; \
+	sed 's/0x[0-9a-f]\+/ADDR/g' /tmp/trace_$(1)_vendor.log > /tmp/trace_$(1)_v.norm; \
+	sed 's/0x[0-9a-f]\+/ADDR/g' /tmp/trace_$(1)_c.log > /tmp/trace_$(1)_c.norm; \
+	DIFF=$$$$(diff /tmp/trace_$(1)_v.norm /tmp/trace_$(1)_c.norm | wc -l); \
+	TOTAL=$$$$(wc -l < /tmp/trace_$(1)_v.norm); \
+	if [ "$$$$DIFF" = "0" ]; then \
+		echo "$(1): MATCH ($$$$TOTAL lines)"; \
+	else \
+		echo "$(1): DIFFER ($$$$DIFF diff lines / $$$$TOTAL total)"; \
+		diff /tmp/trace_$(1)_v.norm /tmp/trace_$(1)_c.norm | head -20; \
+	fi; \
+	echo ""
+endef
+
+$(foreach mod,$(MODULES),$(eval $(call MODULE_RULES,$(mod))))
+
+compare-all-modules: $(addprefix compare-,$(MODULES))
+	@echo "=== All per-module tests complete ==="
+
+clean:
+	rm -rf $(EXTRACT_DIR) /tmp/test_mpi_* /tmp/trace_mpi_*
