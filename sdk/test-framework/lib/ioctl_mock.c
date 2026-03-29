@@ -175,10 +175,9 @@ int ioctl(int fd, unsigned long request, ...) {
         fprintf(g_trace, ") = 0\n");
     }
 
-    /* For GET (read) commands or bidirectional: fill output buffer with zeros */
-    if ((dir & _IOC_READ) && arg && size > 0) {
-        memset(arg, 0, size);
-    }
+    /* Do NOT memset output buffer — the caller already zeroes their struct.
+     * Writing _IOC_SIZE bytes can overflow the caller's stack buffer if the
+     * ioctl encoding size exceeds the actual struct size (common in HiSilicon). */
 
     return 0;
 }

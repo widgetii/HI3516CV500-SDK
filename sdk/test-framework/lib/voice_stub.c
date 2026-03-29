@@ -52,12 +52,29 @@ WEAK int hi_upvqe_get_config(void *h, void *c) { return 0; }
 WEAK int hi_upvqe_write_frame(void *h, void *i, void *o) { return 0; }
 WEAK int hi_upvqe_read_frame(void *h, void *o, int n, int b) { return 0; }
 
-/* Internal MPI symbols referenced across .o boundaries */
-WEAK int MPI_VI_CheckPipeId(int p) { return 0; }
-WEAK int MPI_VI_CheckChnId(int c) { return 0; }
-WEAK int MPI_VI_CheckPhyChnId(int c) { return 0; }
-WEAK int MPI_VI_CheckExtChnId(int c) { return 0; }
-WEAK int MPI_VI_CheckNullPtr(void) { return 0; }
+/* Internal MPI symbols referenced across .o boundaries
+ * NOTE: These are NOT stubs — they're real implementations for functions
+ * that exist in our libmpi but are static/local. The check functions
+ * must return proper error codes, not 0, to prevent null dereferences. */
+WEAK int MPI_VI_CheckPipeId(int p) {
+    if ((unsigned int)p > 3) return (int)0xA0108003; /* ERR_VI_INVALID_PIPEID */
+    return 0;
+}
+WEAK int MPI_VI_CheckChnId(int c) {
+    if ((unsigned int)c > 8) return (int)0xA0108002; /* ERR_VI_INVALID_CHNID */
+    return 0;
+}
+WEAK int MPI_VI_CheckPhyChnId(int c) {
+    if ((unsigned int)c > 0) return (int)0xA0108002;
+    return 0;
+}
+WEAK int MPI_VI_CheckExtChnId(int c) {
+    if ((unsigned int)c < 1 || (unsigned int)c > 8) return (int)0xA0108002;
+    return 0;
+}
+WEAK int MPI_VI_CheckNullPtr(void) {
+    return (int)0xA0108006; /* ERR_VI_INVALID_NULL_PTR — MUST return error */
+}
 WEAK int MPI_VI_CheckChnOpen(int p, int c) { return 0; }
 WEAK int MPI_VI_CheckPipeOpen(int p) { return 0; }
 WEAK int GDC_Spread_CFG(void *a, void *b, unsigned int c, void *d, void *e) { return 0; }
