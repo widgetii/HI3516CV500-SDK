@@ -141,5 +141,25 @@ typedef struct hiVENC_ROI_BG_FRAME_RATE_IOC_S {
 #define VENC_CTL_SET_RC_ADV_PARAM    _IOR( 0x45, 0x57, 0x004) /* 0x40044557 */
 #define VENC_CTL_GET_RC_ADV_PARAM    _IOW( 0x45, 0x58, 0x004) /* 0x80044558 */
 
+/* V2.0.2.1 additions */
+#define VENC_CTL_SEND_MULTI_FRAME    _IO(  0x45, 0x59       ) /* 0x00004559 */
+#define VENC_CTL_SEND_SVC_REGION     0x4298455C               /* _IOR(0x45, 0x5C, 0x298) */
+#define VENC_CTL_SET_SVC_PARAM       0x401C455D               /* _IOR(0x45, 0x5D, 0x01C) */
+#define VENC_CTL_GET_SVC_PARAM       0x801C455E               /* _IOW(0x45, 0x5E, 0x01C) */
+#define VENC_CTL_ENABLE_SVC          0x40044563               /* _IOR(0x45, 0x63, 0x004) */
+#define VENC_CTL_GET_SVC_COMPLEXITY  0x80044564               /* _IOW(0x45, 0x64, 0x004) */
+#define VENC_CTL_SET_CHN_CONFIG      0x400C4566               /* _IOR(0x45, 0x66, 0x00C) */
+#define VENC_CTL_GET_CHN_CONFIG      0x800C4567               /* _IOW(0x45, 0x67, 0x00C) */
+#define VENC_CTL_SET_SEARCH_WINDOW   0x400C4568               /* _IOR(0x45, 0x68, 0x00C) */
+#define VENC_CTL_GET_SEARCH_WINDOW   0x800C4569               /* _IOW(0x45, 0x69, 0x00C) */
+
+/* V2.0.2.1 renamed ioctl aliases */
+#define VENC_CTL_SET_H265_PU         VENC_CTL_SET_H265_PRED_UNIT  /* 0x4008452C */
+#define VENC_CTL_GET_H265_PU         VENC_CTL_GET_H265_PRED_UNIT  /* 0x8008452D */
+#define VENC_CTL_SET_CU_PRED         VENC_CTL_SET_CU_PREDICTION   /* 0x40244551 */
+#define VENC_CTL_GET_CU_PRED         VENC_CTL_GET_CU_PREDICTION   /* 0xC0244552 */
+#define VENC_CTL_START_CHN           VENC_CTL_START_RECV_FRAME     /* 0x40044504 */
+#define VENC_CTL_STOP_CHN            0x00004505                    /* same as STOP_RECV_FRAME */
+
 
 #endif

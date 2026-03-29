@@ -1,0 +1,4 @@
+*.log
+test_*_vendor
+test_*_ours
+*.core

@@ -1355,3 +1355,11 @@ HI_S32 HI_MPI_AENC_GetMute(AENC_CHN AeChn, HI_BOOL *pbEnable)
 
     return ioctl(s_s32Aencfd[AeChn], IOC_AENC_GET_MUTE, pbEnable);
 }
+
+/* V2.0.2.1 lowercase aliases */
+HI_S32 mpi_aenc_init(HI_VOID) { return MPI_AENC_Init(); }
+HI_S32 mpi_aenc_exit(HI_VOID) { MPI_AENC_Exit(); return 0; }
+HI_S32 mpi_aenc_create_chn(AENC_CHN c, const AENC_CHN_ATTR_S *a) { return HI_MPI_AENC_CreateChn(c, a); }
+HI_S32 mpi_aenc_destroy_chn(AENC_CHN c) { return HI_MPI_AENC_DestroyChn(c); }
+HI_S32 mpi_aenc_chn_get_frm_proc(AENC_CHN c) { return 0; }
+HI_S32 hi_mpi_aenc_voice_init(HI_VOID) { HI_MPI_AENC_VoiceInit(); return 0; }

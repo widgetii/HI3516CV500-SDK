@@ -1569,3 +1569,185 @@ HI_S32 HI_MPI_VENC_GetSliceSplit(VENC_CHN VeChn, VENC_SLICE_SPLIT_S *pstSliceSpl
     if (pstSliceSplit == HI_NULL) return MpiVencCheckNull();
     return ioctl(g_stMpiVencChn[VeChn].s32Fd, VENC_CTL_GET_H265_SLICE_SPLIT, pstSliceSplit);
 }
+
+// ============================================================================
+// V2.0.2.1 new API functions
+// ============================================================================
+
+#define VENC_STD_SET(name, ioctl_cmd) \
+HI_S32 name(VENC_CHN VeChn, const HI_VOID *pParam) { \
+    HI_S32 s32Ret; \
+    if (VeChn > (VENC_MAX_CHN_NUM - 1)) return MpiVencCheckChn(VeChn); \
+    s32Ret = MPI_VENC_OPEN(VeChn); if (s32Ret != HI_SUCCESS) return s32Ret; \
+    if (pParam == HI_NULL) return MpiVencCheckNull(); \
+    return ioctl(g_stMpiVencChn[VeChn].s32Fd, ioctl_cmd, pParam); \
+}
+
+#define VENC_STD_GET(name, ioctl_cmd) \
+HI_S32 name(VENC_CHN VeChn, HI_VOID *pParam) { \
+    HI_S32 s32Ret; \
+    if (VeChn > (VENC_MAX_CHN_NUM - 1)) return MpiVencCheckChn(VeChn); \
+    s32Ret = MPI_VENC_OPEN(VeChn); if (s32Ret != HI_SUCCESS) return s32Ret; \
+    if (pParam == HI_NULL) return MpiVencCheckNull(); \
+    return ioctl(g_stMpiVencChn[VeChn].s32Fd, ioctl_cmd, pParam); \
+}
+
+VENC_STD_SET(hi_mpi_venc_enable_svc,              VENC_CTL_ENABLE_SVC)
+VENC_STD_SET(hi_mpi_venc_set_svc_param,           VENC_CTL_SET_SVC_PARAM)
+VENC_STD_GET(hi_mpi_venc_get_svc_param,           VENC_CTL_GET_SVC_PARAM)
+VENC_STD_GET(hi_mpi_venc_get_svc_scene_complexity, VENC_CTL_GET_SVC_COMPLEXITY)
+VENC_STD_SET(hi_mpi_venc_set_chn_config,          VENC_CTL_SET_CHN_CONFIG)
+VENC_STD_GET(hi_mpi_venc_get_chn_config,          VENC_CTL_GET_CHN_CONFIG)
+VENC_STD_SET(hi_mpi_venc_set_search_window,       VENC_CTL_SET_SEARCH_WINDOW)
+VENC_STD_GET(hi_mpi_venc_get_search_window,       VENC_CTL_GET_SEARCH_WINDOW)
+VENC_STD_SET(hi_mpi_venc_send_svc_region,         VENC_CTL_SEND_SVC_REGION)
+
+/* Renamed functions (V2.0.2.1 names → existing ioctl codes) */
+VENC_STD_SET(hi_mpi_venc_set_cu_pred,             VENC_CTL_SET_CU_PRED)
+VENC_STD_GET(hi_mpi_venc_get_cu_pred,             VENC_CTL_GET_CU_PRED)
+VENC_STD_SET(hi_mpi_venc_set_fg_protect,          VENC_CTL_SET_FG_PROTECT)
+VENC_STD_GET(hi_mpi_venc_get_fg_protect,          VENC_CTL_GET_FG_PROTECT)
+VENC_STD_SET(hi_mpi_venc_set_h265_pu,             VENC_CTL_SET_H265_PU)
+VENC_STD_GET(hi_mpi_venc_get_h265_pu,             VENC_CTL_GET_H265_PU)
+
+HI_S32 hi_mpi_venc_start_chn(VENC_CHN VeChn, const VENC_RECV_PIC_PARAM_S *pstRecvParam) {
+    return HI_MPI_VENC_StartRecvFrame(VeChn, pstRecvParam);
+}
+
+HI_S32 hi_mpi_venc_stop_chn(VENC_CHN VeChn) {
+    return HI_MPI_VENC_StopRecvFrame(VeChn);
+}
+
+HI_S32 hi_mpi_venc_send_multi_frame(VENC_CHN VeChn, const VIDEO_FRAME_INFO_S *pstFrame, HI_S32 s32MilliSec) {
+    HI_S32 s32Ret;
+    if (VeChn > (VENC_MAX_CHN_NUM - 1)) return MpiVencCheckChn(VeChn);
+    s32Ret = MPI_VENC_OPEN(VeChn); if (s32Ret != HI_SUCCESS) return s32Ret;
+    if (pstFrame == HI_NULL) return MpiVencCheckNull();
+    if (s32MilliSec < -1) return HI_ERR_VENC_ILLEGAL_PARAM;
+    {
+        struct { VIDEO_FRAME_INFO_S stFrame; HI_S32 s32MilliSec; } data;
+        memcpy_s(&data.stFrame, sizeof(VIDEO_FRAME_INFO_S), pstFrame, sizeof(VIDEO_FRAME_INFO_S));
+        data.s32MilliSec = s32MilliSec;
+        return ioctl(g_stMpiVencChn[VeChn].s32Fd, VENC_CTL_SEND_MULTI_FRAME, &data);
+    }
+}
+
+/* Uppercase wrappers (4-byte tail calls in V2.0.2.1) */
+HI_S32 HI_MPI_VENC_EnableSvc(VENC_CHN VeChn, const HI_VOID *p)
+{ return hi_mpi_venc_enable_svc(VeChn, p); }
+HI_S32 HI_MPI_VENC_SetSvcParam(VENC_CHN VeChn, const HI_VOID *p)
+{ return hi_mpi_venc_set_svc_param(VeChn, p); }
+HI_S32 HI_MPI_VENC_GetSvcParam(VENC_CHN VeChn, HI_VOID *p)
+{ return hi_mpi_venc_get_svc_param(VeChn, p); }
+HI_S32 HI_MPI_VENC_GetSvcSceneComplexity(VENC_CHN VeChn, HI_VOID *p)
+{ return hi_mpi_venc_get_svc_scene_complexity(VeChn, p); }
+HI_S32 HI_MPI_VENC_SetChnConfig(VENC_CHN VeChn, const HI_VOID *p)
+{ return hi_mpi_venc_set_chn_config(VeChn, p); }
+HI_S32 HI_MPI_VENC_GetChnConfig(VENC_CHN VeChn, HI_VOID *p)
+{ return hi_mpi_venc_get_chn_config(VeChn, p); }
+HI_S32 HI_MPI_VENC_SetSearchWindow(VENC_CHN VeChn, const HI_VOID *p)
+{ return hi_mpi_venc_set_search_window(VeChn, p); }
+HI_S32 HI_MPI_VENC_GetSearchWindow(VENC_CHN VeChn, HI_VOID *p)
+{ return hi_mpi_venc_get_search_window(VeChn, p); }
+HI_S32 HI_MPI_VENC_SendMultiFrame(VENC_CHN VeChn, const VIDEO_FRAME_INFO_S *p, HI_S32 ms)
+{ return hi_mpi_venc_send_multi_frame(VeChn, p, ms); }
+HI_S32 HI_MPI_VENC_SendSvcRegion(VENC_CHN VeChn, const HI_VOID *p)
+{ return hi_mpi_venc_send_svc_region(VeChn, p); }
+
+// ============================================================================
+// V2.0.2.1 lowercase wrappers for existing functions
+// ============================================================================
+
+HI_S32 hi_mpi_venc_create_chn(VENC_CHN c, const VENC_CHN_ATTR_S *a) { return HI_MPI_VENC_CreateChn(c, a); }
+HI_S32 hi_mpi_venc_destroy_chn(VENC_CHN c) { return HI_MPI_VENC_DestroyChn(c); }
+HI_S32 hi_mpi_venc_reset_chn(VENC_CHN c) { return HI_MPI_VENC_ResetChn(c); }
+HI_S32 hi_mpi_venc_set_chn_attr(VENC_CHN c, const VENC_CHN_ATTR_S *a) { return HI_MPI_VENC_SetChnAttr(c, a); }
+HI_S32 hi_mpi_venc_get_chn_attr(VENC_CHN c, VENC_CHN_ATTR_S *a) { return HI_MPI_VENC_GetChnAttr(c, a); }
+HI_S32 hi_mpi_venc_set_rc_param(VENC_CHN c, const VENC_RC_PARAM_S *a) { return HI_MPI_VENC_SetRcParam(c, a); }
+HI_S32 hi_mpi_venc_get_rc_param(VENC_CHN c, VENC_RC_PARAM_S *a) { return HI_MPI_VENC_GetRcParam(c, a); }
+HI_S32 hi_mpi_venc_get_stream(VENC_CHN c, VENC_STREAM_S *a, HI_S32 ms) { return HI_MPI_VENC_GetStream(c, a, ms); }
+HI_S32 hi_mpi_venc_release_stream(VENC_CHN c, VENC_STREAM_S *a) { return HI_MPI_VENC_ReleaseStream(c, a); }
+HI_S32 hi_mpi_venc_insert_user_data(VENC_CHN c, HI_U8 *d, HI_U32 l) { return HI_MPI_VENC_InsertUserData(c, d, l); }
+HI_S32 hi_mpi_venc_send_frame(VENC_CHN c, const VIDEO_FRAME_INFO_S *f, HI_S32 ms) { return HI_MPI_VENC_SendFrame(c, f, ms); }
+HI_S32 hi_mpi_venc_send_frame_ex(VENC_CHN c, const USER_FRAME_INFO_S *f, HI_S32 ms) { return HI_MPI_VENC_SendFrameEx(c, f, ms); }
+HI_S32 hi_mpi_venc_request_idr(VENC_CHN c, HI_BOOL b) { return HI_MPI_VENC_RequestIDR(c, b); }
+HI_S32 hi_mpi_venc_get_fd(VENC_CHN c) { return HI_MPI_VENC_GetFd(c); }
+HI_S32 hi_mpi_venc_close_fd(VENC_CHN c) { return HI_MPI_VENC_CloseFd(c); }
+HI_S32 hi_mpi_venc_query_status(VENC_CHN c, VENC_CHN_STATUS_S *a) { return HI_MPI_VENC_QueryStatus(c, a); }
+HI_S32 hi_mpi_venc_set_roi_attr(VENC_CHN c, const VENC_ROI_ATTR_S *a) { return HI_MPI_VENC_SetRoiAttr(c, a); }
+HI_S32 hi_mpi_venc_get_roi_attr(VENC_CHN c, HI_U32 i, VENC_ROI_ATTR_S *a) { return HI_MPI_VENC_GetRoiAttr(c, i, a); }
+HI_S32 hi_mpi_venc_set_roi_attr_ex(VENC_CHN c, const VENC_ROI_ATTR_EX_S *a) { return HI_MPI_VENC_SetRoiAttrEx(c, a); }
+HI_S32 hi_mpi_venc_get_roi_attr_ex(VENC_CHN c, HI_U32 i, VENC_ROI_ATTR_EX_S *a) { return HI_MPI_VENC_GetRoiAttrEx(c, i, a); }
+HI_S32 hi_mpi_venc_set_roi_bg_frame_rate(VENC_CHN c, const VENC_ROIBG_FRAME_RATE_S *a) { return HI_MPI_VENC_SetRoiBgFrameRate(c, a); }
+HI_S32 hi_mpi_venc_get_roi_bg_frame_rate(VENC_CHN c, VENC_ROIBG_FRAME_RATE_S *a) { return HI_MPI_VENC_GetRoiBgFrameRate(c, a); }
+HI_S32 hi_mpi_venc_set_h264_slice_split(VENC_CHN c, const VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_SetH264SliceSplit(c, a); }
+HI_S32 hi_mpi_venc_get_h264_slice_split(VENC_CHN c, VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_GetH264SliceSplit(c, a); }
+HI_S32 hi_mpi_venc_set_h264_intra_pred(VENC_CHN c, const VENC_H264_INTRA_PRED_S *a) { return HI_MPI_VENC_SetH264IntraPred(c, a); }
+HI_S32 hi_mpi_venc_get_h264_intra_pred(VENC_CHN c, VENC_H264_INTRA_PRED_S *a) { return HI_MPI_VENC_GetH264IntraPred(c, a); }
+HI_S32 hi_mpi_venc_set_h264_trans(VENC_CHN c, const VENC_H264_TRANS_S *a) { return HI_MPI_VENC_SetH264Trans(c, a); }
+HI_S32 hi_mpi_venc_get_h264_trans(VENC_CHN c, VENC_H264_TRANS_S *a) { return HI_MPI_VENC_GetH264Trans(c, a); }
+HI_S32 hi_mpi_venc_set_h264_entropy(VENC_CHN c, const VENC_H264_ENTROPY_S *a) { return HI_MPI_VENC_SetH264Entropy(c, a); }
+HI_S32 hi_mpi_venc_get_h264_entropy(VENC_CHN c, VENC_H264_ENTROPY_S *a) { return HI_MPI_VENC_GetH264Entropy(c, a); }
+HI_S32 hi_mpi_venc_set_h264_dblk(VENC_CHN c, const VENC_H264_DBLK_S *a) { return HI_MPI_VENC_SetH264Dblk(c, a); }
+HI_S32 hi_mpi_venc_get_h264_dblk(VENC_CHN c, VENC_H264_DBLK_S *a) { return HI_MPI_VENC_GetH264Dblk(c, a); }
+HI_S32 hi_mpi_venc_set_h264_vui(VENC_CHN c, const VENC_H264_VUI_S *a) { return HI_MPI_VENC_SetH264Vui(c, a); }
+HI_S32 hi_mpi_venc_get_h264_vui(VENC_CHN c, VENC_H264_VUI_S *a) { return HI_MPI_VENC_GetH264Vui(c, a); }
+HI_S32 hi_mpi_venc_set_h265_slice_split(VENC_CHN c, const VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_SetSliceSplit(c, a); }
+HI_S32 hi_mpi_venc_get_h265_slice_split(VENC_CHN c, VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_GetSliceSplit(c, a); }
+HI_S32 hi_mpi_venc_set_h265_sao(VENC_CHN c, const VENC_H265_SAO_S *a) { return HI_MPI_VENC_SetH265Sao(c, a); }
+HI_S32 hi_mpi_venc_get_h265_sao(VENC_CHN c, VENC_H265_SAO_S *a) { return HI_MPI_VENC_GetH265Sao(c, a); }
+HI_S32 hi_mpi_venc_set_h265_trans(VENC_CHN c, const VENC_H265_TRANS_S *a) { return HI_MPI_VENC_SetH265Trans(c, a); }
+HI_S32 hi_mpi_venc_get_h265_trans(VENC_CHN c, VENC_H265_TRANS_S *a) { return HI_MPI_VENC_GetH265Trans(c, a); }
+HI_S32 hi_mpi_venc_set_h265_entropy(VENC_CHN c, const VENC_H265_ENTROPY_S *a) { return HI_MPI_VENC_SetH265Entropy(c, a); }
+HI_S32 hi_mpi_venc_get_h265_entropy(VENC_CHN c, VENC_H265_ENTROPY_S *a) { return HI_MPI_VENC_GetH265Entropy(c, a); }
+HI_S32 hi_mpi_venc_set_h265_dblk(VENC_CHN c, const VENC_H265_DBLK_S *a) { return HI_MPI_VENC_SetH265Dblk(c, a); }
+HI_S32 hi_mpi_venc_get_h265_dblk(VENC_CHN c, VENC_H265_DBLK_S *a) { return HI_MPI_VENC_GetH265Dblk(c, a); }
+HI_S32 hi_mpi_venc_set_h265_vui(VENC_CHN c, const VENC_H265_VUI_S *a) { return HI_MPI_VENC_SetH265Vui(c, a); }
+HI_S32 hi_mpi_venc_get_h265_vui(VENC_CHN c, VENC_H265_VUI_S *a) { return HI_MPI_VENC_GetH265Vui(c, a); }
+HI_S32 hi_mpi_venc_set_jpeg_param(VENC_CHN c, const VENC_JPEG_PARAM_S *a) { return HI_MPI_VENC_SetJpegParam(c, a); }
+HI_S32 hi_mpi_venc_get_jpeg_param(VENC_CHN c, VENC_JPEG_PARAM_S *a) { return HI_MPI_VENC_GetJpegParam(c, a); }
+HI_S32 hi_mpi_venc_set_mjpeg_param(VENC_CHN c, const VENC_MJPEG_PARAM_S *a) { return HI_MPI_VENC_SetMjpegParam(c, a); }
+HI_S32 hi_mpi_venc_get_mjpeg_param(VENC_CHN c, VENC_MJPEG_PARAM_S *a) { return HI_MPI_VENC_GetMjpegParam(c, a); }
+HI_S32 hi_mpi_venc_set_jpeg_encode_mode(VENC_CHN c, VENC_JPEG_ENCODE_MODE_E m) { return HI_MPI_VENC_SetJpegEncodeMode(c, m); }
+HI_S32 hi_mpi_venc_get_jpeg_encode_mode(VENC_CHN c, VENC_JPEG_ENCODE_MODE_E *m) { return HI_MPI_VENC_GetJpegEncodeMode(c, m); }
+HI_S32 hi_mpi_venc_set_ref_param(VENC_CHN c, const VENC_REF_PARAM_S *a) { return HI_MPI_VENC_SetRefParam(c, a); }
+HI_S32 hi_mpi_venc_get_ref_param(VENC_CHN c, VENC_REF_PARAM_S *a) { return HI_MPI_VENC_GetRefParam(c, a); }
+HI_S32 hi_mpi_venc_enable_idr(VENC_CHN c, HI_BOOL b) { return HI_MPI_VENC_EnableIDR(c, b); }
+HI_S32 hi_mpi_venc_attach_vb_pool(VENC_CHN c, const VENC_CHN_POOL_S *a) { return HI_MPI_VENC_AttachVbPool(c, a); }
+HI_S32 hi_mpi_venc_detach_vb_pool(VENC_CHN c) { return HI_MPI_VENC_DetachVbPool(c); }
+HI_S32 hi_mpi_venc_set_intra_refresh(VENC_CHN c, const VENC_INTRA_REFRESH_S *a) { return HI_MPI_VENC_SetIntraRefresh(c, a); }
+HI_S32 hi_mpi_venc_get_intra_refresh(VENC_CHN c, VENC_INTRA_REFRESH_S *a) { return HI_MPI_VENC_GetIntraRefresh(c, a); }
+HI_S32 hi_mpi_venc_set_mod_param(const VENC_PARAM_MOD_S *a) { return HI_MPI_VENC_SetModParam(a); }
+HI_S32 hi_mpi_venc_get_mod_param(VENC_PARAM_MOD_S *a) { return HI_MPI_VENC_GetModParam(a); }
+HI_S32 hi_mpi_venc_set_frame_lost_strategy(VENC_CHN c, const VENC_FRAMELOST_S *a) { return HI_MPI_VENC_SetFrameLostStrategy(c, a); }
+HI_S32 hi_mpi_venc_get_frame_lost_strategy(VENC_CHN c, VENC_FRAMELOST_S *a) { return HI_MPI_VENC_GetFrameLostStrategy(c, a); }
+HI_S32 hi_mpi_venc_set_super_frame_strategy(VENC_CHN c, const VENC_SUPERFRAME_CFG_S *a) { return HI_MPI_VENC_SetSuperFrameStrategy(c, a); }
+HI_S32 hi_mpi_venc_get_super_frame_strategy(VENC_CHN c, VENC_SUPERFRAME_CFG_S *a) { return HI_MPI_VENC_GetSuperFrameStrategy(c, a); }
+HI_S32 hi_mpi_venc_set_sse_region(VENC_CHN c, const VENC_SSE_CFG_S *a) { return HI_MPI_VENC_SetSSERegion(c, a); }
+HI_S32 hi_mpi_venc_get_sse_region(VENC_CHN c, HI_U32 i, VENC_SSE_CFG_S *a) { return HI_MPI_VENC_GetSSERegion(c, i, a); }
+HI_S32 hi_mpi_venc_set_scene_mode(VENC_CHN c, const VENC_SCENE_MODE_E m) { return HI_MPI_VENC_SetSceneMode(c, m); }
+HI_S32 hi_mpi_venc_get_scene_mode(VENC_CHN c, VENC_SCENE_MODE_E *m) { return HI_MPI_VENC_GetSceneMode(c, m); }
+HI_S32 hi_mpi_venc_set_chn_param(VENC_CHN c, const VENC_CHN_PARAM_S *a) { return HI_MPI_VENC_SetChnParam(c, a); }
+HI_S32 hi_mpi_venc_get_chn_param(VENC_CHN c, VENC_CHN_PARAM_S *a) { return HI_MPI_VENC_GetChnParam(c, a); }
+HI_S32 hi_mpi_venc_set_de_breath_effect(VENC_CHN c, const VENC_DEBREATHEFFECT_S *a) { return HI_MPI_VENC_SetDeBreathEffect(c, a); }
+HI_S32 hi_mpi_venc_get_de_breath_effect(VENC_CHN c, VENC_DEBREATHEFFECT_S *a) { return HI_MPI_VENC_GetDeBreathEffect(c, a); }
+HI_S32 hi_mpi_venc_set_skip_bias(VENC_CHN c, const VENC_SKIP_BIAS_S *a) { return HI_MPI_VENC_SetSkipBias(c, a); }
+HI_S32 hi_mpi_venc_get_skip_bias(VENC_CHN c, VENC_SKIP_BIAS_S *a) { return HI_MPI_VENC_GetSkipBias(c, a); }
+HI_S32 hi_mpi_venc_set_hierarchical_qp(VENC_CHN c, const VENC_HIERARCHICAL_QP_S *a) { return HI_MPI_VENC_SetHierarchicalQp(c, a); }
+HI_S32 hi_mpi_venc_get_hierarchical_qp(VENC_CHN c, VENC_HIERARCHICAL_QP_S *a) { return HI_MPI_VENC_GetHierarchicalQp(c, a); }
+HI_S32 hi_mpi_venc_set_rc_adv_param(VENC_CHN c, const VENC_RC_ADVPARAM_S *a) { return HI_MPI_VENC_SetRcAdvParam(c, a); }
+HI_S32 hi_mpi_venc_get_rc_adv_param(VENC_CHN c, VENC_RC_ADVPARAM_S *a) { return HI_MPI_VENC_GetRcAdvParam(c, a); }
+HI_S32 hi_mpi_venc_set_slice_split(VENC_CHN c, const VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_SetSliceSplit(c, a); }
+HI_S32 hi_mpi_venc_get_slice_split(VENC_CHN c, VENC_SLICE_SPLIT_S *a) { return HI_MPI_VENC_GetSliceSplit(c, a); }
+HI_S32 hi_mpi_venc_get_stream_buf_info(VENC_CHN c, VENC_STREAM_BUF_INFO_S *a) { return HI_MPI_VENC_GetStreamBufInfo(c, a); }
+
+/* V2.0.2.1 internal aliases */
+HI_S32 mpi_venc_init(HI_VOID) { return MPI_VENC_Init(); }
+HI_S32 mpi_venc_exit(HI_VOID) { return MPI_VENC_Exit(); }
+HI_S32 cal_psnr(HI_VOID) { return 0; /* PSNR calculation stub */ }
+
+/* V2.0.2.1 memory mapping helpers (internal, thin wrappers) */
+HI_VOID *venc_virt2_user(HI_U64 u64VirtAddr) { return (HI_VOID *)(HI_UL)u64VirtAddr; }
+HI_U64 venc_virt2_phy(HI_U64 u64VirtAddr) { return u64VirtAddr; }
+HI_VOID *venc_phy2_user(HI_U64 u64PhyAddr) { return (HI_VOID *)(HI_UL)u64PhyAddr; }
+HI_VOID *venc_phy2_virt(HI_U64 u64PhyAddr) { return (HI_VOID *)(HI_UL)u64PhyAddr; }

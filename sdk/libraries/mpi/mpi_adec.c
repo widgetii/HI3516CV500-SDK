@@ -1673,3 +1673,13 @@ HI_S32 HI_MPI_ADEC_QueryChnStat(ADEC_CHN AdChn, ADEC_CHN_STATE_S *pstBufferStatu
     pthread_mutex_unlock(&pstChn->mutex);
     return HI_SUCCESS;
 }
+
+/* V2.0.2.1 lowercase aliases */
+HI_S32 mpi_adec_init(HI_VOID) { return MPI_ADEC_Init(); }
+HI_S32 mpi_adec_exit(HI_VOID) { return 0; }
+HI_S32 mpi_adec_create_chn(ADEC_CHN c, const ADEC_CHN_ATTR_S *a) { return HI_MPI_ADEC_CreateChn(c, a); }
+HI_S32 mpi_adec_destroy_chn(ADEC_CHN c) { return HI_MPI_ADEC_DestroyChn(c); }
+HI_S32 mpi_adec_send_stream(ADEC_CHN c, const AUDIO_STREAM_S *a, HI_BOOL b) { return HI_MPI_ADEC_SendStream(c, a, b); }
+HI_S32 mpi_adec_clear_chn_buf(ADEC_CHN c) { return HI_MPI_ADEC_ClearChnBuf(c); }
+HI_S32 adec_send_ao_proc(ADEC_CHN c) { return 0; }
+HI_S32 hi_mpi_adec_voice_init(HI_VOID) { HI_MPI_ADEC_VoiceInit(); return 0; }

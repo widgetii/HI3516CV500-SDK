@@ -731,3 +731,13 @@ GDC_FreeAngleRotation_CFG(
 
     return 0;
 }
+
+/* V2.0.2.1 lowercase aliases */
+HI_S32 gdc_fisheye_configure(const GDC_DATA_S *a, const HI_VOID *b, HI_U32 *c, HI_U32 *d)
+{ return GDC_Fisheye_CFG(a, b, c, d); }
+HI_S32 gdc_trapzoid_cfg(const SIZE_S *a, HI_U32 b, HI_S64 *c)
+{ return GDC_Trapzoid_CFG(a, b, c); }
+HI_S32 gdc_ldc_cfg(GDC_DATA_S *a, const LDC_ATTR_S *b, HI_U32 *c, HI_U32 *d)
+{ return GDC_LDC_CFG(a, b, c, d); }
+HI_S32 gdc_free_angle_rotation_cfg(GDC_DATA_S *a, const ROTATION_EX_S *b, HI_U32 *c, HI_U32 *d)
+{ return GDC_FreeAngleRotation_CFG(a, b, c, d); }

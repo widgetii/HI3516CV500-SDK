@@ -540,3 +540,6 @@ HI_MPI_VDEC_GetUserDataAttr(
 
     return HI_ERR_VDEC_NOT_SUPPORT;
 }
+
+/* V2.0.2.1 lowercase alias */
+HI_S32 vdec_check_open(VDEC_CHN c) { return VDEC_CheckOpen(c); }

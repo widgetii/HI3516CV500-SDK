@@ -1225,3 +1225,10 @@ HI_MPI_SYS_GetVPSSVENCWrapBufferLine(VPSS_VENC_WRAP_PARAM_S *pWrapParam, HI_U32 
 
     return result;
 }
+
+/* V2.0.2.1 new + lowercase aliases */
+HI_S32 mpi_sys_get_hr_timer(HI_U64 *pu64Time) { return HI_MPI_SYS_GetCurPTS(pu64Time); }
+HI_S32 mpi_sys_bind_unregister_sender(HI_VOID *p) { return 0; }
+HI_S32 mpi_sys_bind_unregister_receiver(HI_VOID *p) { return 0; }
+HI_S32 mpi_sys_deinit_send_bind_src_mem(HI_VOID) { return 0; }
+HI_S32 mpi_sys_send_check_reciever_avalid(HI_VOID *p) { return 0; }

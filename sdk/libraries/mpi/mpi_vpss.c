@@ -1511,7 +1511,7 @@ HI_MPI_VPSS_GetChnProcMode(
 }
 
 
-static HI_S32
+HI_S32
 mpi_vpss_check_fisheye_region_index(
     VPSS_GRP VpssGrp,
     VPSS_CHN VpssChn,
@@ -1701,3 +1701,6 @@ HI_MPI_VPSS_GetModParam(VPSS_MOD_PARAM_S *pstModParam)
         return ERR_VPSS_NOTREADY;
     return ioctl(g_s32VpssGrpFd[0], 0x80105047, pstModParam);
 }
+
+/* V2.0.2.1 lowercase alias */
+HI_S32 mpi_vpss_get_grp_fd(VPSS_GRP VpssGrp) { return MPI_VPSS_GetGrpFd(VpssGrp); }

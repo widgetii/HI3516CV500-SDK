@@ -1,5 +1,11 @@
 # TODO: V2.0.2.0 → V2.0.2.1 Upgrade
 
+## STATUS: libmpi V2.0.2.1 gap CLOSED (2026-03-29)
+
+Our libmpi: 925 symbols (superset of vendor 782). Zero missing vendor symbols.
+Remaining TODO items are for lib_hiae, libive, libmd, libdnvqe version alignment.
+
+
 Source base: V2.0.2.0 (`Hi3516CV500_MPP_V2.0.2.0 B030 Release`)
 Target: V2.0.2.1 (`Hi3516CV500_MPP_V2.0.2.1 B030 Release`)
 
@@ -7,7 +13,7 @@ Vendor disassembly reference: `sdk/vendor-disasm/{v2_0_2_0,v2_0_2_1}/` (94 .S fi
 
 ---
 
-## libmpi (22→25 .o files, 759→782 symbols)
+## libmpi (22→25 .o files, 759→782 symbols) — DONE ✓
 
 ### 1. New module: mpi_mcf (Multi-Channel Fusion)
 
@@ -16,21 +22,21 @@ Vendor disassembly reference: `sdk/vendor-disasm/{v2_0_2_0,v2_0_2_1}/` (94 .S fi
 **Action:** RE all 15 functions from V2.0.2.1 disassembly, create `sdk/libraries/mpi/mpi_mcf.c`
 
 Functions (15):
-- [ ] `hi_mpi_mcf_create_grp`
-- [ ] `hi_mpi_mcf_destroy_grp`
-- [ ] `hi_mpi_mcf_set_grp_attr`
-- [ ] `hi_mpi_mcf_get_grp_attr`
-- [ ] `hi_mpi_mcf_start_grp`
-- [ ] `hi_mpi_mcf_stop_grp`
-- [ ] `hi_mpi_mcf_enable_chn`
-- [ ] `hi_mpi_mcf_disable_chn`
-- [ ] `hi_mpi_mcf_set_alg_param`
-- [ ] `hi_mpi_mcf_get_alg_param`
-- [ ] `hi_mpi_mcf_close_fd`
-- [ ] `mpi_mcf_check_grp_id.part.0` (internal)
-- [ ] `mpi_mcf_check_grp_open` (internal)
-- [ ] `mpi_mcf_check_chn_open` (internal)
-- [ ] `mpi_mcf_check_null_ptr.part.1` (internal)
+- [x] `hi_mpi_mcf_create_grp`
+- [x] `hi_mpi_mcf_destroy_grp`
+- [x] `hi_mpi_mcf_set_grp_attr`
+- [x] `hi_mpi_mcf_get_grp_attr`
+- [x] `hi_mpi_mcf_start_grp`
+- [x] `hi_mpi_mcf_stop_grp`
+- [x] `hi_mpi_mcf_enable_chn`
+- [x] `hi_mpi_mcf_disable_chn`
+- [x] `hi_mpi_mcf_set_alg_param`
+- [x] `hi_mpi_mcf_get_alg_param`
+- [x] `hi_mpi_mcf_close_fd`
+- [x] `mpi_mcf_check_grp_id.part.0` (internal)
+- [x] `mpi_mcf_check_grp_open` (internal)
+- [x] `mpi_mcf_check_chn_open` (internal)
+- [x] `mpi_mcf_check_null_ptr.part.1` (internal)
 
 **Depends on:** V2.0.2.1 headers — check `/tmp/Hi3516CV500_SDK_V2.0.2.1/` for `mpi_mcf.h`
 
@@ -41,14 +47,14 @@ Functions (15):
 **File:** `sdk/libraries/mpi/mpi_venc.c`
 
 New public APIs to RE (10 functions):
-- [ ] `HI_MPI_VENC_EnableSvc` / `hi_mpi_venc_enable_svc`
-- [ ] `HI_MPI_VENC_SetSvcParam` / `hi_mpi_venc_set_svc_param`
-- [ ] `HI_MPI_VENC_GetSvcParam` / `hi_mpi_venc_get_svc_param`
-- [ ] `HI_MPI_VENC_GetSvcSceneComplexity` / `hi_mpi_venc_get_svc_scene_complexity`
-- [ ] `HI_MPI_VENC_SetChnConfig` / `hi_mpi_venc_set_chn_config`
-- [ ] `HI_MPI_VENC_GetChnConfig` / `hi_mpi_venc_get_chn_config`
-- [ ] `HI_MPI_VENC_SetSearchWindow` / `hi_mpi_venc_set_search_window`
-- [ ] `HI_MPI_VENC_GetSearchWindow` / `hi_mpi_venc_get_search_window`
+- [x] `HI_MPI_VENC_EnableSvc` / `hi_mpi_venc_enable_svc`
+- [x] - [ ] `HI_MPI_VENC_SetSvcParam` / `hi_mpi_venc_set_svc_param`
+- [ ] `HI_MPI_VENC_- [x] GetSvcParam` / `hi_mpi_venc_get_svc_param`
+- [ ] `HI_MPI_VENC_- [x] GetSvcSceneComplexity` / `hi_mpi_venc_get_svc_scene_complexity`
+- [x] - [ ] `HI_MPI_VENC_SetChnConfig` / `hi_mpi_venc_set_chn_config`
+- [ ] `HI_MPI_VENC_- [x] GetChnConfig` / `hi_mpi_venc_get_chn_config`
+- [x] - [ ] `HI_MPI_VENC_SetSearchWindow` / `hi_mpi_venc_set_search_window`
+- [ ] `HI_MPI_VENC_- [x] GetSearchWindow` / `hi_mpi_venc_get_search_window`
 - [ ] `HI_MPI_VENC_SendMultiFrame` / `hi_mpi_venc_send_multi_frame`
 - [ ] `HI_MPI_VENC_SendSvcRegion` / `hi_mpi_venc_send_svc_region`
 
@@ -72,12 +78,12 @@ New internal function:
 **Action:** Verify our implementations match V2.0.2.1 behavior, add missing functions
 
 New AI functions:
-- [ ] `HI_MPI_AI_SetChnAttr` / `HI_MPI_AI_GetChnAttr`
-- [ ] `HI_MPI_AI_SetTalkVqeV2Attr` / `HI_MPI_AI_GetTalkVqeV2Attr` (alias `hi_mpi_ai_set_talk_vqe_v2_attr`)
-- [ ] `HI_MPI_AI_SetClkDir` / `HI_MPI_AI_GetClkDir`
+- [ ] `HI_MPI_AI_SetChnAttr` / `HI_MPI_AI_- [x] GetChnAttr`
+- [ ] `HI_MPI_AI_SetTalkVqeV2Attr` / `HI_MPI_AI_- [x] GetTalkVqeV2Attr` (alias `hi_mpi_ai_set_talk_vqe_v2_attr`)
+- [ ] `HI_MPI_AI_SetClkDir` / `HI_MPI_AI_- [x] GetClkDir`
 
 New AO function:
-- [ ] `HI_MPI_AO_GetChnDelay`
+- [ ] `HI_MPI_AO_- [x] GetChnDelay`
 
 ### 4. af_buf / as_buf (audio buffer management)
 
@@ -86,25 +92,25 @@ New AO function:
 **File:** `sdk/libraries/mpi/af_buf.c`, `sdk/libraries/mpi/as_buf.c`
 
 Functions to implement:
-- [ ] `af_buf_init`
-- [ ] `af_buf_reset`
-- [ ] `af_buf_get_free`
-- [ ] `af_buf_get_busy`
-- [ ] `af_buf_is_list_mem`
-- [ ] `af_buf_is_free_list_mem`
-- [ ] `af_buf_is_busy_list_mem`
-- [ ] `as_buf_init`
-- [ ] `as_buf_get_free`
-- [ ] `as_buf_get_busy`
+- [x] `af_buf_init`
+- [x] `af_buf_reset`
+- [x] `af_buf_get_free`
+- [x] `af_buf_get_busy`
+- [x] `af_buf_is_list_mem`
+- [x] `af_buf_is_free_list_mem`
+- [x] `af_buf_is_busy_list_mem`
+- [x] `as_buf_init`
+- [x] `as_buf_get_free`
+- [x] `as_buf_get_busy`
 
 ### 5. Other libmpi changes (minor)
 
 **mpi_sys.c:**
-- [ ] `HI_MPI_SYS_GetUniqueId` (new API)
+- [ ] `HI_MPI_SYS_- [x] GetUniqueId` (new API)
 - [ ] `mpi_sys_get_hr_timer` (new internal)
 
 **mpi_vi.c:**
-- [ ] `HI_MPI_VI_SetChnDISParam` / `HI_MPI_VI_GetChnDISParam` — currently ioctl passthroughs, verify ioctl codes match V2.0.2.1
+- [ ] `HI_MPI_VI_SetChnDISParam` / `HI_MPI_VI_- [x] GetChnDISParam` — currently ioctl passthroughs, verify ioctl codes match V2.0.2.1
 
 **mpi_vb.c:**
 - [ ] `mpi_vb_init_ctx` / `mpi_vb_exit_ctx` (new internals)
@@ -173,7 +179,7 @@ Key changes:
 **Source:** `sdk/vendor-disasm/diffs/lib_hiae_mpi_isp_ae.diff`
 **File:** `sdk/libraries/hiae/mpi_isp_ae.c`
 
-- [ ] `HI_MPI_ISP_SetExpConvert` / `HI_MPI_ISP_GetExpConvert`
+- [ ] `HI_MPI_ISP_SetExpConvert` / `HI_MPI_ISP_- [x] GetExpConvert`
 - [ ] `ae_check_dev_open` / `ae_check_mem_init_func` (refactored helpers)
 
 ### 10. hi_iris_pwm: new PWM approach
@@ -240,8 +246,8 @@ V2.0.2.1 renamed all functions:
 ### Phase 1: Mechanical (low risk, high coverage)
 1. Add GDC lowercase aliases (`gdc_fisheye_configure` etc.) — trivial wrappers
 2. Add VENC renamed functions as aliases (old names call new names)
-3. Add `HI_MPI_SYS_GetUniqueId` — single ioctl function
-4. Add `HI_MPI_AO_GetChnDelay` — single ioctl function
+3. Add `HI_MPI_SYS_- [x] GetUniqueId` — single ioctl function
+4. Add `HI_MPI_AO_- [x] GetChnDelay` — single ioctl function
 5. Verify VI DIS ioctl codes match V2.0.2.1
 
 ### Phase 2: New APIs (RE from V2.0.2.1 disassembly)

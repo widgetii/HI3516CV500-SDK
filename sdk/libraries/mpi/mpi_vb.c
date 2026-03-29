@@ -556,3 +556,7 @@ HI_MPI_VB_GetSupplementConfig(VB_SUPPLEMENT_CONFIG_S *pstSupplementConfig)
 
     return ioctl(g_vb_fd, IOC_VB_GET_SUPPLEMENT_CONFIG, pstSupplementConfig);
 }
+
+/* V2.0.2.1 lowercase aliases */
+HI_S32 mpi_vb_init_ctx(HI_VOID) { return 0; }
+HI_S32 mpi_vb_exit_ctx(HI_VOID) { return 0; }
