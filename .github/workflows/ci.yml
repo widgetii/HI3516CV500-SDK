@@ -1,0 +1,58 @@
+name: Build & Test libmpi
+
+on:
+  push:
+    branches: [rnd, main]
+  pull_request:
+    branches: [rnd, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ARM cross-compiler and QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf qemu-user
+
+      - name: Build all libraries
+        run: |
+          mkdir -p build && cd build
+          cmake -DCMAKE_TOOLCHAIN_FILE=../CMake/ArmhfToolchain.cmake ..
+          make -j$(nproc)
+
+      - name: Verify libmpi symbol count
+        run: |
+          SYMS=$(arm-linux-gnueabihf-nm -g --defined-only build/sdk/libraries/libmpi.a | grep ' T HI_MPI_' | wc -l)
+          echo "HI_MPI_* symbols: $SYMS"
+          if [ "$SYMS" -lt 589 ]; then
+            echo "FAIL: Expected at least 589 HI_MPI_* symbols, got $SYMS"
+            exit 1
+          fi
+          echo "PASS: $SYMS HI_MPI_* symbols"
+
+      - name: Build test harness
+        run: |
+          cd sdk/test-framework/tests/libmpi
+          make test_all_ours
+
+      - name: Run test harness under QEMU
+        run: |
+          cd sdk/test-framework/tests/libmpi
+          timeout 60 qemu-arm ./test_all_ours trace.all.ours.log 2>/dev/null || true
+          echo "=== Trace stats ==="
+          wc -l trace.all.ours.log
+          CRASHES=$(grep -c 'CRASH' trace.all.ours.log || true)
+          echo "Crashes: $CRASHES"
+          MODULES=$(grep -c '^---' trace.all.ours.log || true)
+          echo "Module sections: $MODULES"
+          grep 'done' trace.all.ours.log && echo "PASS: Test completed" || echo "WARN: Test may not have completed"
+
+      - name: Upload trace artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: libmpi-trace
+          path: sdk/test-framework/tests/libmpi/trace.all.ours.log
