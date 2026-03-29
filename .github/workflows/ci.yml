@@ -36,7 +36,7 @@ jobs:
       - name: Build test harness
         run: |
           cd sdk/test-framework/tests/libmpi
-          make test_all_ours
+          make test_all_ours SDK_ROOT=$(pwd)/../../../..
 
       - name: Run test harness under QEMU
         run: |
